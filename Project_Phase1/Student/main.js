@@ -18,21 +18,37 @@ document.addEventListener("DOMContentLoaded", function () {
         if (courses.length === 0) fetchCourses();
         displayCourses(courses);
 
-        // let registered = localStorage.registered ? JSON.parse(localStorage.registered) : [];
-        // if (registered.length === 0) fetchStudent();
+        let registered = localStorage.registered ? JSON.parse(localStorage.registered) : [];
+        if (registered.length === 0) fetchStudent();
 
-        // async function fetchStudent() {
-        //     try {
-        //         const response = await fetch('student.json');
-        //         const data = await response.json();
-        //         registered = data.registered;
-        //         localStorage.registered = JSON.stringify(registered);
-        //     } catch (error) {
-        //         console.error('Error loading registeredCourses:', error);
-        //     }
+        async function fetchStudent() {
+            try {
+                const response = await fetch('student.json');
+                const data = await response.json();
+                registered = data.students;
+                localStorage.registered = JSON.stringify(registered);
+            } catch (error) {
+                console.error('Error loading registeredCourses:', error);
+            }
 
-        // }
+        }
+        function registerCourse() {
+            const registeredCourses =
+            // for (let i = 0; i < registered.length; i++) {
+            //     if (registered[i].user[0].username === user.username && registered[i].user[0].pass === user.pass) {
+
+
+            //     }
+            // }
+
+        }
+        registerCourse();
+
+
         // function registerCourse() {
+        //     const loogedUser = registered.find(logged => logged.user.username.value === user.username);
+        //     console.log(loogedUser);
+
 
 
         // }

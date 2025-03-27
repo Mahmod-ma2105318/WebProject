@@ -1,15 +1,17 @@
 {
     "students": [
         {
-            "user":{
-                "role": "student",
-                "username": "7oda123",
-                "pass": "7oda123"
-            },
-            "finishedCourses" : [
+            "user": [
+                {
+                    "role": "student",
+                    "username": "7oda123",
+                    "pass": "7oda123"
+                }
+            ],
+            "finishedCourses": [
                 "HTML", "CSS"
             ],
-            "CuruentCourses":[
+            "CurrentCourses": [
                 {
                     "name": "JavaScript Basics",
                     "category": "Programming",
@@ -23,12 +25,65 @@
                     "credits": 4,
                     "prerequisites": ["Computer Fundamentals"],
                     "instructor": "Prof. Johnson"
-                    
                 }
-                
-            ] 
+            ]
             
+        },
+        {
+            "user": [
+                {
+                    "role": "student",
+                    "username": "ahmed456",
+                    "pass": "ahmed456"
+                }
+            ],
+            "finishedCourses": [
+                "Math 101", "English Literature"
+            ],
+            "CurrentCourses": [
+                {
+                    "name": "Python Programming",
+                    "category": "Programming",
+                    "credits": 3,
+                    "prerequisites": ["Math 101"],
+                    "instructor": "Dr. Ali"
+                },
+                {
+                    "name": "Web Development",
+                    "category": "Programming",
+                    "credits": 4,
+                    "prerequisites": ["HTML", "CSS"],
+                    "instructor": "Prof. Khaled"
+                }
+            ]
+        },
+        {
+            "user": [
+                {
+                    "role": "student",
+                    "username": "mona789",
+                    "pass": "mona789"
+                }
+            ],
+            "finishedCourses": [
+                "Physics", "Chemistry"
+            ],
+            "CurrentCourses": [
+                {
+                    "name": "Data Structures",
+                    "category": "Computer Science",
+                    "credits": 3,
+                    "prerequisites": ["Math 101"],
+                    "instructor": "Dr. Omar"
+                },
+                {
+                    "name": "Computer Networks",
+                    "category": "Networking",
+                    "credits": 4,
+                    "prerequisites": ["Data Structures"],
+                    "instructor": "Prof. Faten"
+                }
+            ]
         }
-
     ]
 }

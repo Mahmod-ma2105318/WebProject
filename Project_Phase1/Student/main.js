@@ -21,7 +21,7 @@
 
 const filterType = document.querySelector("#filterType");
 const searchBox = document.querySelector("#searchInput");
-const studentInfo=document.querySelector("#student-info");
+
 
 filterType.addEventListener('change', filterChange);
 searchBox.addEventListener('input', search);
@@ -61,11 +61,27 @@ function displayCourses(courses) {
                 </div>
             `).join("");
 }
-function addStudentInfo(){
-    studentInfo.innerHTML= `
-    <div>${user.name}</div>
-    `
+
+// Function to add student info
+function addStudentInfo() {
+    const studentInfoDiv = document.getElementById("student-info");
+
+    if (studentInfoDiv) {
+        studentInfoDiv.innerHTML = `<div class="user-info-container">
+            <img src="../images/image.png" alt="User Image">
+            <div>
+                <div id="username">${user.username}</div>
+                <div id="role">${user.role}</div>
+            </div>
+        </div>
+        
+        `;
+    } else {
+        console.error("Element with id 'student-info' not found.");
+    }
 }
+addStudentInfo();
+
 
 
 function filterChange() {

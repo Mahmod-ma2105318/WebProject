@@ -21,10 +21,13 @@
 
 const filterType = document.querySelector("#filterType");
 const searchBox = document.querySelector("#searchInput");
+const registeredCourses = document.querySelector("#registeredCoursesButton");
+
 
 
 filterType.addEventListener('change', filterChange);
 searchBox.addEventListener('input', search);
+registeredCourses.addEventListener('click',registerCourse)
 
 let user = localStorage.getItem("loggedInUser");
 user = JSON.parse(user);
@@ -32,6 +35,10 @@ let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
 if (courses.length === 0) fetchCourses();
 displayCourses(courses);
 
+function registerCourse(){
+
+
+}
 
 async function fetchCourses() {
     try {
@@ -105,3 +112,4 @@ function search(e) {
 
     displayCourses(filteredCourses);
 }
+

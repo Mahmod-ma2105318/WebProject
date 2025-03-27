@@ -124,3 +124,39 @@ img {
     color: #007BFF;
     transition: 0.3s ease-in-out;
 }
+
+/* Style the buttons to be aligned in one row */
+button {
+    padding: 12px 24px; /* Add some padding for a better look */
+    font-size: 16px;
+    margin: 10px; /* Space between buttons */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    background-color: #007BFF; /* Blue background */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for buttons */
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly grow the button on hover */
+}
+
+/* Flexbox to ensure buttons are aligned in a row */
+button + button {
+    margin-left: 20px; /* Space between the buttons */
+}
+
+/* Add a wrapper to contain the buttons and align them */
+.search-container {
+    display: flex;
+    justify-content: center; /* Align buttons in the center */
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 20px; /* Space between buttons and other content */
+}
+#buttons{
+    display: flex;
+    justify-content: center;
+}

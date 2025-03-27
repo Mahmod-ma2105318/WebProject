@@ -15,6 +15,70 @@
             "prerequisites": ["Computer Fundamentals"],
             "instructor": "Prof. Johnson",
             "status": "Closed"
+        },
+        {
+            "name": "Python for Beginners",
+            "category": "Programming",
+            "credits": 3,
+            "prerequisites": ["None"],
+            "instructor": "Dr. Miller",
+            "status": "Open"
+        },
+        {
+            "name": "Data Structures and Algorithms",
+            "category": "Computer Science",
+            "credits": 4,
+            "prerequisites": ["Python for Beginners"],
+            "instructor": "Prof. Williams",
+            "status": "Open"
+        },
+        {
+            "name": "Web Development with React",
+            "category": "Web Development",
+            "credits": 3,
+            "prerequisites": ["JavaScript Basics"],
+            "instructor": "Dr. Davis",
+            "status": "Open"
+        },
+        {
+            "name": "Cybersecurity Fundamentals",
+            "category": "Security",
+            "credits": 3,
+            "prerequisites": ["Computer Fundamentals"],
+            "instructor": "Prof. Wilson",
+            "status": "Closed"
+        },
+        {
+            "name": "Machine Learning Essentials",
+            "category": "Artificial Intelligence",
+            "credits": 4,
+            "prerequisites": ["Python for Beginners", "Statistics"],
+            "instructor": "Dr. Anderson",
+            "status": "Open"
+        },
+        {
+            "name": "Cloud Computing Basics",
+            "category": "Cloud Computing",
+            "credits": 3,
+            "prerequisites": ["Networking Fundamentals"],
+            "instructor": "Dr. White",
+            "status": "Open"
+        },
+        {
+            "name": "Mobile App Development with Flutter",
+            "category": "Mobile Development",
+            "credits": 4,
+            "prerequisites": ["Dart Programming"],
+            "instructor": "Prof. Taylor",
+            "status": "Open"
+        },
+        {
+            "name": "Software Engineering Principles",
+            "category": "Software Engineering",
+            "credits": 3,
+            "prerequisites": ["Data Structures and Algorithms"],
+            "instructor": "Dr. Harris",
+            "status": "Closed"
         }
     ]
 }

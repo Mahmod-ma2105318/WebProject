@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Course Search</title>
+</head>
+
+<body>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search courses...">
+        <select id="filterType">
+            <option value="all">All</option>
+            <option value="name">By Name</option>
+            <option value="category">By Category</option>
+        </select>
+    </div>
+    <div class="course-grid" id="courseContainer">
+        <div class="course-card">
+            <div class="course-name"></div>
+            <div class="course-category"></div>
+            <div class="course-prerequisites"></div>
+            <div class="course-Credits"></div>
+            <div class="course-Instructor"></div>
+            <div class="course-status"></div>
+        </div>
+        <!-- <button onclick="logout()">Logout</button> -->
+        <script src="main.js"></script>
+</body>
+
+</html>

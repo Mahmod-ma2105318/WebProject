@@ -1,0 +1,20 @@
+{
+    "courses": [
+        {
+            "name": "JavaScript Basics",
+            "category": "Programming",
+            "credits": 3,
+            "prerequisites": ["HTML", "CSS"],
+            "instructor": "Dr. Smith",
+            "status": "Open"
+        },
+        {
+            "name": "Database Systems",
+            "category": "Databases",
+            "credits": 4,
+            "prerequisites": ["Computer Fundamentals"],
+            "instructor": "Prof. Johnson",
+            "status": "Closed"
+        }
+    ]
+}

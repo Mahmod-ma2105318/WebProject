@@ -19,10 +19,19 @@
 //     window.location.href = "../Login/login.html";
 // }
 
+const filterType = document.querySelector("#filterType");
+const searchBox = document.querySelector("#searchInput");
+const studentInfo=document.querySelector("#student-info");
 
+filterType.addEventListener('change', filterChange);
+searchBox.addEventListener('input', search);
+
+let user = localStorage.getItem("loggedInUser");
+user = JSON.parse(user);
 let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
 if (courses.length === 0) fetchCourses();
 displayCourses(courses);
+
 
 async function fetchCourses() {
     try {
@@ -52,11 +61,11 @@ function displayCourses(courses) {
                 </div>
             `).join("");
 }
-const filterType = document.querySelector("#filterType");
-const searchBox = document.querySelector("#searchInput");
-
-filterType.addEventListener('change', filterChange);
-searchBox.addEventListener('input', search);
+function addStudentInfo(){
+    studentInfo.innerHTML= `
+    <div>${user.name}</div>
+    `
+}
 
 
 function filterChange() {

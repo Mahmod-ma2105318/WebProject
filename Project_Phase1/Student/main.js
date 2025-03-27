@@ -10,10 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const searchBox = document.querySelector("#searchInput");
         const registeredCourses = document.querySelector("#registeredCoursesButton");
 
-
         filterType.addEventListener('change', filterChange);
         searchBox.addEventListener('input', search);
         registeredCourses.addEventListener('click', registerCourse);
+
         let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
         if (courses.length === 0) fetchCourses();
         displayCourses(courses);
@@ -30,28 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } catch (error) {
                 console.error('Error loading registeredCourses:', error);
             }
-
         }
-        function registerCourse() {
-            const registeredCourses =
-            // for (let i = 0; i < registered.length; i++) {
-            //     if (registered[i].user[0].username === user.username && registered[i].user[0].pass === user.pass) {
-
-
-            //     }
-            // }
-
-        }
-        registerCourse();
-
-
-        // function registerCourse() {
-        //     const loogedUser = registered.find(logged => logged.user.username.value === user.username);
-        //     console.log(loogedUser);
-
-
-
-        // }
 
         async function fetchCourses() {
             try {
@@ -69,40 +48,74 @@ document.addEventListener("DOMContentLoaded", function () {
             const courseContainer = document.getElementById('courseContainer');
 
             courseContainer.innerHTML = courses.map(course => `
-                <div class="course-card">
+                <div class="course-card" course-name="${course.name}">
                     <div class="course-name">${course.name}</div>
                     <div class="course-category">${course.category}</div>
                     <div class="course-Credits">Credits: ${course.credits}</div>
-                    <div class="course-prerequisites">prerequisites: ${course.prerequisites.join(", ")}</div>
+                    <div class="course-prerequisites">Prerequisites: ${course.prerequisites.join(", ")}</div>
                     <div class="course-Instructor">Instructor: ${course.instructor}</div>
                     <div class="course-status" style="color: ${course.status === 'Open' ? '#27ae60' : '#c0392b'}">
                         Status: ${course.status}
                     </div>
-                    <button onClick="registerCourse()">Register</button>
-
+                    <button class="register-btn">Register</button>
                 </div>
             `).join("");
+
+            // Add event listeners to the Register buttons after rendering courses
+            const registerButtons = document.querySelectorAll('.register-btn');
+            registerButtons.forEach(button => {
+                button.addEventListener('click', registerCourse);
+            });
         }
 
-        function addStudentInfo() {
-            const studentInfoDiv = document.getElementById("student-info");
+        function registerCourse(e) {
+            const courseCard = e.target.closest('.course-card');
+            const courseName = courseCard.getAttribute('course-name'); // get the course name from the card
 
-            if (studentInfoDiv) {
-                studentInfoDiv.innerHTML = `<div class="user-info-container">
-            <img src="../images/image.png" alt="User Image">
-            <div>
-                <div id="username">${user.username}</div>
-                <div id="role">${user.role}</div>
-            </div>
-        </div>
-        `;
-            } else {
-                console.error("Element with id 'student-info' not found.");
+            // Find the course object based on the courseName
+            const selectedCourse = courses.find(course => course.name === courseName);
+
+            if (!selectedCourse) {
+                console.error('Course not found.');
+                return;
             }
+
+            // Get the currently logged in user
+            const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+            // Fetch the registered courses from localStorage, or initialize an empty array if not present
+            let registered = JSON.parse(localStorage.getItem("registered")) || [];
+
+            // Check if the user is already registered for this course
+            const isAlreadyRegistered = registered.some(course => course.username === user.username && course.courseName === selectedCourse.name);
+
+            if (isAlreadyRegistered) {
+                alert('You are already registered for this course!');
+                return;
+            }
+
+            // Register the user for the selected course
+            const registration = {
+                username: user.username,
+                courseName: selectedCourse.name,
+                courseCategory: selectedCourse.category,
+                courseInstructor: selectedCourse.instructor,
+                courseCredits: selectedCourse.credits
+            };
+
+            // Add the registration to the registered array
+            registered.push(registration);
+
+            // Update the localStorage with the new registration
+            localStorage.setItem("registered", JSON.stringify(registered));
+
+            // Optionally, update the UI to reflect that the user is registered
+            alert(`Successfully registered for ${selectedCourse.name}`);
+
+            // Optionally, you could disable the Register button or change its text to "Registered" after successful registration
+            e.target.disabled = true;
+            e.target.textContent = 'Registered';
         }
-        addStudentInfo();
-
-
 
         function filterChange() {
             displayCourses(courses);
@@ -125,12 +138,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
             displayCourses(filteredCourses);
         }
-
     }
-
 });
-
-function logout() {
-    localStorage.removeItem("loggedInUser");
-    window.location.href = "../login/login.html";
-}

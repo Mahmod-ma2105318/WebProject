@@ -1,0 +1,34 @@
+{
+    "students": [
+        {
+            "user":{
+                "role": "student",
+                "username": "7oda123",
+                "pass": "7oda123"
+            },
+            "finishedCourses" : [
+                "HTML", "CSS"
+            ],
+            "CuruentCourses":[
+                {
+                    "name": "JavaScript Basics",
+                    "category": "Programming",
+                    "credits": 3,
+                    "prerequisites": ["HTML", "CSS"],
+                    "instructor": "Dr. Smith"
+                },
+                {
+                    "name": "Database Systems",
+                    "category": "Databases",
+                    "credits": 4,
+                    "prerequisites": ["Computer Fundamentals"],
+                    "instructor": "Prof. Johnson"
+                    
+                }
+                
+            ] 
+            
+        }
+
+    ]
+}

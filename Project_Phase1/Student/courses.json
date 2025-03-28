@@ -5,80 +5,96 @@
             "category": "Programming",
             "credits": 3,
             "prerequisites": ["HTML", "CSS"],
-            "instructor": "Dr. Smith",
-            "status": "Open"
+            "sections": [
+                {
+                    "sectionId": "A1",
+                    "instructor": "Dr. Smith",
+                    "status": "Open",
+                    "maxSeats": 15,
+                    "enrolledStudents": 15,
+                    "schedule": "Mon, Wed, Fri - 10:00 AM to 12:00 PM"
+                },
+                {
+                    "sectionId": "A2",
+                    "instructor": "Dr. Smith",
+                    "status": "Open",
+                    "maxSeats": 15,
+                    "enrolledStudents": 15,
+                    "schedule": "Tue, Thu - 2:00 PM to 4:00 PM"
+                }
+            ]
         },
         {
             "name": "Database Systems",
             "category": "Databases",
             "credits": 4,
             "prerequisites": ["Computer Fundamentals"],
-            "instructor": "Prof. Johnson",
-            "status": "Closed"
+            "sections": [
+                {
+                    "sectionId": "B1",
+                    "instructor": "Prof. Johnson",
+                    "status": "Closed",
+                    "maxSeats": 35,
+                    "enrolledStudents": 30,
+                    "schedule": "Mon, Wed - 9:00 AM to 11:00 AM"
+                },
+                {
+                    "sectionId": "B2",
+                    "instructor": "Prof. Johnson",
+                    "status": "Open",
+                    "maxSeats": 35,
+                    "enrolledStudents": 25,
+                    "schedule": "Tue, Thu - 1:00 PM to 3:00 PM"
+                }
+            ]
         },
         {
             "name": "Python for Beginners",
             "category": "Programming",
             "credits": 3,
             "prerequisites": ["None"],
-            "instructor": "Dr. Miller",
-            "status": "Open"
+            "sections": [
+                {
+                    "sectionId": "C1",
+                    "instructor": "Dr. Miller",
+                    "status": "Open",
+                    "maxSeats": 20,
+                    "enrolledStudents": 10,
+                    "schedule": "Mon, Wed - 11:00 AM to 1:00 PM"
+                },
+                {
+                    "sectionId": "C2",
+                    "instructor": "Dr. Miller",
+                    "status": "Open",
+                    "maxSeats": 20,
+                    "enrolledStudents": 10,
+                    "schedule": "Tue, Thu - 3:00 PM to 5:00 PM"
+                }
+            ]
         },
         {
             "name": "Data Structures and Algorithms",
             "category": "Computer Science",
             "credits": 4,
             "prerequisites": ["Python for Beginners"],
-            "instructor": "Prof. Williams",
-            "status": "Open"
-        },
-        {
-            "name": "Web Development with React",
-            "category": "Web Development",
-            "credits": 3,
-            "prerequisites": ["JavaScript Basics"],
-            "instructor": "Dr. Davis",
-            "status": "Open"
-        },
-        {
-            "name": "Cybersecurity Fundamentals",
-            "category": "Security",
-            "credits": 3,
-            "prerequisites": ["Computer Fundamentals"],
-            "instructor": "Prof. Wilson",
-            "status": "Closed"
-        },
-        {
-            "name": "Machine Learning Essentials",
-            "category": "Artificial Intelligence",
-            "credits": 4,
-            "prerequisites": ["Python for Beginners", "Statistics"],
-            "instructor": "Dr. Anderson",
-            "status": "Open"
-        },
-        {
-            "name": "Cloud Computing Basics",
-            "category": "Cloud Computing",
-            "credits": 3,
-            "prerequisites": ["Networking Fundamentals"],
-            "instructor": "Dr. White",
-            "status": "Open"
-        },
-        {
-            "name": "Mobile App Development with Flutter",
-            "category": "Mobile Development",
-            "credits": 4,
-            "prerequisites": ["Dart Programming"],
-            "instructor": "Prof. Taylor",
-            "status": "Open"
-        },
-        {
-            "name": "Software Engineering Principles",
-            "category": "Software Engineering",
-            "credits": 3,
-            "prerequisites": ["Data Structures and Algorithms"],
-            "instructor": "Dr. Harris",
-            "status": "Closed"
+            "sections": [
+                {
+                    "sectionId": "D1",
+                    "instructor": "Prof. Williams",
+                    "status": "Open",
+                    "maxSeats": 30,
+                    "enrolledStudents": 25,
+                    "schedule": "Mon, Wed - 10:00 AM to 12:00 PM"
+                },
+                {
+                    "sectionId": "D2",
+                    "instructor": "Prof. Williams",
+                    "status": "Open",
+                    "maxSeats": 30,
+                    "enrolledStudents": 15,
+                    "schedule": "Tue, Thu - 1:00 PM to 3:00 PM"
+                }
+            ]
         }
     ]
 }

@@ -10,11 +10,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const filterType = document.querySelector("#filterType");
         const searchBox = document.querySelector("#searchInput");
         const registeredCourses = document.querySelector("#registeredCoursesButton");
+        const searchButton = document.querySelector("#searchButton");
+        const finishedCoursesButton = document.querySelector("#FinishedCoursesButton");
 
 
         filterType.addEventListener('change', filterChange);
         searchBox.addEventListener('input', search);
-        registeredCourses.addEventListener('click', registerCourse);
+        registeredCourses.addEventListener('click', displayRegisteredCourses);
+        searchButton.addEventListener('click', function () {
+            displayCourses(courses);
+        });
+        finishedCoursesButton.addEventListener('click', finishedCourses);
 
         //localStorage
         let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
@@ -27,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //registerd coureses
         async function fetchStudent() {
             try {
-                const response = await fetch('student.json');
+                const response = await fetch('students.json');
                 const data = await response.json();
                 students = data.students;
                 localStorage.students = JSON.stringify(students);
@@ -79,6 +85,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+
+        function displayRegisteredCourses() {
+            const courseContainer = document.getElementById('courseContainer');
+
+            const userRegisteredCourses = students.filter(register => register.username === user.username);
+
+            if (userRegisteredCourses.length === 0) {
+                courseContainer.innerHTML = "<p>No registered courses found.</p>";
+                return;
+            }
+
+            courseContainer.innerHTML = userRegisteredCourses.map(register => `
+                <div class="course-card">
+                    <div class="course-name">${register.courseName}</div>
+                    <div class="course-category">${register.courseCategory}</div>
+                    <div class="course-Credits">Credits: ${register.courseCredits}</div>
+                    <div class="course-Instructor">Instructor: ${register.courseInstructor}</div>
+                </div>
+            `).join("");
+        }
+
+        function finishedCourses() {
+            const courseContainer = document.getElementById('courseContainer');
+
+            const userFinishedCourses = students.find(student => student.user[0].username === user.username);
+
+            if (userFinishedCourses.length === 0) {
+                courseContainer.innerHTML = "<p>No finished courses found.</p>";
+                return;
+            }
+
+            courseContainer.innerHTML = userFinishedCourses.finishedCourses.map(finish => `
+                <div class="course-card">
+                    <div class="course-name">${finish.courseName}</div>
+                    <div class="course-Grade">Grade: ${finish.Grade}</div>
+                    
+                </div>
+            `).join("");
+
+        }
+
+
+
         //
         function registerCourse(e) {
             const courseCard = e.target.closest('.course-card');
@@ -91,9 +140,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            let registered = JSON.parse(localStorage.getItem("students")) || [];
+
             // Find the logged-in student's record
-            let studentRecord = registered.find(student => student.user[0].username === user.username);
+            let studentRecord = students.find(student => student.user[0].username === user.username);
             if (!studentRecord) {
                 alert('Student record not found.');
                 return;
@@ -110,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //Check if student finished prerequisites
             if (prerequisites.length > 0) {
                 let hasCompletedPrerequisites = prerequisites.every(prereq =>
-                    finishedCourses.includes(prereq)
+                    finishedCourses.some(finished => finished.courseName === prereq)
                 );
 
                 if (!hasCompletedPrerequisites) {
@@ -125,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Check if the user is already registered for this course
-            const isAlreadyRegistered = registered.find(course =>
+            const isAlreadyRegistered = students.find(course =>
                 course.username === user.username && course.courseName === selectedCourse.name
             );
 
@@ -146,10 +195,10 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             // Add the registration to the registered array
-            registered.push(registration);
+            students.push(registration);
 
             // Update the localStorage with the new registration
-            localStorage.setItem("registered", JSON.stringify(registered));
+            localStorage.setItem("students", JSON.stringify(students));
 
             updateCourseData(selectedCourse);
 
@@ -163,25 +212,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function updateCourseData(course) {
-            // Get the courses list from localStorage
-            let courses = JSON.parse(localStorage.getItem("courses")) || [];
-
-            // Find the course that the user registered for and update its information
             let courseToUpdate = courses.find(c => c.name === course.name);
 
             if (courseToUpdate) {
-                // Increase enrolled students count
                 if (courseToUpdate.enrolledStudents < courseToUpdate.maxSeats) {
                     courseToUpdate.enrolledStudents++;
                     displayCourses(courses);
                 }
 
-                // Update maxSeats for the instructor if needed
                 if (courseToUpdate.enrolledStudents === courseToUpdate.maxSeats) {
                     console.log('Instructor has reached the maximum number of students.');
                 }
 
-                // Save the updated courses list back to localStorage
                 localStorage.setItem("courses", JSON.stringify(courses));
             }
         }

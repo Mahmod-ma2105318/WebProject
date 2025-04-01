@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
         function registerCourse() {
-            const registeredCourses =
             // for (let i = 0; i < registered.length; i++) {
             //     if (registered[i].user[0].username === user.username && registered[i].user[0].pass === user.pass) {
 

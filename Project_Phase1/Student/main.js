@@ -6,52 +6,44 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         user = JSON.parse(user);
 
+        //Attributes
         const filterType = document.querySelector("#filterType");
         const searchBox = document.querySelector("#searchInput");
         const registeredCourses = document.querySelector("#registeredCoursesButton");
+        const searchButton = document.querySelector("#searchButton");
+        const finishedCoursesButton = document.querySelector("#FinishedCoursesButton");
 
 
         filterType.addEventListener('change', filterChange);
         searchBox.addEventListener('input', search);
-        registeredCourses.addEventListener('click', registerCourse);
+        registeredCourses.addEventListener('click', displayRegisteredCourses);
+        searchButton.addEventListener('click', function () {
+            displayCourses(courses);
+        });
+        finishedCoursesButton.addEventListener('click', finishedCourses);
+
+        //localStorage
         let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
         if (courses.length === 0) fetchCourses();
         displayCourses(courses);
 
-        let registered = localStorage.registered ? JSON.parse(localStorage.registered) : [];
-        if (registered.length === 0) fetchStudent();
+        let students = localStorage.students ? JSON.parse(localStorage.students) : [];
+        if (students.length === 0) fetchStudent();
 
+        //registerd coureses
         async function fetchStudent() {
             try {
-                const response = await fetch('student.json');
+                const response = await fetch('students.json');
                 const data = await response.json();
-                registered = data.students;
-                localStorage.registered = JSON.stringify(registered);
+                students = data.students;
+                localStorage.students = JSON.stringify(students);
             } catch (error) {
-                console.error('Error loading registeredCourses:', error);
+                console.error('Error loading students:', error);
             }
 
         }
-        function registerCourse() {
-            // for (let i = 0; i < registered.length; i++) {
-            //     if (registered[i].user[0].username === user.username && registered[i].user[0].pass === user.pass) {
 
-
-            //     }
-            // }
-
-        }
-        registerCourse();
-
-
-        // function registerCourse() {
-        //     const loogedUser = registered.find(logged => logged.user.username.value === user.username);
-        //     console.log(loogedUser);
-
-
-
-        // }
-
+        //Courses 
         async function fetchCourses() {
             try {
                 const response = await fetch('courses.json');
@@ -64,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        //Display the courses in a grid
         function displayCourses(courses) {
             const courseContainer = document.getElementById('courseContainer');
 
@@ -77,10 +70,162 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="course-status" style="color: ${course.status === 'Open' ? '#27ae60' : '#c0392b'}">
                         Status: ${course.status}
                     </div>
-                    <button onClick="registerCourse()">Register</button>
+                    <div class="course-maxSeats"> Max Seats: ${course.maxSeats}</div>
+                    <div class="course-enrolledStudents"> Enrolled Students: ${course.enrolledStudents}</div>
+                    <button class="register-btn">Register</button> 
 
+                </div>`
+
+            ).join("");
+
+            const registerButtons = document.querySelectorAll('.register-btn');
+            registerButtons.forEach(button => {
+                button.addEventListener('click', registerCourse);
+            });
+
+        }
+
+
+        function displayRegisteredCourses() {
+            const courseContainer = document.getElementById('courseContainer');
+
+            const userRegisteredCourses = students.filter(register => register.username === user.username);
+
+            if (userRegisteredCourses.length === 0) {
+                courseContainer.innerHTML = "<p>No registered courses found.</p>";
+                return;
+            }
+
+            courseContainer.innerHTML = userRegisteredCourses.map(register => `
+                <div class="course-card">
+                    <div class="course-name">${register.courseName}</div>
+                    <div class="course-category">${register.courseCategory}</div>
+                    <div class="course-Credits">Credits: ${register.courseCredits}</div>
+                    <div class="course-Instructor">Instructor: ${register.courseInstructor}</div>
                 </div>
             `).join("");
+        }
+
+        function finishedCourses() {
+            const courseContainer = document.getElementById('courseContainer');
+
+            const userFinishedCourses = students.find(student => student.user[0].username === user.username);
+
+            if (userFinishedCourses.length === 0) {
+                courseContainer.innerHTML = "<p>No finished courses found.</p>";
+                return;
+            }
+
+            courseContainer.innerHTML = userFinishedCourses.finishedCourses.map(finish => `
+                <div class="course-card">
+                    <div class="course-name">${finish.courseName}</div>
+                    <div class="course-Grade">Grade: ${finish.Grade}</div>
+                    
+                </div>
+            `).join("");
+
+        }
+
+
+
+        //
+        function registerCourse(e) {
+            const courseCard = e.target.closest('.course-card');
+            const courseName = courseCard.querySelector('.course-name').textContent.trim();
+
+            // Find the course from the courses based on the courseName
+            const selectedCourse = courses.find(course => course.name === courseName);
+            if (!selectedCourse) {
+                console.error('Course not found.');
+                return;
+            }
+
+
+            // Find the logged-in student's record
+            let studentRecord = students.find(student => student.user[0].username === user.username);
+            if (!studentRecord) {
+                alert('Student record not found.');
+                return;
+            }
+
+            let finishedCourses = studentRecord.finishedCourses || [];
+            let prerequisites = selectedCourse.prerequisites || [];
+
+            //Maybe there is a better way
+            if (prerequisites.length === 1 && prerequisites[0] === "None") {
+                prerequisites = [];
+            }
+
+            //Check if student finished prerequisites
+            if (prerequisites.length > 0) {
+                let hasCompletedPrerequisites = prerequisites.every(prereq =>
+                    finishedCourses.some(finished => finished.courseName === prereq)
+                );
+
+                if (!hasCompletedPrerequisites) {
+                    alert(`You need to complete all prerequisite courses: ${prerequisites.join(", ")}`);
+                    return;
+                }
+            }
+
+            if (selectedCourse.enrolledStudents >= selectedCourse.maxSeats) {
+                alert(`Registration failed: ${selectedCourse.instructor}'s class is full.`);
+                return;
+            }
+
+            // Check if the user is already registered for this course
+            const isAlreadyRegistered = students.find(course =>
+                course.username === user.username && course.courseName === selectedCourse.name
+            );
+
+
+
+            if (isAlreadyRegistered) {
+                alert('You are already registered for this course!');
+                return;
+            }
+
+            // Register the user for the selected course
+            const registration = {
+                username: user.username,
+                courseName: selectedCourse.name,
+                courseCategory: selectedCourse.category,
+                courseInstructor: selectedCourse.instructor,
+                courseCredits: selectedCourse.credits
+            };
+
+            // Add the registration to the registered array
+            students.push(registration);
+
+            // Update the localStorage with the new registration
+            localStorage.setItem("students", JSON.stringify(students));
+
+            updateCourseData(selectedCourse);
+
+            // Optionally, update the UI to reflect that the user is registered
+            alert(`Successfully registered for ${selectedCourse.name}`);
+
+            // Optionally, disable the Register button after successful registration
+            e.target.disabled = true;
+            e.target.textContent = 'Registered';
+
+        }
+
+        function updateCourseData(course) {
+            let courseToUpdate = courses.find(c => c.name === course.name);
+
+            if (courseToUpdate) {
+                if (courseToUpdate.enrolledStudents < courseToUpdate.maxSeats) {
+                    courseToUpdate.enrolledStudents++;
+                    displayCourses(courses);
+                }
+
+                if (courseToUpdate.enrolledStudents === courseToUpdate.maxSeats) {
+                    console.log('Instructor has reached the maximum number of students.');
+                }
+
+                localStorage.setItem("courses", JSON.stringify(courses));
+            }
         }
 
         function addStudentInfo() {
@@ -88,13 +233,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (studentInfoDiv) {
                 studentInfoDiv.innerHTML = `<div class="user-info-container">
-            <img src="../images/image.png" alt="User Image">
-            <div>
-                <div id="username">${user.username}</div>
-                <div id="role">${user.role}</div>
-            </div>
-        </div>
-        `;
+                    <img src="../images/image.png" alt="User Image"></img>
+                    <div>
+                        <div id="username">${user.username}</div>
+                        <div id="role">${user.role}</div>
+                    </div>
+                </div>`
+                    ;
             } else {
                 console.error("Element with id 'student-info' not found.");
             }
@@ -131,5 +276,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function logout() {
     localStorage.removeItem("loggedInUser");
-    window.location.href = "../login/login.html";
+    window.location.href = "../Login/login.html";
 }

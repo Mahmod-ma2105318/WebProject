@@ -6,7 +6,9 @@
             "credits": 3,
             "prerequisites": ["HTML", "CSS"],
             "instructor": "Dr. Smith",
-            "status": "Open"
+            "status": "Open",
+            "maxSeats": 30,
+            "enrolledStudents": 30
         },
         {
             "name": "Database Systems",
@@ -14,7 +16,9 @@
             "credits": 4,
             "prerequisites": ["Computer Fundamentals"],
             "instructor": "Prof. Johnson",
-            "status": "Closed"
+            "status": "Closed",
+            "maxSeats": 35,
+            "enrolledStudents": 30
         },
         {
             "name": "Python for Beginners",
@@ -22,7 +26,9 @@
             "credits": 3,
             "prerequisites": ["None"],
             "instructor": "Dr. Miller",
-            "status": "Open"
+            "status": "Open",
+            "maxSeats": 40,
+            "enrolledStudents": 20
         },
         {
             "name": "Data Structures and Algorithms",
@@ -30,7 +36,9 @@
             "credits": 4,
             "prerequisites": ["Python for Beginners"],
             "instructor": "Prof. Williams",
-            "status": "Open"
+            "status": "Open",
+            "maxSeats": 30,
+            "enrolledStudents": 25
         },
         {
             "name": "Web Development with React",
@@ -38,7 +46,9 @@
             "credits": 3,
             "prerequisites": ["JavaScript Basics"],
             "instructor": "Dr. Davis",
-            "status": "Open"
+            "status": "Open",
+            "maxSeats": 35,
+            "enrolledStudents": 18
         },
         {
             "name": "Cybersecurity Fundamentals",
@@ -46,7 +56,9 @@
             "credits": 3,
             "prerequisites": ["Computer Fundamentals"],
             "instructor": "Prof. Wilson",
-            "status": "Closed"
+            "status": "Closed",
+            "maxSeats": 30,
+            "enrolledStudents": 30
         },
         {
             "name": "Machine Learning Essentials",
@@ -54,7 +66,9 @@
             "credits": 4,
             "prerequisites": ["Python for Beginners", "Statistics"],
             "instructor": "Dr. Anderson",
-            "status": "Open"
+            "status": "Open",
+            "maxSeats": 40,
+            "enrolledStudents": 15
         },
         {
             "name": "Cloud Computing Basics",
@@ -62,7 +76,9 @@
             "credits": 3,
             "prerequisites": ["Networking Fundamentals"],
             "instructor": "Dr. White",
-            "status": "Open"
+            "status": "Open",
+            "maxSeats": 40,
+            "enrolledStudents": 10
         },
         {
             "name": "Mobile App Development with Flutter",
@@ -70,7 +86,9 @@
             "credits": 4,
             "prerequisites": ["Dart Programming"],
             "instructor": "Prof. Taylor",
-            "status": "Open"
+            "status": "Open",
+            "maxSeats": 35,
+            "enrolledStudents": 22
         },
         {
             "name": "Software Engineering Principles",
@@ -78,7 +96,9 @@
             "credits": 3,
             "prerequisites": ["Data Structures and Algorithms"],
             "instructor": "Dr. Harris",
-            "status": "Closed"
+            "status": "Closed",
+            "maxSeats": 30,
+            "enrolledStudents": 30
         }
     ]
 }

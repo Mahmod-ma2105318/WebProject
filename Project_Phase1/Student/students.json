@@ -9,7 +9,14 @@
                 }
             ],
             "finishedCourses": [
-                "HTML", "CSS"
+                {
+                    "courseName": "HTML",
+                    "Grade": "A"
+                },
+                {
+                    "courseName": "CSS",
+                    "Grade": "B"
+                }
             ],
             "CurrentCourses": [
                 {
@@ -27,7 +34,6 @@
                     "instructor": "Prof. Johnson"
                 }
             ]
-            
         },
         {
             "user": [
@@ -38,7 +44,14 @@
                 }
             ],
             "finishedCourses": [
-                "Math 101", "English Literature"
+                {
+                    "courseName": "Math 101",
+                    "Grade": "A"
+                },
+                {
+                    "courseName": "English Literature",
+                    "Grade": "B+"
+                }
             ],
             "CurrentCourses": [
                 {
@@ -66,7 +79,14 @@
                 }
             ],
             "finishedCourses": [
-                "Physics", "Chemistry"
+                {
+                    "courseName": "Physics",
+                    "Grade": "A-"
+                },
+                {
+                    "courseName": "Chemistry",
+                    "Grade": "B"
+                }
             ],
             "CurrentCourses": [
                 {

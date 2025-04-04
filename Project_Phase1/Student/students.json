@@ -24,17 +24,18 @@
                     "category": "Programming",
                     "credits": 3,
                     "prerequisites": ["HTML", "CSS"],
-                    "instructor": "Dr. Smith",
-                    "status":"pending"
+                    "instructor": "Dr. Smith"
                 },
                 {
                     "name": "Database Systems",
                     "category": "Databases",
                     "credits": 4,
                     "prerequisites": ["Computer Fundamentals"],
-                    "instructor": "Prof. Johnson",
-                    "status":"pending"
+                    "instructor": "Prof. Johnson"
                 }
+            ],
+            "RegisteredCourses":[
+
             ]
         },
         {
@@ -61,17 +62,18 @@
                     "category": "Programming",
                     "credits": 3,
                     "prerequisites": ["Math 101"],
-                    "instructor": "Dr. Ali",
-                    "status":"pending"
+                    "instructor": "Dr. Ali"
                 },
                 {
                     "name": "Web Development",
                     "category": "Programming",
                     "credits": 4,
                     "prerequisites": ["HTML", "CSS"],
-                    "instructor": "Prof. Khaled",
-                    "status":"pending"
+                    "instructor": "Prof. Khaled"
                 }
+            ],
+            "RegisteredCourses":[
+                
             ]
         },
         {
@@ -84,7 +86,7 @@
             ],
             "finishedCourses": [
                 {
-                    "courseName": "Physics",
+                    "courseName": "Networking Fundamentals",
                     "Grade": "A-"
                 },
                 {
@@ -98,17 +100,18 @@
                     "category": "Computer Science",
                     "credits": 3,
                     "prerequisites": ["Math 101"],
-                    "instructor": "Dr. Omar",
-                    "status":"pending"
+                    "instructor": "Dr. Omar" 
                 },
                 {
                     "name": "Computer Networks",
                     "category": "Networking",
                     "credits": 4,
                     "prerequisites": ["Data Structures"],
-                    "instructor": "Prof. Faten",
-                    "status":"pending"
+                    "instructor": "Prof. Faten"
                 }
+            ],
+            "RegisteredCourses":[
+                
             ]
         }
     ]

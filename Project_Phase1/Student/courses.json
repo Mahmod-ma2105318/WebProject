@@ -8,7 +8,7 @@
             "instructor": "Dr. Smith",
             "status": "Open",
             "maxSeats": 30,
-            "enrolledStudents": 30
+            "enrolledStudents": 20
         },
         {
             "name": "Database Systems",
@@ -54,11 +54,11 @@
             "name": "Cybersecurity Fundamentals",
             "category": "Security",
             "credits": 3,
-            "prerequisites": ["Computer Fundamentals"],
+            "prerequisites": [],
             "instructor": "Prof. Wilson",
             "status": "Closed",
             "maxSeats": 30,
-            "enrolledStudents": 30
+            "enrolledStudents": 20
         },
         {
             "name": "Machine Learning Essentials",

@@ -14,7 +14,13 @@
         "role": "instructor",
         "username": "Barhamgi",
         "pass": "pass789"
-      }
+      },
+          {
+                    "role": "student",
+                    "username": "mona789",
+                    "pass": "mona789"
+                }
+            
     ]
 }
   

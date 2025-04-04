@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const registeredCourses = document.querySelector("#registeredCoursesButton");
         const searchButton = document.querySelector("#searchButton");
         const finishedCoursesButton = document.querySelector("#FinishedCoursesButton");
+        const CurrentCoursesButton = document.querySelector("#CurrentCoursesButton");
 
 
         filterType.addEventListener('change', filterChange);
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             displayCourses(courses);
         });
         finishedCoursesButton.addEventListener('click', finishedCourses);
+        CurrentCoursesButton.addEventListener('click', displayCurrentCourses)
 
         //localStorage
         let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
@@ -89,14 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
         function displayRegisteredCourses() {
             const courseContainer = document.getElementById('courseContainer');
 
-            const userRegisteredCourses = students.filter(register => register.username === user.username);
+            let student = students.find(s => s.user.some(u => u.username === user.username));
 
-            if (userRegisteredCourses.length === 0) {
-                courseContainer.innerHTML = "<p>No registered courses found.</p>";
-                return;
-            }
 
-            courseContainer.innerHTML = userRegisteredCourses.map(register => `
+
+            courseContainer.innerHTML = student.RegisteredCourses.map(register => `
                 <div class="course-card">
                     <div class="course-name">${register.courseName}</div>
                     <div class="course-category">${register.courseCategory}</div>
@@ -107,12 +106,30 @@ document.addEventListener("DOMContentLoaded", function () {
             `).join("");
         }
 
+        function displayCurrentCourses() {
+
+            const courseContainer = document.getElementById('courseContainer');
+
+            let student = students.find(s => s.user.some(u => u.username === user.username));
+
+            courseContainer.innerHTML = student.CurrentCourses.map(register => `
+                <div class="course-card">
+                    <div class="course-name">${register.name}</div>
+                    <div class="course-category">${register.category}</div>
+                    <div class="course-Credits">Credits: ${register.credits}</div>
+                    <div class="course-Instructor">Instructor: ${register.instructor}</div>
+                    
+                </div>
+            `).join("");
+
+        }
+
         function finishedCourses() {
             const courseContainer = document.getElementById('courseContainer');
 
             const userFinishedCourses = students.find(student => student.user[0].username === user.username);
-            
-            
+
+
 
             if (userFinishedCourses.length === 0) {
                 courseContainer.innerHTML = "<p>No finished courses found.</p>";
@@ -142,8 +159,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error('Course not found.');
                 return;
             }
-            
-            
+
+
 
 
             // Find the logged-in student's record
@@ -196,11 +213,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 courseName: selectedCourse.name,
                 courseCategory: selectedCourse.category,
                 courseInstructor: selectedCourse.instructor,
-                courseCredits: selectedCourse.credits
+                courseCredits: selectedCourse.credits,
+                status: "pending"
             };
 
+            let studentIndex = students.findIndex(s => s.user.some(u => u.username === user.username));
             // Add the registration to the registered array
-            students.push(registration);
+            students[studentIndex].RegisteredCourses.push(registration);
 
             // Update the localStorage with the new registration
             localStorage.setItem("students", JSON.stringify(students));

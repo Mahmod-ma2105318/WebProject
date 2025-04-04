@@ -5,16 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Optional: Link to CSS -->
+    <link rel="stylesheet" href="admin.css"> <!-- Optional: Link to CSS -->
 </head>
 
 <body>
-    <div class="container">
-        <h1 id="welcome">Welcome Admin</h1>
-        <button onclick="logout()">Logout</button>
+    <div id="admin-info"></div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search courses...">
+
+        <select id="filterType">
+            <option value="all">All</option>
+            <option value="name">By Name</option>
+            <option value="category">By Category</option>
+        </select>
+    </div>
+    <div id="buttons">
+        <button id="searchButton">Search</button>
+        <button id="PendingCoursesButton">Pending Courses</button>
+        <button id="FinishedCoursesButton">Finished Courses</button>
     </div>
 
-    <script src="admin.js"></script> <!-- JavaScript for authentication check -->
+    <div class="course-grid" id="courseContainer"></div>
+    <button onclick="logout()">Logout</button>
+    <script src="admin.js"></script>
 </body>
 
 </html>

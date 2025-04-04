@@ -73,15 +73,20 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
 /* Container to hold the user profile info */
 .user-info-container {
     display: flex;
-    justify-content: center; /* Centers the content horizontally */
-    align-items: center; /* Centers the content vertically */
+    justify-content: center;
+    /* Centers the content horizontally */
+    align-items: center;
+    /* Centers the content vertically */
     width: 100%;
-    height: 150px; /* Adjust height as needed */
+    height: 150px;
+    /* Adjust height as needed */
     background: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adds shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Adds shadow */
     margin: 20px 0;
     padding: 20px;
     border-radius: 10px;
@@ -89,8 +94,9 @@ body {
 }
 
 /* Flex layout for the user info (image, username, and role) */
-.user-info-container > * {
-    margin: 0 20px; /* Space between items */
+.user-info-container>* {
+    margin: 0 20px;
+    /* Space between items */
 }
 
 /* Styling for the user image */
@@ -120,19 +126,24 @@ img {
 }
 
 /* Hover effect for user info */
-#username:hover, #role:hover {
+#username:hover,
+#role:hover {
     color: #007BFF;
     transition: 0.3s ease-in-out;
 }
 
 /* Style the buttons to be aligned in one row */
 button {
-    padding: 12px 24px; /* Add some padding for a better look */
+    padding: 12px 24px;
+    /* Add some padding for a better look */
     font-size: 16px;
-    margin: 10px; /* Space between buttons */
+    margin: 10px;
+    /* Space between buttons */
     border: none;
-    border-radius: 5px; /* Rounded corners */
-    background-color: #007BFF; /* Blue background */
+    border-radius: 5px;
+    /* Rounded corners */
+    background-color: #007BFF;
+    /* Blue background */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -140,23 +151,112 @@ button {
 
 /* Hover effect for buttons */
 button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slightly grow the button on hover */
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: scale(1.05);
+    /* Slightly grow the button on hover */
 }
 
 /* Flexbox to ensure buttons are aligned in a row */
-button + button {
-    margin-left: 20px; /* Space between the buttons */
+button+button {
+    margin-left: 20px;
+    /* Space between the buttons */
 }
 
 /* Add a wrapper to contain the buttons and align them */
 .search-container {
     display: flex;
-    justify-content: center; /* Align buttons in the center */
-    gap: 15px; /* Space between buttons */
-    margin-bottom: 20px; /* Space between buttons and other content */
+    justify-content: center;
+    /* Align buttons in the center */
+    gap: 15px;
+    /* Space between buttons */
+    margin-bottom: 20px;
+    /* Space between buttons and other content */
 }
-#buttons{
+
+#buttons {
     display: flex;
     justify-content: center;
+}
+
+#courseContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.course-card {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+}
+
+.course-name {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.course-category,
+.course-credits,
+.course-prerequisites {
+    font-size: 0.95em;
+    margin: 4px 0;
+    color: #555;
+}
+
+.course-sections {
+    margin-top: 15px;
+}
+
+.section-card {
+    margin-top: 10px;
+    padding: 12px 15px;
+    border-left: 4px solid #3498db;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.section-card:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.section-card div {
+    margin: 3px 0;
+    color: #333;
+}
+
+.course-status span {
+    font-weight: bold;
+}
+
+.register-btn {
+    margin-top: 8px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+.register-btn:hover {
+    background-color: #1e8449;
+}
+
+.register-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

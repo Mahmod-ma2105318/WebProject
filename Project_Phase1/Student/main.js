@@ -64,28 +64,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
             courseContainer.innerHTML = courses.map(course => `
                 <div class="course-card">
-                    <div class="course-name">${course.name}</div>
-                    <div class="course-category">${course.category}</div>
-                    <div class="course-Credits">Credits: ${course.credits}</div>
-                    <div class="course-prerequisites">prerequisites: ${course.prerequisites.join(", ")}</div>
-                    <div class="course-Instructor">Instructor: ${course.instructor}</div>
-                    <div class="course-status" style="color: ${course.status === 'Open' ? '#27ae60' : '#c0392b'}">
-                        Status: ${course.status}
+                    <div class="course-name"><strong>${course.name}</strong></div>
+                    <div class="course-category">Category: ${course.category}</div>
+                    <div class="course-credits">Credits: ${course.credits}</div>
+                    <div class="course-prerequisites">Prerequisites: ${course.prerequisites.join(", ") || "None"}</div>
+                    
+                    <div class="course-sections">
+                        <strong>Sections:</strong>
+                        ${course.section.map(sec => `
+                            <div class="section-card">
+                                <div>Section No: ${sec.sectionNo}</div>
+                                <div>Instructor: ${sec.instructor}</div>
+                                <div>Status: <span style="color: ${sec.status === 'Open' ? '#27ae60' : '#c0392b'}">${sec.status}</span></div>
+                                <div>Max Seats: ${sec.maxSeats}</div>
+                                <div>Enrolled Students: ${sec.enrolledStudents}</div>
+                                <button class="register-btn" data-course="${course.name}" data-section="${sec.sectionNo}">Register</button>
+                            </div>
+                        `).join("")}
                     </div>
-                    <div class="course-maxSeats"> Max Seats: ${course.maxSeats}</div>
-                    <div class="course-enrolledStudents"> Enrolled Students: ${course.enrolledStudents}</div>
-                    <button class="register-btn">Register</button> 
-
-                </div>`
-
-            ).join("");
+                </div>
+            `).join("");
 
             const registerButtons = document.querySelectorAll('.register-btn');
             registerButtons.forEach(button => {
-                button.addEventListener('click', registerCourse);
+                button.addEventListener('click', event => {
+                    const courseName = event.target.dataset.course;
+                    const sectionNo = event.target.dataset.section;
+                    registerCourse(courseName, sectionNo);
+                });
             });
-
         }
+
 
 
         function displayRegisteredCourses() {
@@ -149,9 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         //
-        function registerCourse(e) {
-            const courseCard = e.target.closest('.course-card');
-            const courseName = courseCard.querySelector('.course-name').textContent.trim();
+        function registerCourse(courseName, sectionNo) {
 
             // Find the course from the courses based on the courseName
             const selectedCourse = courses.find(course => course.name === courseName);
@@ -160,8 +167,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+            const selectedSection = selectedCourse.section.find(sec => sec.sectionNo === sectionNo);
+            if (!selectedSection) {
+                console.error('Section not found.');
+                return;
+            }
 
+            // Check if section is open
+            if (selectedSection.status !== "Open") {
+                alert(`Registration failed: Section ${sectionNo} is not open for registration.`);
+                return;
+            }
 
+            // Check if section is full
+            if (selectedSection.enrolledStudents >= selectedSection.maxSeats) {
+                alert(`Registration failed: Section ${sectionNo} is full.`);
+                return;
+            }
 
             // Find the logged-in student's record
             let studentRecord = students.find(student => student.user[0].username === user.username);
@@ -196,9 +218,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Check if the user is already registered for this course
-            const isAlreadyRegistered = students.find(course =>
-                course.username === user.username && course.courseName === selectedCourse.name
+            const isAlreadyRegistered = studentRecord.RegisteredCourses.some(register =>
+                register.courseName === selectedCourse.name &&
+                register.sectionNo === selectedSection.sectionNo
             );
+
 
 
 
@@ -214,7 +238,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 courseCategory: selectedCourse.category,
                 courseInstructor: selectedCourse.instructor,
                 courseCredits: selectedCourse.credits,
-                status: "pending"
+                status: "pending",
+                sectionNo: selectedSection.sectionNo,
+                courseInstructor: selectedSection.instructor
             };
 
             let studentIndex = students.findIndex(s => s.user.some(u => u.username === user.username));
@@ -224,32 +250,48 @@ document.addEventListener("DOMContentLoaded", function () {
             // Update the localStorage with the new registration
             localStorage.setItem("students", JSON.stringify(students));
 
-            updateCourseData(selectedCourse);
+            updateCourseData(selectedCourse, sectionNo);
 
             // Optionally, update the UI to reflect that the user is registered
             alert(`Successfully registered for ${selectedCourse.name}`);
 
-            // Optionally, disable the Register button after successful registration
-            e.target.disabled = true;
-            e.target.textContent = 'Registered';
 
         }
 
-        function updateCourseData(course) {
-            let courseToUpdate = courses.find(c => c.name === course.name);
-
-            if (courseToUpdate) {
-                if (courseToUpdate.enrolledStudents < courseToUpdate.maxSeats) {
-                    courseToUpdate.enrolledStudents++;
-                    displayCourses(courses);
-                }
-
-                if (courseToUpdate.enrolledStudents === courseToUpdate.maxSeats) {
-                    console.log('Instructor has reached the maximum number of students.');
-                }
-
-                localStorage.setItem("courses", JSON.stringify(courses));
+        function updateCourseData(course, sectionNo) {
+            // Find the course to update
+            const courseToUpdate = courses.find(c => c.name === course.name);
+            if (!courseToUpdate) {
+                console.error('Course not found for update');
+                return;
             }
+
+            // Find the specific section to update
+            const sectionToUpdate = courseToUpdate.section?.find(sec => sec.sectionNo === sectionNo);
+            if (!sectionToUpdate) {
+                console.error('Section not found');
+                console.log('Available sections:', courseToUpdate.section);
+                return false;
+            }
+
+            // Update the enrolled students count for the section
+            if (sectionToUpdate.enrolledStudents < sectionToUpdate.maxSeats) {
+                sectionToUpdate.enrolledStudents++;
+
+                // Update section status if it's now full
+                if (sectionToUpdate.enrolledStudents >= sectionToUpdate.maxSeats) {
+                    sectionToUpdate.status = "Closed";
+                    console.log(`Section ${sectionNo} is now full`);
+                }
+            } else {
+                console.log(`Section ${sectionNo} is already full`);
+            }
+
+            // Save updated courses to localStorage
+            localStorage.setItem("courses", JSON.stringify(courses));
+
+            // Refresh the courses display
+            displayCourses(courses);
         }
 
         function addStudentInfo() {

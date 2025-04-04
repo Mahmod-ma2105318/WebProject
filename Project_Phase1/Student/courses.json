@@ -1,104 +1,245 @@
 {
     "courses": [
-        {
-            "name": "JavaScript Basics",
-            "category": "Programming",
-            "credits": 3,
-            "prerequisites": ["HTML", "CSS"],
+      {
+        "name": "JavaScript Basics",
+        "category": "Programming",
+        "credits": 3,
+        "prerequisites": ["HTML", "CSS"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Dr. Smith",
             "status": "Open",
             "maxSeats": 30,
-            "enrolledStudents": 20
-        },
-        {
-            "name": "Database Systems",
-            "category": "Databases",
-            "credits": 4,
-            "prerequisites": ["Computer Fundamentals"],
+            "enrolledStudents": 20,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Ms. Green",
+            "status": "Open",
+            "maxSeats": 25,
+            "enrolledStudents": 15,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Database Systems",
+        "category": "Databases",
+        "credits": 4,
+        "prerequisites": ["Computer Fundamentals"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Prof. Johnson",
             "status": "Closed",
             "maxSeats": 35,
-            "enrolledStudents": 30
-        },
-        {
-            "name": "Python for Beginners",
-            "category": "Programming",
-            "credits": 3,
-            "prerequisites": ["None"],
+            "enrolledStudents": 30,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Dr. Adams",
+            "status": "Open",
+            "maxSeats": 30,
+            "enrolledStudents": 25,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Python for Beginners",
+        "category": "Programming",
+        "credits": 3,
+        "prerequisites": ["None"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Dr. Miller",
             "status": "Open",
             "maxSeats": 40,
-            "enrolledStudents": 20
-        },
-        {
-            "name": "Data Structures and Algorithms",
-            "category": "Computer Science",
-            "credits": 4,
-            "prerequisites": ["Python for Beginners"],
+            "enrolledStudents": 20,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Ms. Lee",
+            "status": "Open",
+            "maxSeats": 35,
+            "enrolledStudents": 22,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Data Structures and Algorithms",
+        "category": "Computer Science",
+        "credits": 4,
+        "prerequisites": ["Python for Beginners"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Prof. Williams",
             "status": "Open",
             "maxSeats": 30,
-            "enrolledStudents": 25
-        },
-        {
-            "name": "Web Development with React",
-            "category": "Web Development",
-            "credits": 3,
-            "prerequisites": ["JavaScript Basics"],
+            "enrolledStudents": 25,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Dr. Blake",
+            "status": "Closed",
+            "maxSeats": 30,
+            "enrolledStudents": 30,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Web Development with React",
+        "category": "Web Development",
+        "credits": 3,
+        "prerequisites": ["JavaScript Basics"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Dr. Davis",
             "status": "Open",
             "maxSeats": 35,
-            "enrolledStudents": 18
-        },
-        {
-            "name": "Cybersecurity Fundamentals",
-            "category": "Security",
-            "credits": 3,
-            "prerequisites": [],
+            "enrolledStudents": 18,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Mr. Johnson",
+            "status": "Open",
+            "maxSeats": 30,
+            "enrolledStudents": 20,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Cybersecurity Fundamentals",
+        "category": "Security",
+        "credits": 3,
+        "prerequisites": [],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Prof. Wilson",
             "status": "Closed",
             "maxSeats": 30,
-            "enrolledStudents": 20
-        },
-        {
-            "name": "Machine Learning Essentials",
-            "category": "Artificial Intelligence",
-            "credits": 4,
-            "prerequisites": ["Python for Beginners", "Statistics"],
+            "enrolledStudents": 20,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Dr. Gomez",
+            "status": "Open",
+            "maxSeats": 25,
+            "enrolledStudents": 19,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Machine Learning Essentials",
+        "category": "Artificial Intelligence",
+        "credits": 4,
+        "prerequisites": ["Python for Beginners", "Statistics"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Dr. Anderson",
             "status": "Open",
             "maxSeats": 40,
-            "enrolledStudents": 15
-        },
-        {
-            "name": "Cloud Computing Basics",
-            "category": "Cloud Computing",
-            "credits": 3,
-            "prerequisites": ["Networking Fundamentals"],
+            "enrolledStudents": 15,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Dr. Brown",
+            "status": "Open",
+            "maxSeats": 35,
+            "enrolledStudents": 12,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Cloud Computing Basics",
+        "category": "Cloud Computing",
+        "credits": 3,
+        "prerequisites": ["Networking Fundamentals"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Dr. White",
             "status": "Open",
             "maxSeats": 40,
-            "enrolledStudents": 10
-        },
-        {
-            "name": "Mobile App Development with Flutter",
-            "category": "Mobile Development",
-            "credits": 4,
-            "prerequisites": ["Dart Programming"],
+            "enrolledStudents": 10,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Prof. Green",
+            "status": "Open",
+            "maxSeats": 30,
+            "enrolledStudents": 8,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Mobile App Development with Flutter",
+        "category": "Mobile Development",
+        "credits": 4,
+        "prerequisites": ["Dart Programming"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Prof. Taylor",
             "status": "Open",
             "maxSeats": 35,
-            "enrolledStudents": 22
-        },
-        {
-            "name": "Software Engineering Principles",
-            "category": "Software Engineering",
-            "credits": 3,
-            "prerequisites": ["Data Structures and Algorithms"],
+            "enrolledStudents": 22,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Ms. Patel",
+            "status": "Open",
+            "maxSeats": 35,
+            "enrolledStudents": 20,
+            "validation": "pending"
+          }
+        ]
+      },
+      {
+        "name": "Software Engineering Principles",
+        "category": "Software Engineering",
+        "credits": 3,
+        "prerequisites": ["Data Structures and Algorithms"],
+        "section": [
+          {
+            "sectionNo": "L01",
             "instructor": "Dr. Harris",
             "status": "Closed",
             "maxSeats": 30,
-            "enrolledStudents": 30
-        }
+            "enrolledStudents": 30,
+            "validation": "pending"
+          },
+          {
+            "sectionNo": "L02",
+            "instructor": "Dr. Lin",
+            "status": "Open",
+            "maxSeats": 30,
+            "enrolledStudents": 28,
+            "validation": "pending"
+          }
+        ]
+      }
     ]
-}
+  }
+  

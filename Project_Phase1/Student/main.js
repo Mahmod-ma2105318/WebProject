@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="course-category">${register.courseCategory}</div>
                     <div class="course-Credits">Credits: ${register.courseCredits}</div>
                     <div class="course-Instructor">Instructor: ${register.courseInstructor}</div>
+                    <div class="course-Instructor">Status: ${register.status}</div>
                 </div>
             `).join("");
         }
@@ -110,6 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const courseContainer = document.getElementById('courseContainer');
 
             const userFinishedCourses = students.find(student => student.user[0].username === user.username);
+            
+            
 
             if (userFinishedCourses.length === 0) {
                 courseContainer.innerHTML = "<p>No finished courses found.</p>";
@@ -139,6 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error('Course not found.');
                 return;
             }
+            
+            
 
 
             // Find the logged-in student's record

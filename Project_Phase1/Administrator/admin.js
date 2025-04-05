@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!user) {
         window.location.href = "../login/login.html";
     } else {
+        
         user = JSON.parse(user);
         function addAdminInfo() {
             const adminInfoDiv = document.getElementById("admin-info");
@@ -25,11 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
         let registered = localStorage.students ? JSON.parse(localStorage.students) : [];
+        
+        
 
         const pendingCourses = document.querySelector("#PendingCoursesButton");
         pendingCourses.addEventListener('click', displayPendingCourses)
 
         function displayPendingCourses() {
+            
+            
             const courseContainer = document.getElementById('courseContainer');
 
             // Clear previous content
@@ -137,35 +142,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         function displayCourses(courses) {
+            
 
-            const openCourses = courses.filter(course => course.status === "Open");
+            const openCourses = courses.filter(course =>
+                course.section && course.section.some(sec => sec.status === "Open")
+            );
+           
+            
 
             const courseContainer = document.getElementById('courseContainer');
 
             courseContainer.innerHTML = openCourses.map(course => `
-                <div class="course-card">
-                    <div class="course-name">${course.name}</div>
-                    <div class="course-category">${course.category}</div>
-                    <div class="course-Credits">Credits: ${course.credits}</div>
-                    <div class="course-prerequisites">prerequisites: ${course.prerequisites.join(", ")}</div>
-                    <div class="course-Instructor">Instructor: ${course.instructor}</div>
-                    <div class="course-status" style="color: ${course.status === 'Open' ? '#27ae60' : '#c0392b'}">
-                        Status: ${course.status}
-                    </div>
-                    <div class="course-maxSeats"> Max Seats: ${course.maxSeats}</div>
-                    <div class="course-enrolledStudents"> Enrolled Students: ${course.enrolledStudents}</div>
-                   
-
-                </div>`
-
-            ).join("");
-
-            // const registerButtons = document.querySelectorAll('.register-btn');
-            // registerButtons.forEach(button => {
-            //     button.addEventListener('click', registerCourse);
-            // });
-
+                 <div class="course-card">
+                 <div class="course-name"><strong>${course.name}</strong></div>
+                 <div class="course-category">Category: ${course.category}</div>
+                 <div class="course-credits">Credits: ${course.credits}</div>
+                 <div class="course-prerequisites">Prerequisites: ${course.prerequisites.join(", ") || "None"}</div>
+                
+                 <div class="course-sections">
+                     <strong>Sections:</strong>
+                     ${course.section.map(sec => `
+                         <div class="section-card">
+                             <div>Section No: ${sec.sectionNo}</div>
+                             <div>Instructor: ${sec.instructor}</div>
+                             <div>Status: <span style="color: ${sec.status === 'Open' ? '#27ae60' : '#c0392b'}">${sec.status}</span></div>
+                             <div>Max Seats: ${sec.maxSeats}</div>
+                             <div>Enrolled Students: ${sec.enrolledStudents}</div>
+                             
+                        </div>
+                     `).join("")}
+                 </div>
+             </div>
+         `).join("");
         }
+       
 
         displayCourses(courses);
     }

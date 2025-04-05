@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
             try {
                 const response = await fetch('courses.json');
                 const data = await response.json();
-                courses = data.courses;
+                courses = data.CoursesForRegistration;
                 localStorage.courses = JSON.stringify(courses);
                 displayCourses(courses);
             } catch (error) {
@@ -60,6 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //Display the courses in a grid
         function displayCourses(courses) {
+            console.log(courses);
+            
             const courseContainer = document.getElementById('courseContainer');
 
             courseContainer.innerHTML = courses.map(course => `

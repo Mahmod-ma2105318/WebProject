@@ -23,20 +23,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         addAdminInfo();
-
-        let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
+        let courses = localStorage.CoursesForRegistration ? JSON.parse(localStorage.CoursesForRegistration) : [];
         let registered = localStorage.students ? JSON.parse(localStorage.students) : [];
+        console.log(courses);
+        
         
         
 
         const pendingCourses = document.querySelector("#PendingCoursesButton");
         pendingCourses.addEventListener('click', displayPendingCourses)
-
         function displayPendingCourses() {
-            
-            
-            
-            
             const courseContainer = document.getElementById('courseContainer');
 
             // Clear previous content
@@ -51,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Loop through each registered course
                     student.RegisteredCourses.forEach((course, courseIndex) => {
-                        console.log(course);
                         // Only display if status is Pending or undefined (treat undefined as Pending)
                         if (!course.status || course.status === "pending") {
                             
@@ -143,18 +138,25 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        const CurrentlyTakenCourses = document.querySelector("#CurrentCoursesButton");
+        CurrentlyTakenCourses.addEventListener('click', displayCurrentlyTakenCourses);
+
+        function displayCurrentlyTakenCourses(courses){
+
+        }
+
+
 
 
 
         function displayCourses(courses) {
             
+            
+            
 
             const openCourses = courses.filter(course =>
                 course.section && course.section.some(sec => sec.status === "Open")
-            );
-           
-            
-
+            );   
             const courseContainer = document.getElementById('courseContainer');
 
             courseContainer.innerHTML = openCourses.map(course => `

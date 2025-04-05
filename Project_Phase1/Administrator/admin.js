@@ -23,9 +23,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         addAdminInfo();
-        let courses = localStorage.CoursesForRegistration ? JSON.parse(localStorage.CoursesForRegistration) : [];
         let registered = localStorage.students ? JSON.parse(localStorage.students) : [];
-        console.log(courses);
+        //Courses 
+        let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
+        async function fetchCourses() {
+            try {
+                const response = await fetch('C:\Users\alydi\OneDrive\Documents\GitHub\in-case\WebProject\Project_Phase1\Student\courses.json');
+                const data = await response.json();
+                courses = data.CoursesForRegistration;
+                localStorage.courses = JSON.stringify(courses);
+                displayCourses(courses);
+            } catch (error) {
+                console.error('Error loading courses:', error);
+            }
+        }
+        fetchCourses();
         
         
         

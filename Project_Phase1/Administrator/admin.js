@@ -35,11 +35,13 @@ document.addEventListener("DOMContentLoaded", function () {
         function displayPendingCourses() {
             
             
+            
+            
             const courseContainer = document.getElementById('courseContainer');
 
             // Clear previous content
             courseContainer.innerHTML = '';
-
+            
             // Loop through each student
             registered.forEach((student, studentIndex) => {
                 // Check if student has RegisteredCourses
@@ -49,8 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Loop through each registered course
                     student.RegisteredCourses.forEach((course, courseIndex) => {
+                        console.log(course);
                         // Only display if status is Pending or undefined (treat undefined as Pending)
                         if (!course.status || course.status === "pending") {
+                            
+                            
                             // Create course card HTML
                             const courseCard = document.createElement('div');
                             courseCard.className = 'course-card';

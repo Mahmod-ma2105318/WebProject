@@ -218,10 +218,19 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Check if the user is already registered for this course
+            // const isAlreadyRegistered = studentRecord.RegisteredCourses.some(register =>
+            //     register.courseName === selectedCourse.name &&
+            //     register.sectionNo === selectedSection.sectionNo
+            // );
             const isAlreadyRegistered = studentRecord.RegisteredCourses.some(register =>
-                register.courseName === selectedCourse.name &&
-                register.sectionNo === selectedSection.sectionNo
+                register.courseName === selectedCourse.name
             );
+            
+            if (isAlreadyRegistered) {
+                alert('You are already registered for a section of this course!');
+                return;
+            }
+            
 
 
 

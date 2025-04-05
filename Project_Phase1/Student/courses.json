@@ -211,7 +211,7 @@
           "instructor": "Ms. Patel",
           "status": "Open",
           "maxSeats": 35,
-          "enrolledStudents": 20,
+          "enrolledStudents": 1,
           "validation": "pending"
         }
       ]

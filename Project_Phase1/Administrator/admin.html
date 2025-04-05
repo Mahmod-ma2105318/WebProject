@@ -10,6 +10,7 @@
 
 <body>
     <div id="admin-info"></div>
+    <button onclick="logout()">Logout</button>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search courses...">
 
@@ -19,15 +20,63 @@
             <option value="category">By Category</option>
         </select>
     </div>
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Course</h2>
+            <form id="courseForm">
+                <div class="form-group">
+                    <label>Course Name:</label>
+                    <input type="text" id="courseName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Category:</label>
+                    <input type="text" id="courseCategory" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Credits:</label>
+                    <input type="number" id="courseCredits" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Prerequisites (comma separated):</label>
+                    <input type="text" id="coursePrerequisites">
+                </div>
+
+                <div class="section-group">
+                    <h3>Sections</h3>
+                    <div class="section-input">
+                        <div class="form-group">
+                            <label>Section Number:</label>
+                            <input type="text" class="sectionNo" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Instructor:</label>
+                            <input type="text" class="sectionInstructor" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Max Seats:</label>
+                            <input type="number" class="sectionMaxSeats" required>
+                        </div>
+                    </div>
+                    <button type="button" id="addSection">Add Another Section</button>
+                </div>
+
+                <button type="submit">Create Course</button>
+            </form>
+        </div>
+    </div>
     <div id="buttons">
         <button id="searchButton">Search</button>
         <button id="CurrentCoursesButton">Currently Taken Courses</button>
         <button id="PendingCoursesButton">Pending Courses</button>
-        <button id="FinishedCoursesButton">Finished Courses</button>
+        <button id="ValidateCoursesButton">Validate Courses</button>
+        <button id="addCourseButton">Add Course</button>
     </div>
 
     <div class="course-grid" id="courseContainer"></div>
-    <button onclick="logout()">Logout</button>
     <script src="admin.js"></script>
 </body>
 

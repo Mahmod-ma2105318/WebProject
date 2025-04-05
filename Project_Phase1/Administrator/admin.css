@@ -91,7 +91,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.user-info-container > * {
+.user-info-container>* {
     margin: 0 15px;
 }
 
@@ -214,7 +214,203 @@ button:hover {
         text-align: center;
     }
 
-    .user-info-container > * {
+    .user-info-container>* {
         margin: 10px 0;
+    }
+}
+
+
+.course-card {
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+.section-info {
+    margin-left: 16px;
+    margin-top: 8px;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px dashed #ccc;
+}
+
+button {
+    margin-right: 8px;
+    margin-top: 6px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: #fff;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: modalSlide 0.3s ease-out;
+}
+
+@keyframes modalSlide {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.modal h2 {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+}
+
+/* Form Styles */
+#courseForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: #34495e;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    padding: 0.8rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Section Styles */
+.section-group {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.section-group h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.section-input {
+    background: white;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+#addSection {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+}
+
+#addSection:hover {
+    background: #2980b9;
+}
+
+#addSection::before {
+    content: "+";
+    font-size: 1.2rem;
+}
+
+button[type="submit"] {
+    background: #27ae60;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 1.5rem;
+}
+
+button[type="submit"]:hover {
+    background: #219651;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+
+    .section-input {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group input {
+        padding: 0.7rem;
     }
 }

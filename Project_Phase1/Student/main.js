@@ -29,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (courses.length === 0) fetchCourses();
         displayCourses(courses);
 
+        let CurrentlyTakenCourses = localStorage.CurrentlyTakenCourses ? JSON.parse(localStorage.CurrentlyTakenCourses) : [];
+        if (courses.length === 0) fetchCurrentlyTakenCourses();
+
         let students = localStorage.students ? JSON.parse(localStorage.students) : [];
         if (students.length === 0) fetchStudent();
 
@@ -58,10 +61,22 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        async function fetchCurrentlyTakenCourses() {
+            try {
+                const response = await fetch('courses.json');
+                const data = await response.json();
+                CurrentlyTakenCourses = data.CurrentlyTakenCourses;
+                localStorage.CurrentlyTakenCourses = JSON.stringify(CurrentlyTakenCourses);
+
+            } catch (error) {
+                console.error('Error loading courses:', error);
+            }
+        }
+
         //Display the courses in a grid
         function displayCourses(courses) {
-            console.log(courses);
-            
+            ;
+
             const courseContainer = document.getElementById('courseContainer');
 
             courseContainer.innerHTML = courses.map(course => `
@@ -227,12 +242,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const isAlreadyRegistered = studentRecord.RegisteredCourses.some(register =>
                 register.courseName === selectedCourse.name
             );
-            
+
             if (isAlreadyRegistered) {
                 alert('You are already registered for a section of this course!');
                 return;
             }
-            
+
 
 
 

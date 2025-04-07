@@ -4,17 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Optional: Link to CSS -->
+    <link rel="stylesheet" href="instructor.css">
+    <title>Course Search</title>
 </head>
 
 <body>
-    <div class="container">
-        <h1 id="welcome">Welcome</h1>
-        <button onclick="logout()">Logout</button>
-    </div>
+    <div id="instructor-info"></div>
+    <button onclick="logout()">Logout</button>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search courses...">
 
-    <script src="instructor.js"></script> <!-- JavaScript for authentication check -->
+
+        <select id="filterType">
+            <option value="all">All</option>
+            <option value="name">By Name</option>
+            <option value="category">By Category</option>
+        </select>
+    </div>
+    <div class="course-grid" id="courseContainer"></div>
+    <script src="instructor.js"></script>
 </body>
 
 </html>

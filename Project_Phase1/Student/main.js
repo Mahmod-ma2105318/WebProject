@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //registerd coureses
         async function fetchStudent() {
             try {
-                const response = await fetch('students.json');
+                const response = await fetch('../Data/students.json');
                 const data = await response.json();
                 students = data.students;
                 localStorage.students = JSON.stringify(students);
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //Courses 
         async function fetchCourses() {
             try {
-                const response = await fetch('courses.json');
+                const response = await fetch('../Data/courses.json');
                 const data = await response.json();
                 courses = data.CoursesForRegistration;
                 localStorage.courses = JSON.stringify(courses);
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         async function fetchCurrentlyTakenCourses() {
             try {
-                const response = await fetch('courses.json');
+                const response = await fetch('../Data/courses.json');
                 const data = await response.json();
                 CurrentlyTakenCourses = data.CurrentlyTakenCourses;
                 localStorage.CurrentlyTakenCourses = JSON.stringify(CurrentlyTakenCourses);

@@ -23,20 +23,23 @@
                     "name": "JavaScript Basics",
                     "category": "Programming",
                     "credits": 3,
-                    "prerequisites": ["HTML", "CSS"],
+                    "prerequisites": [
+                        "HTML",
+                        "CSS"
+                    ],
                     "instructor": "Dr. Smith"
                 },
                 {
                     "name": "Database Systems",
                     "category": "Databases",
                     "credits": 4,
-                    "prerequisites": ["Computer Fundamentals"],
+                    "prerequisites": [
+                        "Computer Fundamentals"
+                    ],
                     "instructor": "Prof. Johnson"
                 }
             ],
-            "RegisteredCourses":[
-
-            ]
+            "RegisteredCourses": []
         },
         {
             "user": [
@@ -61,20 +64,23 @@
                     "name": "Python Programming",
                     "category": "Programming",
                     "credits": 3,
-                    "prerequisites": ["Math 101"],
+                    "prerequisites": [
+                        "Math 101"
+                    ],
                     "instructor": "Dr. Ali"
                 },
                 {
                     "name": "Web Development",
                     "category": "Programming",
                     "credits": 4,
-                    "prerequisites": ["HTML", "CSS"],
+                    "prerequisites": [
+                        "HTML",
+                        "CSS"
+                    ],
                     "instructor": "Prof. Khaled"
                 }
             ],
-            "RegisteredCourses":[
-                
-            ]
+            "RegisteredCourses": []
         },
         {
             "user": [
@@ -99,20 +105,22 @@
                     "name": "Data Structures",
                     "category": "Computer Science",
                     "credits": 3,
-                    "prerequisites": ["Math 101"],
-                    "instructor": "Dr. Omar" 
+                    "prerequisites": [
+                        "Math 101"
+                    ],
+                    "instructor": "Dr. Omar"
                 },
                 {
                     "name": "Computer Networks",
                     "category": "Networking",
                     "credits": 4,
-                    "prerequisites": ["Data Structures"],
+                    "prerequisites": [
+                        "Data Structures"
+                    ],
                     "instructor": "Prof. Faten"
                 }
             ],
-            "RegisteredCourses":[
-                
-            ]
+            "RegisteredCourses": []
         }
     ]
 }

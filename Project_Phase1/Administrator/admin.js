@@ -34,6 +34,36 @@ document.addEventListener("DOMContentLoaded", function () {
         addCourseBtn.addEventListener('click', () => modal.style.display = 'block');
         closeBtn.addEventListener('click', () => modal.style.display = 'none');
 
+        let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
+        if (courses.length === 0) fetchCourses();
+
+        let CurrentlyTakenCourses = localStorage.CurrentlyTakenCourses ? JSON.parse(localStorage.CurrentlyTakenCourses) : [];
+        if (courses.length === 0) fetchCurrentlyTakenCourses();
+
+        async function fetchCourses() {
+            try {
+                const response = await fetch('../Data/courses.json');
+                const data = await response.json();
+                courses = data.CoursesForRegistration;
+                localStorage.courses = JSON.stringify(courses);
+                displayCourses(courses);
+            } catch (error) {
+                console.error('Error loading courses:', error);
+            }
+        }
+
+        async function fetchCurrentlyTakenCourses() {
+            try {
+                const response = await fetch('../Data/courses.json');
+                const data = await response.json();
+                CurrentlyTakenCourses = data.CurrentlyTakenCourses;
+                localStorage.CurrentlyTakenCourses = JSON.stringify(CurrentlyTakenCourses);
+
+            } catch (error) {
+                console.error('Error loading courses:', error);
+            }
+        }
+
         window.addEventListener('click', (e) => {
             if (e.target === modal) modal.style.display = 'none';
         });
@@ -101,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let registered = localStorage.students ? JSON.parse(localStorage.students) : [];
         //Courses 
-        let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
+
 
         // const filterType = document.querySelector("#filterType");
         // const searchBox = document.querySelector("#searchInput");
@@ -361,7 +391,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const CurrentlyTakenCoursesSelector = document.querySelector("#CurrentCoursesButton");
         CurrentlyTakenCoursesSelector.addEventListener('click', displayCurrentlyTakenCourses);
 
-        let CurrentlyTakenCourses = localStorage.CurrentlyTakenCourses ? JSON.parse(localStorage.CurrentlyTakenCourses) : [];
 
         function displayCurrentlyTakenCourses() {
 

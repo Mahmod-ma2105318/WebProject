@@ -13,7 +13,7 @@ if (users.length === 0) fetchUsers();
 
 async function fetchUsers() {
     try {
-        const response = await fetch('users.json');
+        const response = await fetch('../Data/users.json');
         const data = await response.json();
         users = data.users;
         localStorage.users = JSON.stringify(users);

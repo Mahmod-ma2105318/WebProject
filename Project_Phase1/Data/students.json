@@ -27,7 +27,7 @@
                         "HTML",
                         "CSS"
                     ],
-                    "instructor": "Dr. Smith"
+                    "instructor": "Barhamgi"
                 },
                 {
                     "name": "Database Systems",
@@ -36,7 +36,7 @@
                     "prerequisites": [
                         "Computer Fundamentals"
                     ],
-                    "instructor": "Prof. Johnson"
+                    "instructor": "Barhamgi"
                 }
             ],
             "RegisteredCourses": []
@@ -61,23 +61,23 @@
             ],
             "CurrentCourses": [
                 {
-                    "name": "Python Programming",
+                    "name": "JavaScript Basics",
                     "category": "Programming",
                     "credits": 3,
                     "prerequisites": [
                         "Math 101"
                     ],
-                    "instructor": "Dr. Ali"
+                    "instructor": "Barhamgi"
                 },
                 {
-                    "name": "Web Development",
+                    "name": "Database Systems",
                     "category": "Programming",
                     "credits": 4,
                     "prerequisites": [
                         "HTML",
                         "CSS"
                     ],
-                    "instructor": "Prof. Khaled"
+                    "instructor": "Barhamgi"
                 }
             ],
             "RegisteredCourses": []
@@ -117,7 +117,7 @@
                     "prerequisites": [
                         "Data Structures"
                     ],
-                    "instructor": "Prof. Faten"
+                    "instructor": "Barhamgi"
                 }
             ],
             "RegisteredCourses": []

@@ -260,3 +260,25 @@ button+button {
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+.course-card {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+.grade-input {
+    margin: 5px 0;
+    padding: 5px;
+    width: 100px;
+}
+.submit-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}

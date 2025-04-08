@@ -1,18 +1,3 @@
-function submitGrade(username, courseName, inputId) {
-    const gradeInput = document.getElementById(inputId);
-    const gradeValue = gradeInput.value.trim();
-
-    if (!gradeValue) {
-        alert("Please enter a grade.");
-        return;
-    }
-
-    console.log(`Grade submitted for ${username} in ${courseName}: ${gradeValue}`);
-    alert(`Grade "${gradeValue}" submitted for ${username} - ${courseName}`);
-
-    gradeInput.value = ""; // Clear the input after submission
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     let user = localStorage.getItem("loggedInUser");
 
@@ -122,7 +107,13 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <div>
                                     <label for="grade-${courseId}" class="grade-label">Enter Grade:</label>
                                     <input type="text" id="grade-${courseId}" class="grade-input" placeholder="e.g. A+" />
-                                    <button onclick="submitGrade('${username}', '${course.name}', 'grade-${courseId}')" class="submit-button">Submit Grade</button>
+                                   <button 
+                                    class="submit-button"
+                                    data-username="${username}" 
+                                    data-course="${course.name}" 
+                                    data-input-id="grade-${courseId}">
+                                    Submit Grade
+                                    </button>
                                 </div>
                             </div>
                         `;
@@ -138,11 +129,72 @@ document.addEventListener("DOMContentLoaded", function () {
             // Update the course container with the generated HTML
             courseContainer.innerHTML = html;
         }
+        const buttons = document.querySelectorAll('.submit-button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const username = button.dataset.username;
+                const courseName = button.dataset.course;
+                const inputId = button.dataset.inputId;
+
+                submitGrade(username, courseName, inputId);
+                displayCurrentCoursesByInstructor(courseName); // optionally refresh
+            });
+        });
         
         
         
     }
+    function submitGrade(username, courseName, inputId) {
+        const gradeInput = document.getElementById(inputId);
+        const gradeValue = gradeInput.value.trim();
+    
+        if (!gradeValue) {
+            alert("Please enter a grade.");
+            return;
+        }
+    
+        console.log(`Grade submitted for ${username} in ${courseName}: ${gradeValue}`);
+        alert(`Grade "${gradeValue}" submitted for ${username} - ${courseName}`);
+    
+        // Find the student by username
+        const student = students.find(student => student.user[0].username === username);
+        
+        if (!student) {
+            alert("Student not found.");
+            return;
+        }
+    
+        // Find the course in the CurrentCourses array
+        const course = student.CurrentCourses.find(course => course.name === courseName);
+        
+        if (!course) {
+            alert("Course not found.");
+            return;
+        }
+    
+        // Create the grade entry for finishedCourses
+        const gradeEntry = {
+            courseName: course.name,
+            Grade: gradeValue
+        };
+    
+        // Add the grade to finishedCourses
+        student.finishedCourses.push(gradeEntry);
+    
+        // Optionally, remove the course from CurrentCourses (if the course is completed)
+        const courseIndex = student.CurrentCourses.indexOf(course);
+        if (courseIndex !== -1) {
+            student.CurrentCourses.splice(courseIndex, 1);
+        }
+    
+        // Clear the input field
+        gradeInput.value = "";
+}
+    
 });
+
+
 
 function logout() {
     localStorage.removeItem("loggedInUser");

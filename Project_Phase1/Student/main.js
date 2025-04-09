@@ -15,14 +15,26 @@ document.addEventListener("DOMContentLoaded", function () {
         const CurrentCoursesButton = document.querySelector("#CurrentCoursesButton");
 
 
+        let currentView = 'all';
+
         filterType.addEventListener('change', filterChange);
         searchBox.addEventListener('input', search);
-        registeredCourses.addEventListener('click', displayRegisteredCourses);
+        registeredCourses.addEventListener('click', function () {
+            displayRegisteredCourses();
+            currentView = 'registered';
+        });
         searchButton.addEventListener('click', function () {
             displayCourses(courses);
+            currentView = 'all';
         });
-        finishedCoursesButton.addEventListener('click', finishedCourses);
-        CurrentCoursesButton.addEventListener('click', displayCurrentCourses)
+        finishedCoursesButton.addEventListener('click', function () {
+            finishedCourses();
+            currentView = 'finished';
+        });
+        CurrentCoursesButton.addEventListener('click', function () {
+            displayCurrentCourses();
+            currentView = 'current';
+        })
 
         //localStorage
         let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
@@ -114,14 +126,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        function displayRegisteredCourses() {
+        function displayRegisteredCourses(data = null) {
             const courseContainer = document.getElementById('courseContainer');
 
             let student = students.find(s => s.user.some(u => u.username === user.username));
+            const dataset = data || student.RegisteredCourses;
 
-
-
-            courseContainer.innerHTML = student.RegisteredCourses.map(register => `
+            courseContainer.innerHTML = dataset.map(register => `
                 <div class="course-card">
                     <div class="course-name">${register.courseName}</div>
                     <div class="course-category">${register.courseCategory}</div>
@@ -132,13 +143,14 @@ document.addEventListener("DOMContentLoaded", function () {
             `).join("");
         }
 
-        function displayCurrentCourses() {
+        function displayCurrentCourses(data = null) {
 
             const courseContainer = document.getElementById('courseContainer');
 
             let student = students.find(s => s.user.some(u => u.username === user.username));
+            const dataset = data || student.CurrentCourses;
 
-            courseContainer.innerHTML = student.CurrentCourses.map(register => `
+            courseContainer.innerHTML = dataset.map(register => `
                 <div class="course-card">
                     <div class="course-name">${register.name}</div>
                     <div class="course-category">${register.category}</div>
@@ -150,10 +162,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-        function finishedCourses() {
+        function finishedCourses(data = null) {
             const courseContainer = document.getElementById('courseContainer');
 
             const userFinishedCourses = students.find(student => student.user[0].username === user.username);
+            const dataset = data || userFinishedCourses.finishedCourses || [];
 
 
 
@@ -162,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            courseContainer.innerHTML = userFinishedCourses.finishedCourses.map(finish => `
+            courseContainer.innerHTML = dataset.map(finish => `
                 <div class="course-card">
                     <div class="course-name">${finish.courseName}</div>
                     <div class="course-Grade">Grade: ${finish.Grade}</div>
@@ -341,25 +354,80 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         function filterChange() {
-            displayCourses(courses);
+            console.log('change');
         }
 
         function search(e) {
             const searchInput = e.target.value.toLowerCase();
             const filter = filterType.value;
 
-            const filteredCourses = courses.filter(course => {
+            let dataset;
+            let displayFunction;
+            let nameField, categoryField;
+
+
+            // Get the logged-in student's data safely
+            const student = students.find(s =>
+                s.user.some(u => u.username === user.username));
+
+
+            switch (currentView) {
+                case 'all':
+                    dataset = courses;
+                    displayFunction = displayCourses;
+                    nameField = 'name';
+                    categoryField = 'category';
+                    break;
+                case 'registered':
+                    dataset = student?.RegisteredCourses || [];
+                    displayFunction = displayRegisteredCourses;
+                    nameField = 'courseName'; // Property name in RegisteredCourses
+                    categoryField = 'courseCategory'; // Property name in RegisteredCourses
+                    break;
+                case 'current':
+                    dataset = student?.CurrentCourses || [];
+                    displayFunction = displayCurrentCourses;
+                    nameField = 'name'; // Property name in CurrentCourses
+                    categoryField = 'category'; // Property name in CurrentCourses
+                    break;
+                case 'finished':
+                    dataset = student?.finishedCourses || [];
+                    displayFunction = finishedCourses;
+                    nameField = 'courseName'; // Property name in finishedCourses
+                    categoryField = null; // No category in finishedCourses
+                    break;
+                default:
+                    dataset = courses;
+                    displayFunction = displayCourses;
+                    nameField = 'name';
+                    categoryField = 'category';
+            }
+
+            // Validate dataset and handle empty/null values
+            if (!Array.isArray(dataset)) {
+                console.error("Invalid dataset:", dataset);
+                dataset = [];
+            }
+
+            const filtered = dataset.filter(item => {
+                // Safely get values, defaulting to empty string if undefined/null
+                const name = item[nameField]?.toString().toLowerCase() || "";
+                const category = categoryField
+                    ? item[categoryField]?.toString().toLowerCase() || ""
+                    : "";
+
+                // Perform the search based on the selected filter
                 if (filter === 'name') {
-                    return course.name.toLowerCase().includes(searchInput);
+                    return name.includes(searchInput);
+                } else if (filter === 'category') {
+                    return category.includes(searchInput);
+                } else {
+                    return name.includes(searchInput) || category.includes(searchInput);
                 }
-                if (filter === 'category') {
-                    return course.category.toLowerCase().includes(searchInput);
-                }
-                return course.name.toLowerCase().includes(searchInput) ||
-                    course.category.toLowerCase().includes(searchInput);
             });
 
-            displayCourses(filteredCourses);
+            // Update the UI with filtered results
+            displayFunction(filtered);
         }
 
     }

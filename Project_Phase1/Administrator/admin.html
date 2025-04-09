@@ -6,20 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link rel="stylesheet" href="admin.css"> <!-- Optional: Link to CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
 </head>
 
 <body>
-    <div id="admin-info"></div>
-    <button onclick="logout()">Logout</button>
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search courses...">
-
-        <select id="filterType">
-            <option value="all">All</option>
-            <option value="name">By Name</option>
-            <option value="category">By Category</option>
-        </select>
+    <button class="menu-toggle">☰</button>
+    <div class="info">
+        <div id="admin-info"></div>
     </div>
+    
     <div id="courseModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -69,14 +66,27 @@
         </div>
     </div>
     <div id="buttons">
-        <button id="searchButton">Search</button>
-        <button id="CurrentCoursesButton">Currently Taken Courses</button>
-        <button id="PendingCoursesButton">Pending Courses</button>
-        <button id="ValidateCoursesButton">Validate Courses</button>
-        <button id="addCourseButton">Add Course</button>
+        <img src="../images/qu_logo-01.png" alt="QU-LOGO" />
+        <button id="searchButton"><i class="fas fa-home"></i> Home</button> 
+        <button id="CurrentCoursesButton"><i class="fas fa-book"></i> Currently Taken Courses</button>
+        <button id="PendingCoursesButton"><i class="fas fa-hourglass-half"></i> Pending Courses</button>
+        <button id="ValidateCoursesButton"><i class="fas fa-check-circle"></i> Validate Courses</button>
+        <button id="addCourseButton"><i class="fas fa-plus-circle"></i> Add Course</button>
+        <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
+    
+    <div>
+        <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search courses...">
 
-    <div class="course-grid" id="courseContainer"></div>
+        <select id="filterType">
+            <option value="all">All</option>
+            <option value="name">By Name</option>
+            <option value="category">By Category</option>
+        </select>
+    </div>
+        <div class="course-grid" id="courseContainer"></div>
+    </div>
     <script src="admin.js"></script>
 </body>
 

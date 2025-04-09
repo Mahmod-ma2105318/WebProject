@@ -4,13 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="../Administrator/admin.css">
     <title>Course Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
-    <div id="student-info"></div>
-    <button onclick="logout()">Logout</button>
+    <button class="menu-toggle">☰</button>
+    <div class="info">
+        <div id="student-info"></div>
+    </div>
+    
+    
+    <div id="buttons">
+        <img src="../images/qu_logo-01.png" alt="QU-LOGO" />
+        <button id="searchButton"><i class="fas fa-home"></i>Home</button>
+        <button id="registeredCoursesButton"><i class="fas fa-hourglass-half"></i>Registered Courses</button>
+        <button id="CurrentCoursesButton"><i class="fas fa-book"></i>Current Courses</button>
+        <button id="FinishedCoursesButton"><i class="fas fa-check-circle"></i>Finished Courses</button>
+        <button onclick="logout()">Logout</button>
+
+    </div>
+
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search courses...">
 
@@ -21,14 +37,7 @@
             <option value="category">By Category</option>
         </select>
     </div>
-    <div id="buttons">
-        <button id="searchButton">Search</button>
-        <button id="registeredCoursesButton">Registered Courses</button>
-        <button id="CurrentCoursesButton">Current Courses</button>
-        <button id="FinishedCoursesButton">Finished Courses</button>
-
-    </div>
-
+    
     <div class="course-grid" id="courseContainer"></div>
     <script src="main.js"></script>
 </body>

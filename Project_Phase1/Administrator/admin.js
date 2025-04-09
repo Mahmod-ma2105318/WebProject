@@ -6,6 +6,21 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
 
         user = JSON.parse(user);
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('buttons').classList.toggle('active');
+            document.body.classList.toggle('sidebar-active');
+        });
+        
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(e) {
+            const sidebar = document.getElementById('buttons');
+            const toggleBtn = document.querySelector('.menu-toggle');
+            
+            if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
+                sidebar.classList.remove('active');
+                document.body.classList.remove('sidebar-active');
+            }
+        });
         function addAdminInfo() {
             const adminInfoDiv = document.getElementById("admin-info");
 
@@ -135,13 +150,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // const filterType = document.querySelector("#filterType");
         // const searchBox = document.querySelector("#searchInput");
-        // const searchButton = document.querySelector("#searchButton");
+        const searchButton = document.querySelector("#searchButton");
         const ValidateCoursesButton = document.querySelector("#ValidateCoursesButton");
 
 
-        // searchButton.addEventListener('click', function () {
-        //     displayCourses(courses);
-        // });
+        searchButton.addEventListener('click', function () {
+            displayCourses(courses);
+        });
         ValidateCoursesButton.addEventListener('click', displayValidateCourses)
         // searchBox.addEventListener('input', search);
         // filterType.addEventListener('change', filterChange);
@@ -179,7 +194,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 ${course.instructor ? `<div class="course-instructor">Instructor: ${course.instructor}</div>` : ''}
                                 <div class="course-status">Status: ${course.status || "Pending"}</div>
                                 
-                                <button class="approve-btn" 
+                                <div id="validationCard">
+                                    <button class="approve-btn" 
                                     data-student-index="${studentIndex}" 
                                     data-course-index="${courseIndex}">
                                     Approve
@@ -189,6 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     data-course-index="${courseIndex}">
                                     Decline
                                 </button>
+                                </div>
                             `;
 
                             // Add to container
@@ -222,19 +239,32 @@ document.addEventListener("DOMContentLoaded", function () {
             if (registered[studentIndex] &&
                 registered[studentIndex].RegisteredCourses &&
                 registered[studentIndex].RegisteredCourses[courseIndex]) {
-
-                // Update the status of the specific course
-                registered[studentIndex].RegisteredCourses[courseIndex].status = "Approved";
-
+        
+                // Remove the course from RegisteredCourses and move it to CurrentCourses
+                let removedItem = registered[studentIndex].RegisteredCourses.splice(courseIndex, 1)[0];
+                console.log(removedItem);
+                
+                const registration = {
+                    "name":removedItem.courseName ,
+                    "category":removedItem.courseCategory ,
+                    "credits": removedItem.courseCredits,
+                    "prerequisites": removedItem.prerequisites,
+                    "instructor": removedItem.courseInstructor
+                }
+                
+                
+                registered[studentIndex].CurrentCourses.push(registration); 
+        
                 // Save to localStorage
                 localStorage.setItem("students", JSON.stringify(registered));
-
+        
                 // Refresh the list
-                displayPendingCourses();
+                displayCurrentlyTakenCourses();
             } else {
                 console.error("Invalid indices for approval:", studentIndex, courseIndex);
             }
         }
+        
 
         function declineCourse(studentIndex, courseIndex) {
             // Check if the indices are valid
@@ -401,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="course-name"><strong>${course.name}</strong></div>
                     <div class="course-category">Category: ${course.category}</div>
                     <div class="course-credits">Credits: ${course.credits}</div>
-                    <div class="course-prerequisites">Prerequisites: ${course.prerequisites?.join(", ") || "None"}</div>
+                    
         
                     <div class="course-sections">
                         <strong>Sections:</strong>

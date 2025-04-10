@@ -15,21 +15,20 @@
     <div class="info">
         <div id="student-info"></div>
     </div>
-    
-    
+
+
     <div id="buttons">
         <img src="../images/qu_logo-01.png" alt="QU-LOGO" />
         <button id="searchButton"><i class="fas fa-home"></i>Home</button>
         <button id="registeredCoursesButton"><i class="fas fa-hourglass-half"></i>Registered Courses</button>
         <button id="CurrentCoursesButton"><i class="fas fa-book"></i>Current Courses</button>
         <button id="FinishedCoursesButton"><i class="fas fa-check-circle"></i>Finished Courses</button>
-        <button onclick="logout()">Logout</button>
+        <button onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</button>
 
     </div>
-
-    <div class="search-container">
+    <div>
+        <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search courses...">
-
 
         <select id="filterType">
             <option value="all">All</option>
@@ -37,8 +36,8 @@
             <option value="category">By Category</option>
         </select>
     </div>
-    
-    <div class="course-grid" id="courseContainer"></div>
+        <div class="course-grid" id="courseContainer"></div>
+    </div>
     <script src="main.js"></script>
 </body>
 

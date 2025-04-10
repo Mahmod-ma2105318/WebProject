@@ -4,16 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="instructor.css">
+    <link rel="stylesheet" href="../Administrator/admin.css">
     <title>Course Search</title>
 </head>
 
 <body>
-    <div id="instructor-info"></div>
-    <button onclick="logout()">Logout</button>
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search courses...">
+    <button class="menu-toggle">☰</button>
+    <div class="info">
+        <div id="instructor-info"></div>
+    </div>
+    
 
+    <div id="buttons">
+        <button id="studentCurrentCourses">Upload Grades
+            <button onclick="logout()">Logout</button>
+
+        </button>
+
+
+    </div>
+    <div>
+        <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search courses...">
 
         <select id="filterType">
             <option value="all">All</option>
@@ -21,12 +33,8 @@
             <option value="category">By Category</option>
         </select>
     </div>
-
-    <div id="buttons">
-        <button id="studentCurrentCourses">Upload Student Grades</button>
-
+        <div class="instructor-grid" id="instructorContainer"></div>
     </div>
-    <div class="course-grid" id="courseContainer"></div>
     <script src="instructor.js"></script>
 </body>
 

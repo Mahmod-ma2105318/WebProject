@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!user) {
         window.location.href = "../Login/login.html";
     } else {
-        const studentCourses = document.querySelector("#studentCurrentCourses");
-        studentCourses.addEventListener('click', () => {
-            displayCurrentCoursesByInstructor(user.username);
-        });
+        // const studentCourses = document.querySelector("#studentCurrentCourses");
+        // studentCourses.addEventListener('click', () => {
+        //     displayCurrentCoursesByInstructor(user.username);
+        // });
 
         user = JSON.parse(user);
 
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function displayCurrentCoursesByInstructor(instructorName) {
-            const courseContainer = document.getElementById('courseContainer');
+            const instructorContainer = document.getElementById('instructorContainer');
             let html = "";
 
             const courseGroups = {};
@@ -97,9 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         const courseId = `${username}-${courseName.replace(/\s+/g, '-')}`;
 
                         html += `
-                            <div class="course-card">
+                            <div class="insturctor-card">
                                 <div class="student-name"><strong>Student: ${username}</strong></div>
-                                <div class="course-name"><strong>${course.name}</strong></div>
                                 <div>Category: ${course.category}</div>
                                 <div>Credits: ${course.credits}</div>
                                 <div>Instructor: ${course.instructor}</div>
@@ -127,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Update the course container with the generated HTML
-            courseContainer.innerHTML = html;
+            instructorContainer.innerHTML = html;
 
             const buttons = document.querySelectorAll('.submit-button');
 
@@ -138,10 +137,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     const inputId = button.dataset.inputId;
 
                     submitGrade(username, courseName, inputId);
-                    displayCurrentCoursesByInstructor(courseName); // optionally refresh
+                    displayCurrentCoursesByInstructor(user.username);
                 });
             });
         }
+        displayCurrentCoursesByInstructor(user.username);
 
         function submitGrade(username, courseName, inputId) {
             const gradeInput = document.getElementById(inputId);
@@ -190,7 +190,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Clear the input field
             gradeInput.value = "";
+            displayCurrentCoursesByInstructor(user.username);
+
         }
+
+
 
     }
 });

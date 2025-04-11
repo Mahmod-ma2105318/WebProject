@@ -131,27 +131,8 @@ body {
     display: inline-block;
 }
 
-.search-container {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    width: auto;
-    /* Let it take natural width */
-    margin: 0;
-    /* Remove previous margins */
-}
 
-#searchInput {
-    padding: 8px 12px;
-    width: 200px;
-    /* Fixed width */
-}
 
-#filterType {
-    padding: 8px;
-    width: 120px;
-    /* Fixed width */
-}
 
 #username {
     font-size: 24px;

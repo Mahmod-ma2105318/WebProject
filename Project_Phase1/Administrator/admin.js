@@ -6,16 +6,23 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
 
         user = JSON.parse(user);
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
+
+        const searchBox = document.querySelector("#searchInput");
+        const filterType = document.querySelector("#filterType");
+
+        filterType.addEventListener('change', filterChange);
+        searchBox.addEventListener('input', search);
+
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
             document.getElementById('buttons').classList.toggle('active');
             document.body.classList.toggle('sidebar-active');
         });
-        
+
         // Close sidebar when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             const sidebar = document.getElementById('buttons');
             const toggleBtn = document.querySelector('.menu-toggle');
-            
+
             if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
                 sidebar.classList.remove('active');
                 document.body.classList.remove('sidebar-active');
@@ -151,20 +158,25 @@ document.addEventListener("DOMContentLoaded", function () {
         // const filterType = document.querySelector("#filterType");
         // const searchBox = document.querySelector("#searchInput");
         const searchButton = document.querySelector("#searchButton");
-        const ValidateCoursesButton = document.querySelector("#ValidateCoursesButton");
-
+        document.querySelector("#searchButton").addEventListener('click', function () {
+            currentView = 'all';
+            displayCourses()
+        });
 
         searchButton.addEventListener('click', function () {
             displayCourses(courses);
         });
-        ValidateCoursesButton.addEventListener('click', displayValidateCourses)
-        // searchBox.addEventListener('input', search);
-        // filterType.addEventListener('change', filterChange);
+        document.querySelector("#ValidateCoursesButton").addEventListener('click', function () {
+            currentView = 'validate';
+            displayValidateCourses();
+        });
 
-        const pendingCourses = document.querySelector("#PendingCoursesButton");
-        pendingCourses.addEventListener('click', displayPendingCourses)
+        document.querySelector("#PendingCoursesButton").addEventListener('click', function () {
+            currentView = 'pending';
+            displayPendingCourses();
+        });
 
-        function displayPendingCourses() {
+        function displayPendingCourses(data = null) {
             const courseContainer = document.getElementById('courseContainer');
 
             // Clear previous content
@@ -213,7 +225,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     });
                 }
-            });
+            }
+            );
 
             // Add event listeners
             document.querySelectorAll('.approve-btn').forEach(button => {
@@ -239,32 +252,32 @@ document.addEventListener("DOMContentLoaded", function () {
             if (registered[studentIndex] &&
                 registered[studentIndex].RegisteredCourses &&
                 registered[studentIndex].RegisteredCourses[courseIndex]) {
-        
+
                 // Remove the course from RegisteredCourses and move it to CurrentCourses
                 let removedItem = registered[studentIndex].RegisteredCourses.splice(courseIndex, 1)[0];
                 console.log(removedItem);
-                
+
                 const registration = {
-                    "name":removedItem.courseName ,
-                    "category":removedItem.courseCategory ,
+                    "name": removedItem.courseName,
+                    "category": removedItem.courseCategory,
                     "credits": removedItem.courseCredits,
                     "prerequisites": removedItem.prerequisites,
                     "instructor": removedItem.courseInstructor
                 }
-                
-                
-                registered[studentIndex].CurrentCourses.push(registration); 
-        
+
+
+                registered[studentIndex].CurrentCourses.push(registration);
+
                 // Save to localStorage
                 localStorage.setItem("students", JSON.stringify(registered));
-        
+
                 // Refresh the list
                 displayCurrentlyTakenCourses();
             } else {
                 console.error("Invalid indices for approval:", studentIndex, courseIndex);
             }
         }
-        
+
 
         function declineCourse(studentIndex, courseIndex) {
             // Check if the indices are valid
@@ -285,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        function displayValidateCourses() {
+        function displayValidateCourses(data = null) {
             const courseContainer = document.getElementById('courseContainer');
             courseContainer.innerHTML = '';
 
@@ -418,15 +431,18 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        const CurrentlyTakenCoursesSelector = document.querySelector("#CurrentCoursesButton");
-        CurrentlyTakenCoursesSelector.addEventListener('click', displayCurrentlyTakenCourses);
+        document.querySelector("#CurrentCoursesButton").addEventListener('click', function () {
+            currentView = 'current';
+            displayCurrentlyTakenCourses();
+        });
 
-
-        function displayCurrentlyTakenCourses() {
+        function displayCurrentlyTakenCourses(data = null) {
 
             const courseContainer = document.getElementById('courseContainer');
 
-            courseContainer.innerHTML = CurrentlyTakenCourses.map(course => `
+            const dataset = data || CurrentlyTakenCourses;
+
+            courseContainer.innerHTML = dataset.map(course => `
                 <div class="course-card">
                     <div class="course-name"><strong>${course.name}</strong></div>
                     <div class="course-category">Category: ${course.category}</div>
@@ -495,6 +511,106 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         displayCourses(courses);
+
+        let currentView = 'all';
+
+        function filterChange() {
+            console.log('change');
+        }
+
+        function search(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filterValue = filterType.value;
+
+            let dataset;
+            let displayFunction;
+
+            switch (currentView) {
+                case 'all':
+                    dataset = courses;
+                    displayFunction = displayCourses;
+                    break;
+                case 'current':
+                    dataset = CurrentlyTakenCourses;
+                    displayFunction = displayCurrentlyTakenCourses;
+                    break;
+                case 'pending':
+                    dataset = registered.flatMap(student =>
+                        student.RegisteredCourses?.filter(c => !c.status || c.status === "pending") || []
+                    );
+                    displayFunction = displayPendingCourses;
+                    break;
+                case 'validate':
+                    dataset = courses.flatMap(course =>
+                        course.section?.filter(s => !s.validation || s.validation === "pending") || []
+                    );
+                    displayFunction = displayValidateCourses;
+                    break;
+                default:
+                    dataset = courses;
+                    displayFunction = displayCourses;
+            }
+
+            // Filter the dataset based on search term and filter type
+            const filtered = dataset.filter(item => {
+                // Handle different data structures for each view
+                switch (currentView) {
+                    case 'all':
+                        return filterCourses(item, searchTerm, filterValue);
+                    case 'current':
+                        return filterCurrentCourses(item, searchTerm, filterValue);
+                    case 'pending':
+                        return filterPendingCourses(item, searchTerm, filterValue);
+                    case 'validate':
+                        return filterValidateCourses(item, searchTerm, filterValue);
+                    default:
+                        return true;
+                }
+            });
+
+            // Call the appropriate display function
+            displayFunction(filtered.length > 0 ? filtered : []);
+        }
+
+        // Helper filter functions for each view
+        function filterCourses(course, term, filter) {
+            const nameMatch = course.name?.toLowerCase().includes(term) ?? false;
+            const categoryMatch = course.category?.toLowerCase().includes(term) ?? false;
+
+            if (filter === 'name') return nameMatch;
+            if (filter === 'category') return categoryMatch;
+            return nameMatch || categoryMatch;
+        }
+
+        function filterCurrentCourses(course, term, filter) {
+            // Similar to filterCourses but for CurrentlyTakenCourses structure
+            return filterCourses(course, term, filter);
+        }
+
+        function filterPendingCourses(course, term, filter) {
+            const nameMatch = course.courseName?.toLowerCase().includes(term) ?? false;
+            const studentMatch = getStudentName(course.studentId)?.toLowerCase().includes(term) ?? false;
+
+            if (filter === 'name') return nameMatch;
+            if (filter === 'student') return studentMatch;
+            return nameMatch || studentMatch;
+        }
+
+        function filterValidateCourses(section, term, filter) {
+            const course = courses.find(c => c.section?.includes(section));
+            const courseNameMatch = course?.name?.toLowerCase().includes(term) ?? false;
+            const instructorMatch = section.instructor?.toLowerCase().includes(term) ?? false;
+
+            if (filter === 'course') return courseNameMatch;
+            if (filter === 'instructor') return instructorMatch;
+            return courseNameMatch || instructorMatch;
+        }
+
+        // Helper function to get student name
+        function getStudentName(studentId) {
+            const student = registered.find(s => s.id === studentId);
+            return student?.user?.[0]?.username || 'Unknown';
+        }
     }
 
 });

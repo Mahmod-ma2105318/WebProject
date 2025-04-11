@@ -1,10 +1,37 @@
 {
   "CoursesForRegistration": [
     {
+      "name": "HTML",
+      "category": "Programming",
+      "credits": 3,
+      "prerequisites": [],
+      "section": [
+        {
+          "sectionNo": "L01",
+          "instructor": "Dr. Saleh",
+          "status": "Open",
+          "maxSeats": 30,
+          "enrolledStudents": 20,
+          "validation": "pending"
+        },
+        {
+          "sectionNo": "L02",
+          "instructor": "Dr. Ali",
+          "status": "Open",
+          "maxSeats": 25,
+          "enrolledStudents": 15,
+          "validation": "pending"
+        }
+      ]
+    },
+    {
       "name": "JavaScript Basics",
       "category": "Programming",
       "credits": 3,
-      "prerequisites": ["HTML", "CSS"],
+      "prerequisites": [
+        "HTML",
+        "CSS"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -28,7 +55,7 @@
       "name": "Database Systems",
       "category": "Databases",
       "credits": 4,
-      "prerequisites": ["Computer Fundamentals"],
+      "prerequisites": [],
       "section": [
         {
           "sectionNo": "L01",
@@ -52,7 +79,9 @@
       "name": "Python for Beginners",
       "category": "Programming",
       "credits": 3,
-      "prerequisites": ["None"],
+      "prerequisites": [
+        "None"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -76,7 +105,9 @@
       "name": "Data Structures and Algorithms",
       "category": "Computer Science",
       "credits": 4,
-      "prerequisites": ["Python for Beginners"],
+      "prerequisites": [
+        "Python for Beginners"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -100,7 +131,9 @@
       "name": "Web Development with React",
       "category": "Web Development",
       "credits": 3,
-      "prerequisites": ["JavaScript Basics"],
+      "prerequisites": [
+        "JavaScript Basics"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -148,7 +181,10 @@
       "name": "Machine Learning Essentials",
       "category": "Artificial Intelligence",
       "credits": 4,
-      "prerequisites": ["Python for Beginners", "Statistics"],
+      "prerequisites": [
+        "Python for Beginners",
+        "Statistics"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -172,7 +208,9 @@
       "name": "Cloud Computing Basics",
       "category": "Cloud Computing",
       "credits": 3,
-      "prerequisites": ["Networking Fundamentals"],
+      "prerequisites": [
+        "Networking Fundamentals"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -196,7 +234,9 @@
       "name": "Mobile App Development with Flutter",
       "category": "Mobile Development",
       "credits": 4,
-      "prerequisites": ["Dart Programming"],
+      "prerequisites": [
+        "Dart Programming"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -220,7 +260,9 @@
       "name": "Software Engineering Principles",
       "category": "Software Engineering",
       "credits": 3,
-      "prerequisites": ["Data Structures and Algorithms"],
+      "prerequisites": [
+        "Data Structures and Algorithms"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -246,7 +288,9 @@
       "name": "Operating Systems",
       "category": "Computer Science",
       "credits": 4,
-      "prerequisites": ["Computer Architecture"],
+      "prerequisites": [
+        "Computer Architecture"
+      ],
       "section": [
         {
           "sectionNo": "L01",
@@ -262,7 +306,9 @@
       "name": "Networks and Communication",
       "category": "Networking",
       "credits": 3,
-      "prerequisites": ["Computer Fundamentals"],
+      "prerequisites": [
+        "Computer Fundamentals"
+      ],
       "section": [
         {
           "sectionNo": "L02",

@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         user = JSON.parse(user);
 
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            document.getElementById('buttons').classList.toggle('active');
+            document.body.classList.toggle('sidebar-active');
+        });
+
         //Attributes
         const filterType = document.querySelector("#filterType");
         const searchBox = document.querySelector("#searchInput");
@@ -197,11 +202,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+
+
             const selectedSection = selectedCourse.section.find(sec => sec.sectionNo === sectionNo);
             if (!selectedSection) {
                 console.error('Section not found.');
                 return;
             }
+
 
             // Check if section is open
             if (selectedSection.status !== "Open") {
@@ -222,8 +230,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+            const isCourseFinished = studentRecord.finishedCourses.some(c => c.courseName === selectedCourse.name);
+            console.log(isCourseFinished);
+
+            const isCourseCurrent = studentRecord.CurrentCourses?.some(c => c.name === selectedCourse.name);
             let finishedCourses = studentRecord.finishedCourses || [];
             let prerequisites = selectedCourse.prerequisites || [];
+
+            if (isCourseCurrent) {
+                alert("You already taking this course!");
+                return;
+            }
+            if (isCourseFinished) {
+                alert("You already finished this course!")
+                return;
+            }
 
             //Maybe there is a better way
             if (prerequisites.length === 1 && prerequisites[0] === "None") {
@@ -247,11 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Check if the user is already registered for this course
-            // const isAlreadyRegistered = studentRecord.RegisteredCourses.some(register =>
-            //     register.courseName === selectedCourse.name &&
-            //     register.sectionNo === selectedSection.sectionNo
-            // );
+
             const isAlreadyRegistered = studentRecord.RegisteredCourses.some(register =>
                 register.courseName === selectedCourse.name
             );
@@ -260,9 +277,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert('You are already registered for a section of this course!');
                 return;
             }
-
-
-
 
 
             if (isAlreadyRegistered) {

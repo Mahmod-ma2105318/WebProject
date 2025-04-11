@@ -4,11 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!user) {
         window.location.href = "../Login/login.html";
     } else {
-        // const studentCourses = document.querySelector("#studentCurrentCourses");
-        // studentCourses.addEventListener('click', () => {
-        //     displayCurrentCoursesByInstructor(user.username);
-        // });
-
         user = JSON.parse(user);
 
 
@@ -30,11 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         addInstructorInfo();
 
-        //Local Storage
         let students = localStorage.students ? JSON.parse(localStorage.students) : [];
         if (students.length === 0) fetchStudent();
 
-        //Fetch Students
         async function fetchStudent() {
             try {
                 const response = await fetch('../Data/students.json');
@@ -53,12 +46,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const courseGroups = {};
 
-            // Group students by course name and instructor
             students.forEach(student => {
                 student.CurrentCourses.forEach(course => {
                     const courseName = course.name;
 
-                    // Initialize an empty array for the course if not already created
+
                     if (!courseGroups[courseName]) {
                         courseGroups[courseName] = {
                             courseDetails: course,
@@ -66,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         };
                     }
 
-                    // Only add students for courses that match the instructor
                     if (course.instructor === instructorName) {
                         courseGroups[courseName].students.push({
                             username: student.user[0].username,
@@ -76,11 +67,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
-            // Iterate over the grouped courses and generate HTML for courses taught by the instructor
+
             for (const courseName in courseGroups) {
                 const courseGroup = courseGroups[courseName];
 
-                // Check if the course has students and the instructor matches
+
                 if (courseGroup.students.length > 0) {
                     const course = courseGroup.courseDetails;
 
@@ -90,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="students-list">
                     `;
 
-                    // Iterate over students in this course and add their details
+
                     courseGroup.students.forEach(student => {
                         const username = student.username;
                         const course = student.course;
@@ -125,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
-            // Update the course container with the generated HTML
             instructorContainer.innerHTML = html;
 
             const buttons = document.querySelectorAll('.submit-button');
@@ -155,7 +145,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Grade submitted for ${username} in ${courseName}: ${gradeValue}`);
             alert(`Grade "${gradeValue}" submitted for ${username} - ${courseName}`);
 
-            // Find the student by username
             const student = students.find(student => student.user[0].username === username);
 
             if (!student) {
@@ -163,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Find the course in the CurrentCourses array
             const course = student.CurrentCourses.find(course => course.name === courseName);
 
             if (!course) {
@@ -171,16 +159,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Create the grade entry for finishedCourses
             const gradeEntry = {
                 courseName: course.name,
                 Grade: gradeValue
             };
 
-            // Add the grade to finishedCourses
             student.finishedCourses.push(gradeEntry);
 
-            // Optionally, remove the course from CurrentCourses (if the course is completed)
             const courseIndex = student.CurrentCourses.indexOf(course);
             if (courseIndex !== -1) {
                 student.CurrentCourses.splice(courseIndex, 1);
@@ -188,14 +173,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             localStorage.setItem("students", JSON.stringify(students));
 
-            // Clear the input field
             gradeInput.value = "";
             displayCurrentCoursesByInstructor(user.username);
 
         }
-
-
-
     }
 });
 

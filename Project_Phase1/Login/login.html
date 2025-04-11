@@ -11,19 +11,19 @@
 </head>
 
 <body>
-    <div class="container">
+    <main class="container">
         <img src="../images/qu_logo-01.png" alt="QU-LOGO" />
         <h2>Login</h2>
         <form autocomplete="off">
-            <label for="Username">Username</label>
-            <input type="text" id="Username" placeholder="Enter your username" />
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required />
 
-            <label for="Password">Password</label>
-            <input type="password" id="Password" placeholder="Enter your password" />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required />
 
-            <button type="click" id="submitButton">Login</button>
+            <button type="submit" id="submitButton">Login</button>
         </form>
-    </div>
+    </main>
     <script src="login.js"></script>
 </body>
 

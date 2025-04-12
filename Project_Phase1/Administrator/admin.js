@@ -559,7 +559,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return courseNameMatch || instructorMatch;
         }
 
-        // Helper function to get student name
         function getStudentName(studentId) {
             const student = registered.find(s => s.id === studentId);
             return student?.user?.[0]?.username || 'Unknown';

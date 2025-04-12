@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         user = JSON.parse(user);
 
+        const searchBox = document.querySelector("#searchInput");
+        const filterType = document.querySelector("#filterType");
+
+        filterType.addEventListener('change', filterChange);
+        searchBox.addEventListener('input', search);
+
         //localStorage
         let students = localStorage.students ? JSON.parse(localStorage.students) : [];
         if (students.length === 0) fetchStudent();
@@ -177,6 +183,34 @@ document.addEventListener("DOMContentLoaded", function () {
             gradeInput.value = "";
             displayCurrentCoursesByInstructor(user.username);
 
+        }
+
+        function filterChange() {
+            console.log('change');
+        }
+
+        function search(e) {
+            const searchInput = e.target.value.toLowerCase();
+            const filter = filterType.value;
+
+            
+            const filtered = dataset.filter(item => {
+                const name = item[nameField]?.toString().toLowerCase() || "";
+                const category = categoryField
+                    ? item[categoryField]?.toString().toLowerCase() || ""
+                    : "";
+
+
+                if (filter === 'name') {
+                    return name.includes(searchInput);
+                } else if (filter === 'category') {
+                    return category.includes(searchInput);
+                } else {
+                    return name.includes(searchInput) || category.includes(searchInput);
+                }
+            });
+
+            displayCurrentCoursesByInstructor(filtered);
         }
     }
 });

@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('buttons').classList.toggle('active');
             document.body.classList.toggle('sidebar-active');
         });
+
         filterType.addEventListener('change', filterChange);
         searchBox.addEventListener('input', search);
         registeredCourses.addEventListener('click', function () {

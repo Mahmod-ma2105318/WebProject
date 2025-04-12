@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         user = JSON.parse(user);
 
-        //Attributes
         const searchBox = document.querySelector("#searchInput");
         const filterType = document.querySelector("#filterType");
         const addCourseBtn = document.getElementById('addCourseButton');
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const courseForm = document.getElementById('courseForm');
         const searchButton = document.querySelector("#searchButton");
         let currentView = 'all';
-
 
         document.querySelector("#searchButton").addEventListener('click', function () {
             currentView = 'all';
@@ -35,6 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("#PendingCoursesButton").addEventListener('click', function () {
             currentView = 'pending';
             displayPendingCourses();
+        });
+
+        document.querySelector("#CurrentCoursesButton").addEventListener('click', function () {
+            currentView = 'current';
+            displayCurrentlyTakenCourses();
         });
 
         addCourseBtn.addEventListener('click', () => modal.style.display = 'block');
@@ -57,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        //localStorage
         let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
         if (courses.length === 0) fetchCourses();
 
@@ -66,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let registered = localStorage.students ? JSON.parse(localStorage.students) : [];
 
-        //functions
         function addAdminInfo() {
             const adminInfoDiv = document.getElementById("admin-info");
 
@@ -77,8 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div id="username">${user.username}</div>
                         <div id="role">${user.role}</div>
                     </div>
-                </div>`
-                    ;
+                </div>`;
             } else {
                 console.error("Element with id 'student-info' not found.");
             }
@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const data = await response.json();
                 CurrentlyTakenCourses = data.CurrentlyTakenCourses;
                 localStorage.CurrentlyTakenCourses = JSON.stringify(CurrentlyTakenCourses);
-
             } catch (error) {
                 console.error('Error loading courses:', error);
             }
@@ -113,12 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
             if (e.target === modal) modal.style.display = 'none';
         });
 
-        // Add Section Functionality
         addSectionBtn.addEventListener('click', () => {
             const newSection = document.createElement('div');
             newSection.className = 'section-input';
-            newSection.innerHTML = `
-        <div class="form-group">
+            newSection.innerHTML = `<div class="form-group">
             <label>Section Number:</label>
             <input type="text" class="sectionNo" required>
         </div>
@@ -129,12 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="form-group">
             <label>Max Seats:</label>
             <input type="number" class="sectionMaxSeats" required>
-        </div>
-    `;
+        </div>`;
             addSectionBtn.parentNode.insertBefore(newSection, addSectionBtn);
         });
 
-        // Form Submission
         courseForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -149,7 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 section: []
             };
 
-            // Get sections
             document.querySelectorAll('.section-input').forEach(section => {
                 newCourse.section.push({
                     sectionNo: section.querySelector('.sectionNo').value,
@@ -169,7 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
             displayCourses(courses);
         });
 
-
         function displayPendingCourses(data = null) {
             const courseContainer = document.getElementById('courseContainer');
 
@@ -177,15 +170,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             registered.forEach((student, studentIndex) => {
                 if (student.RegisteredCourses && student.RegisteredCourses.length > 0) {
-
                     const username = student.user?.[0]?.username || 'Unknown Student';
 
                     student.RegisteredCourses.forEach((course, courseIndex) => {
+
                         if (!course.status || course.status === "pending") {
                             const courseCard = document.createElement('div');
                             courseCard.className = 'course-card';
-                            courseCard.innerHTML = `
-                                <div class="student-info">Student: ${username}</div>
+                            courseCard.innerHTML = `<div class="student-info">Student: ${username}</div>
                                 <div class="course-name">${course.courseName || 'Unnamed Course'}</div>
                                 <div class="course-category">${course.courseCategory || 'No Category'}</div>
                                 ${course.credits ? `<div class="course-credits">Credits: ${course.credits}</div>` : ''}
@@ -203,10 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     data-course-index="${courseIndex}">
                                     Decline
                                 </button>
-                                </div>
-                            `;
-
-                            // Add to container
+                                </div>`;
                             courseContainer.appendChild(courseCard);
                         }
                     });
@@ -248,7 +237,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     "instructor": removedItem.courseInstructor
                 }
 
-
                 registered[studentIndex].CurrentCourses.push(registration);
 
                 localStorage.setItem("students", JSON.stringify(registered));
@@ -258,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Invalid indices for approval:", studentIndex, courseIndex);
             }
         }
-
 
         function declineCourse(studentIndex, courseIndex) {
             if (registered[studentIndex] &&
@@ -288,12 +275,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     const courseCard = document.createElement('div');
                     courseCard.className = 'course-card';
 
-                    let cardHTML = `
-                        <div class="course-name"><strong>Course:</strong> ${course.name || 'Unnamed Course'}</div>
+                    let cardHTML = `<div class="course-name"><strong>Course:</strong> ${course.name || 'Unnamed Course'}</div>
                         <div class="course-category"><strong>Category:</strong> ${course.category || 'No Category'}</div>
                         <div class="course-credits"><strong>Credits:</strong> ${course.credits || 'N/A'}</div>
-                        <div class="section-header"><strong>Sections:</strong></div>
-                    `;
+                        <div class="section-header"><strong>Sections:</strong></div>`;
 
                     function getValidationRecommendation(enrolled, maxSeats) {
                         const enrollmentRatio = enrolled / maxSeats;
@@ -306,8 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                     pendingSections.forEach((section, sectionIndex) => {
-                        cardHTML += `
-                            <div class="section-info">
+                        cardHTML += `<div class="section-info">
                                 <div><strong>Section:</strong> ${section.sectionNo}</div>
                                 <div><strong>Instructor:</strong> ${section.instructor}</div>
                                 <div><strong>Status:</strong> ${section.status}</div>
@@ -321,8 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     InValidate
                                 </button>
                                 <hr>
-                            </div>
-                        `;
+                            </div>`;
                     });
 
                     courseCard.innerHTML = cardHTML;
@@ -348,8 +331,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
         }
-
-
 
         function validateCourse(courseIndex, sectionIndex) {
             const section = courses[courseIndex].section[sectionIndex];
@@ -384,7 +365,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-
         function InValidateCourse(courseIndex, sectionIndex) {
             const section = courses[courseIndex].section[sectionIndex];
             if (section) {
@@ -412,8 +392,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const dataset = data || CurrentlyTakenCourses;
 
-            courseContainer.innerHTML = dataset.map(course => `
-                <div class="course-card">
+            courseContainer.innerHTML = dataset.map(course => `<div class="course-card">
                     <div class="course-name"><strong>${course.name}</strong></div>
                     <div class="course-category">Category: ${course.category}</div>
                     <div class="course-credits">Credits: ${course.credits}</div>
@@ -421,18 +400,15 @@ document.addEventListener("DOMContentLoaded", function () {
         
                     <div class="course-sections">
                         <strong>Sections:</strong>
-                        ${course.section.map(sec => `
-                            <div class="section-card">
+                        ${course.section.map(sec => `<div class="section-card">
                                 <div>Section No: ${sec.sectionNo}</div>
                                 <div>Instructor: ${sec.instructor}</div>
                                 <div>Status: <span style="color: ${sec.status === 'Open' ? '#27ae60' : '#c0392b'}">${sec.status}</span></div>
                                 <div>Max Seats: ${sec.maxSeats}</div>
                                 <div>Enrolled Students: ${sec.enrolledStudents}</div>
-                            </div>
-                        `).join("")}
+                            </div>`).join("")}
                     </div>
-                </div>
-            `).join("");
+                </div>`).join("");
         }
 
         function displayCourses(courses) {
@@ -448,8 +424,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const courseContainer = document.getElementById('courseContainer');
 
-            courseContainer.innerHTML = openCourses.map(course => `
-                <div class="course-card">
+            courseContainer.innerHTML = openCourses.map(course => `<div class="course-card">
                     <div class="course-name"><strong>${course.name}</strong></div>
                     <div class="course-category">Category: ${course.category}</div>
                     <div class="course-credits">Credits: ${course.credits}</div>
@@ -457,18 +432,15 @@ document.addEventListener("DOMContentLoaded", function () {
         
                     <div class="course-sections">
                         <strong>Sections:</strong>
-                        ${course.section.map(sec => `
-                            <div class="section-card">
+                        ${course.section.map(sec => `<div class="section-card">
                                 <div>Section No: ${sec.sectionNo}</div>
                                 <div>Instructor: ${sec.instructor}</div>
                                 <div>Status: <span style="color: ${sec.status === 'Open' ? '#27ae60' : '#c0392b'}">${sec.status}</span></div>
                                 <div>Max Seats: ${sec.maxSeats}</div>
                                 <div>Enrolled Students: ${sec.enrolledStudents}</div>
-                            </div>
-                        `).join("")}
+                            </div>`).join("")}
                     </div>
-                </div>
-            `).join("");
+                </div>`).join("");
         }
         displayCourses(courses);
 
@@ -542,11 +514,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function filterPendingCourses(course, term, filter) {
             const nameMatch = course.courseName?.toLowerCase().includes(term) ?? false;
+            const categoryMatch = course.courseCategory?.toLowerCase().includes(term) ?? false;
             const studentMatch = getStudentName(course.studentId)?.toLowerCase().includes(term) ?? false;
 
             if (filter === 'name') return nameMatch;
+            if (filter === 'category') return categoryMatch;
             if (filter === 'student') return studentMatch;
-            return nameMatch || studentMatch;
+            return nameMatch || categoryMatch || studentMatch;
         }
 
         function filterValidateCourses(section, term, filter) {
@@ -566,7 +540,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
-
 
 function logout() {
     localStorage.removeItem("loggedInUser");

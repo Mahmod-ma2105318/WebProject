@@ -10,21 +10,21 @@
 </head>
 
 <body>
-    <button class="menu-toggle">☰</button>
-    <div class="info">
+    <header class="info">
+        <button class="menu-toggle">☰</button>
         <div id="instructor-info"></div>
-    </div>
+    </header>
 
 
-    <div id="buttons">
+    <nav id="buttons">
         <img src="../images/qu_logo-01.png" alt="QU-LOGO" />
         <button onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</button>
 
         </button>
 
 
-    </div>
-    <div>
+    </nav>
+    <main>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search courses...">
 
@@ -35,7 +35,7 @@
             </select>
         </div>
         <div class="instructor-grid" id="instructorContainer"></div>
-    </div>
+    </main>
     <script src="instructor.js"></script>
 </body>
 

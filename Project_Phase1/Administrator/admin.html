@@ -10,11 +10,11 @@
 </head>
 
 <body>
-    <button class="menu-toggle">☰</button>
-    <div class="info">
+    <header class="info">
+        <button class="menu-toggle">☰</button>
         <div id="admin-info"></div>
-    </div>
-
+    </header>
+    
     <div id="courseModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -63,7 +63,7 @@
             </form>
         </div>
     </div>
-    <div id="buttons">
+    <nav id="buttons">
         <img src="../images/qu_logo-01.png" alt="QU-LOGO" />
         <button id="searchButton"><i class="fas fa-home"></i> Home</button>
         <button id="CurrentCoursesButton"><i class="fas fa-book"></i> Currently Taken Courses</button>
@@ -71,9 +71,9 @@
         <button id="ValidateCoursesButton"><i class="fas fa-check-circle"></i> Validate Courses</button>
         <button id="addCourseButton"><i class="fas fa-plus-circle"></i> Add Course</button>
         <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-    </div>
+    </nav>
 
-    <div>
+    <main>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search courses...">
 
@@ -84,7 +84,7 @@
             </select>
         </div>
         <div class="course-grid" id="courseContainer"></div>
-    </div>
+    </main>
     <script src="admin.js"></script>
 </body>
 

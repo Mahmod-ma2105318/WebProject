@@ -6,7 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         user = JSON.parse(user);
 
+        //localStorage
+        let students = localStorage.students ? JSON.parse(localStorage.students) : [];
+        if (students.length === 0) fetchStudent();
 
+        //functions
         function addInstructorInfo() {
             const instructorInfoDiv = document.getElementById("instructor-info");
 
@@ -24,9 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         addInstructorInfo();
-
-        let students = localStorage.students ? JSON.parse(localStorage.students) : [];
-        if (students.length === 0) fetchStudent();
 
         async function fetchStudent() {
             try {

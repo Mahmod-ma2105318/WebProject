@@ -2,7 +2,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 15px;
     background-color: #f5f7fa;
     color: #333;
     display: grid;
@@ -13,8 +13,6 @@ body {
         "buttons courseInfo";
     gap: 20px;
     min-height: 100vh;
-
-
 }
 
 #buttons {
@@ -22,7 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 2rem;
+    gap: 1.5rem;
     background-color: gray;
     padding: 20px;
     border-radius: 10px;
@@ -54,6 +52,14 @@ body {
     font-size: 18px;
 }
 
+.buttons img {
+    width: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3498db;
+    flex-shrink: 1;
+    margin: 0;
+}
 
 .info img {
     width: 60px;
@@ -65,20 +71,14 @@ body {
     margin: 0;
 }
 
-.buttons img {
-    width: 20px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #3498db;
-    flex-shrink: 1;
-    margin: 0;
-}
+
 
 .info {
     box-shadow:
         0 1px 3px rgba(0, 0, 0, 0.12),
         0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 15px;
@@ -88,26 +88,10 @@ body {
 
 .user-info-container {
     display: flex;
-    align-items: center;
+    align-content: space-around;
+    gap: 20px;
     min-width: 0;
 }
-
-#username {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 150px;
-}
-
-#role {
-    font-size: 14px;
-    color: #7f8c8d;
-    background-color: #ecf0f1;
-    padding: 3px 8px;
-    border-radius: 20px;
-    display: inline-block;
-}
-
 
 #username {
     font-size: 24px;
@@ -134,6 +118,8 @@ body {
     overflow-y: auto;
     max-height: calc(100vh - 40px);
     padding-right: 10px;
+    height: calc(100vh - 40px);
+    padding-bottom: 20px
 }
 
 .course-card {
@@ -198,6 +184,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
 }
 
 .modal-content {
@@ -448,7 +435,7 @@ button[type="submit"]:hover {
             "personalInfo"
             "buttons"
             "courseInfo";
-        padding-top: 60px;
+        padding-top: 70px;
     }
 
     .menu-toggle {

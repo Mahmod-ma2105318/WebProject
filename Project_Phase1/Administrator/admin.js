@@ -229,17 +229,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 let removedItem = registered[studentIndex].RegisteredCourses.splice(courseIndex, 1)[0];
                 console.log(removedItem);
 
+
                 const registration = {
                     "name": removedItem.courseName,
                     "category": removedItem.courseCategory,
                     "credits": removedItem.courseCredits,
-                    "prerequisites": removedItem.prerequisites,
-                    "instructor": removedItem.courseInstructor
-                }
+                    "prerequisites": Array.isArray(removedItem.prerequisites) ?
+                        removedItem.prerequisites :
+                        [removedItem.prerequisites].filter(Boolean),
+                    "section": [
+                        {
+                            "sectionNo": removedItem.sectionNo || "0",
+                            "instructor": removedItem.courseInstructor,
+                            "status": "In Progress",
+                            "maxSeats": removedItem.maxSeats || 0,
+                            "enrolledStudents": removedItem.enrolledStudents || 0,
+                            "validation": "approved"
+                        }
+                    ]
+                };
 
                 registered[studentIndex].CurrentCourses.push(registration);
-
+                CurrentlyTakenCourses.push(registration);
                 localStorage.setItem("students", JSON.stringify(registered));
+                localStorage.setItem("CurrentlyTakenCourses", JSON.stringify(CurrentlyTakenCourses));
 
                 displayCurrentlyTakenCourses();
             } else {

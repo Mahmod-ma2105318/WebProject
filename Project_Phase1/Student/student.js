@@ -192,6 +192,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function registerCourse(courseName, sectionNo) {
             const selectedCourse = courses.find(course => course.name === courseName);
+            console.log(selectedCourse);
+
             if (!selectedCourse) {
                 console.error('Course not found.');
                 return;
@@ -207,13 +209,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             if (selectedSection.status !== "Open") {
-                alert(`Registration failed: Section ${sectionNo} is not open for registration.`);
+                alert(`Registration failed: Course ${courseName} Section ${sectionNo} is not open for registration.`);
                 return;
             }
 
 
             if (selectedSection.enrolledStudents >= selectedSection.maxSeats) {
-                alert(`Registration failed: Section ${sectionNo} is full.`);
+                alert(`Registration failed: Course ${courseName} Section ${sectionNo} is full.`);
                 return;
             }
 
@@ -231,11 +233,11 @@ document.addEventListener("DOMContentLoaded", function () {
             let prerequisites = selectedCourse.prerequisites || [];
 
             if (isCourseCurrent) {
-                alert("You already taking this course!");
+                alert(`You already taking ${courseName} course!`);
                 return;
             }
             if (isCourseFinished) {
-                alert("You already finished this course!")
+                alert(`You already finished ${courseName} course!`)
                 return;
             }
 
@@ -249,13 +251,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
                 if (!hasCompletedPrerequisites) {
-                    alert(`You need to complete all prerequisite courses: ${prerequisites.join(", ")}`);
+                    alert(`You need to complete all prerequisite courses: ${prerequisites.join(", ")}, for ${courseName}`);
                     return;
                 }
             }
 
             if (selectedCourse.enrolledStudents >= selectedCourse.maxSeats) {
-                alert(`Registration failed: ${selectedCourse.instructor}'s class is full.`);
+                alert(`Registration failed: ${selectedCourse.instructor}'s class in ${courseName} is full.`);
                 return;
             }
 
@@ -265,13 +267,13 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             if (isAlreadyRegistered) {
-                alert('You are already registered for a section of this course!');
+                alert(`You are already registered for a section of ${courseName} course!`);
                 return;
             }
 
 
             if (isAlreadyRegistered) {
-                alert('You are already registered for this course!');
+                alert(`You are already registered for ${courseName} course!`);
                 return;
             }
 
@@ -281,6 +283,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 courseCategory: selectedCourse.category,
                 courseInstructor: selectedCourse.instructor,
                 courseCredits: selectedCourse.credits,
+                maxSeats: selectedSection.maxSeats,
+                enrolledStudents: selectedSection.enrolledStudents,
                 status: "pending",
                 sectionNo: selectedSection.sectionNo,
                 courseInstructor: selectedSection.instructor
@@ -293,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             updateCourseData(selectedCourse, sectionNo);
 
-            alert(`Successfully registered for ${selectedCourse.name}`);
+            alert(`Successfully registered for ${selectedCourse.name} section ${sectionNo}`);
 
 
         }

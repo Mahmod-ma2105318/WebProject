@@ -47,98 +47,91 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-        function displayCurrentCoursesByInstructor(instructorName) {
+        function displayCurrentCoursesByInstructor(instructorName, filteredStudents = null) {
             const instructorContainer = document.getElementById('instructorContainer');
             let html = "";
 
+            const studentsToDisplay = filteredStudents || students;
+
+
             const courseGroups = {};
 
-            students.forEach(student => {
+            studentsToDisplay.forEach(student => {
                 student.CurrentCourses.forEach(course => {
-                    const courseName = course.name;
-
-
-                    if (!courseGroups[courseName]) {
-                        courseGroups[courseName] = {
-                            courseDetails: course,
-                            students: []
-                        };
-                    }
-
                     if (course.instructor === instructorName) {
+                        const courseName = course.name;
+                        const studentName = student.user[0].username;
+
+                        if (!courseGroups[courseName]) {
+                            courseGroups[courseName] = {
+                                courseDetails: course,
+                                students: []
+                            };
+                        }
+
                         courseGroups[courseName].students.push({
-                            username: student.user[0].username,
+                            username: studentName,
                             course: course
                         });
                     }
                 });
             });
 
-
             for (const courseName in courseGroups) {
                 const courseGroup = courseGroups[courseName];
+                const course = courseGroup.courseDetails;
 
+                html += `
+                    <div class="course-group">
+                        <h3 class="course-name">${courseName}</h3>
+                        <div class="students-list">
+                `;
 
-                if (courseGroup.students.length > 0) {
-                    const course = courseGroup.courseDetails;
+                courseGroup.students.forEach(student => {
+                    const username = student.username;
+                    const course = student.course;
+                    const courseId = `${username}-${courseName.replace(/\s+/g, '-')}`;
 
                     html += `
-                        <div class="course-group">
-                            <h3 class="course-name">${courseName}</h3>
-                            <div class="students-list">
-                    `;
-
-
-                    courseGroup.students.forEach(student => {
-                        const username = student.username;
-                        const course = student.course;
-                        const courseId = `${username}-${courseName.replace(/\s+/g, '-')}`;
-
-                        html += `
-                            <div class="insturctor-card">
-                                <div class="student-name"><strong>Student: ${username}</strong></div>
-                                <div>Category: ${course.category}</div>
-                                <div>Credits: ${course.credits}</div>
-                                <div>Instructor: ${course.instructor}</div>
-                                <div>Prerequisites: ${course.prerequisites.join(", ")}</div>
-                                <div>
-                                    <label for="grade-${courseId}" class="grade-label">Enter Grade:</label>
-                                    <input type="text" id="grade-${courseId}" class="grade-input" placeholder="e.g. A+" />
-                                   <button 
+                        <div class="insturctor-card">
+                            <div class="student-name"><strong>Student: ${username}</strong></div>
+                            <div>Category: ${course.category}</div>
+                            <div>Credits: ${course.credits}</div>
+                            <div>Instructor: ${course.instructor}</div>
+                            <div>Prerequisites: ${course.prerequisites.join(", ")}</div>
+                            <div>
+                                <label for="grade-${courseId}" class="grade-label">Enter Grade:</label>
+                                <input type="text" id="grade-${courseId}" class="grade-input" placeholder="e.g. A+" />
+                                <button 
                                     class="submit-button"
                                     data-username="${username}" 
                                     data-course="${course.name}" 
                                     data-input-id="grade-${courseId}">
                                     Submit Grade
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    });
-
-                    html += `
+                                </button>
                             </div>
                         </div>
                     `;
-                }
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
             }
 
-            instructorContainer.innerHTML = html;
+            instructorContainer.innerHTML = html || "<p>No matching courses found</p>";
 
-            const buttons = document.querySelectorAll('.submit-button');
-
-            buttons.forEach(button => {
+            document.querySelectorAll('.submit-button').forEach(button => {
                 button.addEventListener('click', () => {
                     const username = button.dataset.username;
                     const courseName = button.dataset.course;
                     const inputId = button.dataset.inputId;
-
                     submitGrade(username, courseName, inputId);
-                    displayCurrentCoursesByInstructor(user.username);
                 });
             });
         }
-        displayCurrentCoursesByInstructor(user.username);
+        displayCurrentCoursesByInstructor(user.username)
 
         function submitGrade(username, courseName, inputId) {
             const gradeInput = document.getElementById(inputId);
@@ -186,31 +179,41 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function filterChange() {
-            console.log('change');
+            search();
         }
 
-        function search(e) {
-            const searchInput = e.target.value.toLowerCase();
-            const filter = filterType.value;
+        function search() {
+            const searchTerm = searchBox.value.toLowerCase();
+            const filterBy = filterType.value;
 
-            
-            const filtered = dataset.filter(item => {
-                const name = item[nameField]?.toString().toLowerCase() || "";
-                const category = categoryField
-                    ? item[categoryField]?.toString().toLowerCase() || ""
-                    : "";
+            if (!searchTerm) {
+                displayCurrentCoursesByInstructor(user.username);
+                return;
+            }
 
+            const filteredStudents = students.map(student => {
+                // Clone student to avoid modifying original data
+                const studentCopy = { ...student };
 
-                if (filter === 'name') {
-                    return name.includes(searchInput);
-                } else if (filter === 'category') {
-                    return category.includes(searchInput);
-                } else {
-                    return name.includes(searchInput) || category.includes(searchInput);
-                }
-            });
+                // Filter courses for this student
+                studentCopy.CurrentCourses = student.CurrentCourses.filter(course => {
+                    const isInstructorCourse = course.instructor === user.username;
+                    const courseNameMatch = course.name.toLowerCase().includes(searchTerm);
+                    const studentNameMatch = student.user[0].username.toLowerCase().includes(searchTerm);
 
-            displayCurrentCoursesByInstructor(filtered);
+                    if (filterBy === 'name') {
+                        return isInstructorCourse && courseNameMatch;
+                    }
+                    if (filterBy === 'student-name') {
+                        return isInstructorCourse && studentNameMatch;
+                    }
+                    return isInstructorCourse && (courseNameMatch || studentNameMatch);
+                });
+
+                return studentCopy;
+            }).filter(student => student.CurrentCourses.length > 0); // Only keep students with matching courses
+
+            displayCurrentCoursesByInstructor(user.username, filteredStudents);
         }
     }
 });

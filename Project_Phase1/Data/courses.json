@@ -172,7 +172,7 @@
           "instructor": "Dr. Gomez",
           "status": "Open",
           "maxSeats": 25,
-          "enrolledStudents": 19,
+          "enrolledStudents": 25,
           "validation": "pending"
         }
       ]

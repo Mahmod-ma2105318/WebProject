@@ -55,71 +55,48 @@ body {
 }
 
 
-
-/* Fix for the info section image */
 .info img {
     width: 60px;
-    /* Fixed reasonable size */
     height: 60px;
-    /* Maintain aspect ratio */
     border-radius: 50%;
     object-fit: cover;
-    /* Ensures image fills circle */
     border: 3px solid #3498db;
     flex-shrink: 0;
-    /* Prevents image from shrinking */
     margin: 0;
-    /* Remove any default margins */
 }
 
 .buttons img {
     width: 20px;
-    /* Fixed reasonable size */
-    height: 10000px;
-    /* Maintain aspect ratio */
     border-radius: 50%;
     object-fit: cover;
-    /* Ensures image fills circle */
     border: 3px solid #3498db;
     flex-shrink: 1;
     margin: 0;
-    /* Remove any default margins */
-
 }
 
-/* Adjust the info container to prevent overflow */
 .info {
     box-shadow:
         0 1px 3px rgba(0, 0, 0, 0.12),
-        /* Subtle inner shadow */
         0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Soft outer shadow */
     display: flex;
     align-items: center;
-    /* Vertical alignment */
     justify-content: space-between;
     gap: 15px;
-    /* Consistent spacing */
     padding: 15px;
-    /* Slightly reduced padding */
     overflow: hidden;
-    /* Prevent any overflow */
 }
 
 .user-info-container {
     display: flex;
     align-items: center;
     min-width: 0;
-    /* Allows text truncation if needed */
 }
 
-/* Ensure text elements don't push image out */
 #username {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 150px;
-    /* Adjust based on your needs */
 }
 
 #role {
@@ -130,8 +107,6 @@ body {
     border-radius: 20px;
     display: inline-block;
 }
-
-
 
 
 #username {
@@ -149,107 +124,15 @@ body {
     display: inline-block;
 }
 
-/* instructor */
-.instructor-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
 
-.insturctor-card {
-    border: 1px solid #ccc;
-    padding: 1em;
-    margin-bottom: 1em;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-}
-
-.instructor-card:hover {
-    transform: translateY(-5px);
-}
-
-.instructor-name {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-
-.instructor-category,
-.instructor-credits,
-.instructor-prerequisites {
-    font-size: 0.95em;
-    margin: 4px 0;
-    color: #555;
-}
-
-.instructor-sections {
-    margin-top: 15px;
-}
-
-#instructorContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.register-btn {
-    margin-top: 8px;
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.2s ease;
-}
-
-.register-btn:hover {
-    background-color: #1e8449;
-}
-
-.register-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-
-.grade-input {
-    margin: 5px 0;
-    padding: 5px;
-    width: 100px;
-}
-
-.submit-button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-}
-
-
-
-
-/*  */
 #courseContainer {
     grid-area: courseInfo;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     align-content: start;
-    /* Allow scrolling */
     overflow-y: auto;
-    /* Set max height to viewport minus padding */
     max-height: calc(100vh - 40px);
-    /* Add padding to prevent content from touching edges */
     padding-right: 10px;
 }
 
@@ -470,6 +353,92 @@ button[type="submit"]:hover {
     font-size: 20px;
 }
 
+/* instructor */
+.instructor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.insturctor-card {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.instructor-card:hover {
+    transform: translateY(-5px);
+}
+
+.instructor-name {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.instructor-category,
+.instructor-credits,
+.instructor-prerequisites {
+    font-size: 0.95em;
+    margin: 4px 0;
+    color: #555;
+}
+
+.instructor-sections {
+    margin-top: 15px;
+}
+
+#instructorContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-btn {
+    margin-top: 8px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+.register-btn:hover {
+    background-color: #1e8449;
+}
+
+.register-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+.grade-input {
+    margin: 5px 0;
+    padding: 5px;
+    width: 100px;
+}
+
+.submit-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
 /* Mobile styles */
 @media (max-width: 1000px) {
     body {
@@ -480,7 +449,6 @@ button[type="submit"]:hover {
             "buttons"
             "courseInfo";
         padding-top: 60px;
-        /* Make space for the toggle button */
     }
 
     .menu-toggle {
@@ -491,7 +459,7 @@ button[type="submit"]:hover {
         position: fixed;
         top: 0;
         left: -300px;
-        /* Hide by default */
+        gap: 1.5rem;
         width: 250px;
         height: 100vh;
         z-index: 999;
@@ -501,10 +469,8 @@ button[type="submit"]:hover {
 
     #buttons.active {
         left: 0;
-        /* Show when active */
     }
 
-    /* When sidebar is active, add overlay */
     body.sidebar-active::after {
         content: '';
         position: fixed;

@@ -7,9 +7,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
         user = JSON.parse(user);
 
+        //Attributes
         const searchBox = document.querySelector("#searchInput");
         const filterType = document.querySelector("#filterType");
+        const addCourseBtn = document.getElementById('addCourseButton');
+        const modal = document.getElementById('courseModal');
+        const closeBtn = document.querySelector('.close');
+        const addSectionBtn = document.getElementById('addSection');
+        const courseForm = document.getElementById('courseForm');
+        const searchButton = document.querySelector("#searchButton");
+        let currentView = 'all';
 
+
+        document.querySelector("#searchButton").addEventListener('click', function () {
+            currentView = 'all';
+            displayCourses()
+        });
+
+        searchButton.addEventListener('click', function () {
+            displayCourses(courses);
+        });
+        document.querySelector("#ValidateCoursesButton").addEventListener('click', function () {
+            currentView = 'validate';
+            displayValidateCourses();
+        });
+
+        document.querySelector("#PendingCoursesButton").addEventListener('click', function () {
+            currentView = 'pending';
+            displayPendingCourses();
+        });
+
+        addCourseBtn.addEventListener('click', () => modal.style.display = 'block');
+        closeBtn.addEventListener('click', () => modal.style.display = 'none');
         filterType.addEventListener('change', filterChange);
         searchBox.addEventListener('input', search);
 
@@ -18,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.classList.toggle('sidebar-active');
         });
 
-        // Close sidebar when clicking outside
         document.addEventListener('click', function (e) {
             const sidebar = document.getElementById('buttons');
             const toggleBtn = document.querySelector('.menu-toggle');
@@ -28,6 +56,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.body.classList.remove('sidebar-active');
             }
         });
+
+        //localStorage
+        let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
+        if (courses.length === 0) fetchCourses();
+
+        let CurrentlyTakenCourses = localStorage.CurrentlyTakenCourses ? JSON.parse(localStorage.CurrentlyTakenCourses) : [];
+        if (courses.length === 0) fetchCurrentlyTakenCourses();
+
+        let registered = localStorage.students ? JSON.parse(localStorage.students) : [];
+
+        //functions
         function addAdminInfo() {
             const adminInfoDiv = document.getElementById("admin-info");
 
@@ -45,22 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         addAdminInfo();
-
-        // Add Course Modal Handling
-        const addCourseBtn = document.getElementById('addCourseButton');
-        const modal = document.getElementById('courseModal');
-        const closeBtn = document.querySelector('.close');
-        const addSectionBtn = document.getElementById('addSection');
-        const courseForm = document.getElementById('courseForm');
-
-        addCourseBtn.addEventListener('click', () => modal.style.display = 'block');
-        closeBtn.addEventListener('click', () => modal.style.display = 'none');
-
-        let courses = localStorage.courses ? JSON.parse(localStorage.courses) : [];
-        if (courses.length === 0) fetchCourses();
-
-        let CurrentlyTakenCourses = localStorage.CurrentlyTakenCourses ? JSON.parse(localStorage.CurrentlyTakenCourses) : [];
-        if (courses.length === 0) fetchCurrentlyTakenCourses();
 
         async function fetchCourses() {
             try {
@@ -138,43 +161,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
-            // Add to CoursesForRegistration
             courses.push(newCourse);
             localStorage.setItem("courses", JSON.stringify(courses));
 
             modal.style.display = 'none';
             courseForm.reset();
-            displayCourses(courses); // Update the display
-        });
-
-
-
-
-
-        let registered = localStorage.students ? JSON.parse(localStorage.students) : [];
-        //Courses 
-
-
-        // const filterType = document.querySelector("#filterType");
-        // const searchBox = document.querySelector("#searchInput");
-        const searchButton = document.querySelector("#searchButton");
-        document.querySelector("#searchButton").addEventListener('click', function () {
-            currentView = 'all';
-            displayCourses()
-        });
-
-        searchButton.addEventListener('click', function () {
             displayCourses(courses);
         });
-        document.querySelector("#ValidateCoursesButton").addEventListener('click', function () {
-            currentView = 'validate';
-            displayValidateCourses();
-        });
 
-        document.querySelector("#PendingCoursesButton").addEventListener('click', function () {
-            currentView = 'pending';
-            displayPendingCourses();
-        });
 
         function displayPendingCourses(data = null) {
             const courseContainer = document.getElementById('courseContainer');
@@ -505,14 +499,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `).join("");
         }
-
-
-
-
-
         displayCourses(courses);
-
-        let currentView = 'all';
 
         function filterChange() {
             console.log('change');
@@ -614,7 +601,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
-
 
 
 function logout() {

@@ -6,11 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         user = JSON.parse(user);
 
-        document.querySelector('.menu-toggle').addEventListener('click', function () {
-            document.getElementById('buttons').classList.toggle('active');
-            document.body.classList.toggle('sidebar-active');
-        });
-
         //Attributes
         const filterType = document.querySelector("#filterType");
         const searchBox = document.querySelector("#searchInput");
@@ -18,10 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const searchButton = document.querySelector("#searchButton");
         const finishedCoursesButton = document.querySelector("#FinishedCoursesButton");
         const CurrentCoursesButton = document.querySelector("#CurrentCoursesButton");
-
-
         let currentView = 'all';
 
+
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            document.getElementById('buttons').classList.toggle('active');
+            document.body.classList.toggle('sidebar-active');
+        });
         filterType.addEventListener('change', filterChange);
         searchBox.addEventListener('input', search);
         registeredCourses.addEventListener('click', function () {
@@ -51,6 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let students = localStorage.students ? JSON.parse(localStorage.students) : [];
         if (students.length === 0) fetchStudent();
+
+
+        //functions
 
         //registerd coureses
         async function fetchStudent() {
@@ -92,8 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         //Display the courses in a grid
         function displayCourses(courses) {
-            ;
-
             const courseContainer = document.getElementById('courseContainer');
 
             courseContainer.innerHTML = courses.map(course => `
@@ -190,12 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-
-
-        //
         function registerCourse(courseName, sectionNo) {
-
-            // Find the course from the courses based on the courseName
             const selectedCourse = courses.find(course => course.name === courseName);
             if (!selectedCourse) {
                 console.error('Course not found.');
@@ -211,19 +205,17 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            // Check if section is open
             if (selectedSection.status !== "Open") {
                 alert(`Registration failed: Section ${sectionNo} is not open for registration.`);
                 return;
             }
 
-            // Check if section is full
+
             if (selectedSection.enrolledStudents >= selectedSection.maxSeats) {
                 alert(`Registration failed: Section ${sectionNo} is full.`);
                 return;
             }
 
-            // Find the logged-in student's record
             let studentRecord = students.find(student => student.user[0].username === user.username);
             if (!studentRecord) {
                 alert('Student record not found.');
@@ -246,12 +238,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            //Maybe there is a better way
             if (prerequisites.length === 1 && prerequisites[0] === "None") {
                 prerequisites = [];
             }
 
-            //Check if student finished prerequisites
             if (prerequisites.length > 0) {
                 let hasCompletedPrerequisites = prerequisites.every(prereq =>
                     finishedCourses.some(finished => finished.courseName === prereq)
@@ -284,7 +274,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Register the user for the selected course
             const registration = {
                 username: user.username,
                 courseName: selectedCourse.name,
@@ -297,41 +286,33 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             let studentIndex = students.findIndex(s => s.user.some(u => u.username === user.username));
-            // Add the registration to the registered array
             students[studentIndex].RegisteredCourses.push(registration);
 
-            // Update the localStorage with the new registration
             localStorage.setItem("students", JSON.stringify(students));
 
             updateCourseData(selectedCourse, sectionNo);
 
-            // Optionally, update the UI to reflect that the user is registered
             alert(`Successfully registered for ${selectedCourse.name}`);
 
 
         }
 
         function updateCourseData(course, sectionNo) {
-            // Find the course to update
             const courseToUpdate = courses.find(c => c.name === course.name);
             if (!courseToUpdate) {
                 console.error('Course not found for update');
                 return;
             }
 
-            // Find the specific section to update
             const sectionToUpdate = courseToUpdate.section?.find(sec => sec.sectionNo === sectionNo);
             if (!sectionToUpdate) {
                 console.error('Section not found');
                 console.log('Available sections:', courseToUpdate.section);
                 return false;
             }
-
-            // Update the enrolled students count for the section
             if (sectionToUpdate.enrolledStudents < sectionToUpdate.maxSeats) {
                 sectionToUpdate.enrolledStudents++;
 
-                // Update section status if it's now full
                 if (sectionToUpdate.enrolledStudents >= sectionToUpdate.maxSeats) {
                     sectionToUpdate.status = "Closed";
                     console.log(`Section ${sectionNo} is now full`);
@@ -340,10 +321,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log(`Section ${sectionNo} is already full`);
             }
 
-            // Save updated courses to localStorage
             localStorage.setItem("courses", JSON.stringify(courses));
 
-            // Refresh the courses display
             displayCourses(courses);
         }
 
@@ -366,7 +345,6 @@ document.addEventListener("DOMContentLoaded", function () {
         addStudentInfo();
 
 
-
         function filterChange() {
             console.log('change');
         }
@@ -380,7 +358,6 @@ document.addEventListener("DOMContentLoaded", function () {
             let nameField, categoryField;
 
 
-            // Get the logged-in student's data safely
             const student = students.find(s =>
                 s.user.some(u => u.username === user.username));
 
@@ -395,20 +372,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 case 'registered':
                     dataset = student?.RegisteredCourses || [];
                     displayFunction = displayRegisteredCourses;
-                    nameField = 'courseName'; // Property name in RegisteredCourses
-                    categoryField = 'courseCategory'; // Property name in RegisteredCourses
+                    nameField = 'courseName';
+                    categoryField = 'courseCategory';
                     break;
                 case 'current':
                     dataset = student?.CurrentCourses || [];
                     displayFunction = displayCurrentCourses;
-                    nameField = 'name'; // Property name in CurrentCourses
-                    categoryField = 'category'; // Property name in CurrentCourses
+                    nameField = 'name';
+                    categoryField = 'category';
                     break;
                 case 'finished':
                     dataset = student?.finishedCourses || [];
                     displayFunction = finishedCourses;
-                    nameField = 'courseName'; // Property name in finishedCourses
-                    categoryField = null; // No category in finishedCourses
+                    nameField = 'courseName';
+                    categoryField = null;
                     break;
                 default:
                     dataset = courses;
@@ -417,20 +394,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     categoryField = 'category';
             }
 
-            // Validate dataset and handle empty/null values
             if (!Array.isArray(dataset)) {
                 console.error("Invalid dataset:", dataset);
                 dataset = [];
             }
 
             const filtered = dataset.filter(item => {
-                // Safely get values, defaulting to empty string if undefined/null
                 const name = item[nameField]?.toString().toLowerCase() || "";
                 const category = categoryField
                     ? item[categoryField]?.toString().toLowerCase() || ""
                     : "";
 
-                // Perform the search based on the selected filter
+
                 if (filter === 'name') {
                     return name.includes(searchInput);
                 } else if (filter === 'category') {
@@ -440,7 +415,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            // Update the UI with filtered results
             displayFunction(filtered);
         }
 

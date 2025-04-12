@@ -173,23 +173,15 @@ document.addEventListener("DOMContentLoaded", function () {
         function displayPendingCourses(data = null) {
             const courseContainer = document.getElementById('courseContainer');
 
-            // Clear previous content
             courseContainer.innerHTML = '';
 
-            // Loop through each student
             registered.forEach((student, studentIndex) => {
-                // Check if student has RegisteredCourses
                 if (student.RegisteredCourses && student.RegisteredCourses.length > 0) {
-                    // Get the username from the nested user array
+
                     const username = student.user?.[0]?.username || 'Unknown Student';
 
-                    // Loop through each registered course
                     student.RegisteredCourses.forEach((course, courseIndex) => {
-                        // Only display if status is Pending or undefined (treat undefined as Pending)
                         if (!course.status || course.status === "pending") {
-
-
-                            // Create course card HTML
                             const courseCard = document.createElement('div');
                             courseCard.className = 'course-card';
                             courseCard.innerHTML = `
@@ -222,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             );
 
-            // Add event listeners
             document.querySelectorAll('.approve-btn').forEach(button => {
                 button.addEventListener('click', function () {
                     approveCourse(
@@ -242,12 +233,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
         function approveCourse(studentIndex, courseIndex) {
-            // Check if the indices are valid
             if (registered[studentIndex] &&
                 registered[studentIndex].RegisteredCourses &&
                 registered[studentIndex].RegisteredCourses[courseIndex]) {
 
-                // Remove the course from RegisteredCourses and move it to CurrentCourses
                 let removedItem = registered[studentIndex].RegisteredCourses.splice(courseIndex, 1)[0];
                 console.log(removedItem);
 
@@ -262,10 +251,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 registered[studentIndex].CurrentCourses.push(registration);
 
-                // Save to localStorage
                 localStorage.setItem("students", JSON.stringify(registered));
 
-                // Refresh the list
                 displayCurrentlyTakenCourses();
             } else {
                 console.error("Invalid indices for approval:", studentIndex, courseIndex);
@@ -274,18 +261,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         function declineCourse(studentIndex, courseIndex) {
-            // Check if the indices are valid
             if (registered[studentIndex] &&
                 registered[studentIndex].RegisteredCourses &&
                 registered[studentIndex].RegisteredCourses[courseIndex]) {
 
-                // Remove only the specific course from the student's RegisteredCourses
                 registered[studentIndex].RegisteredCourses.splice(courseIndex, 1);
 
-                // Save to localStorage
                 localStorage.setItem("students", JSON.stringify(registered));
 
-                // Refresh the list
                 displayPendingCourses();
             } else {
                 console.error("Invalid indices for decline:", studentIndex, courseIndex);
@@ -297,17 +280,14 @@ document.addEventListener("DOMContentLoaded", function () {
             courseContainer.innerHTML = '';
 
             courses.forEach((course, courseIndex) => {
-                // Filter only pending or undefined sections
                 const pendingSections = course.section.filter(
                     (section) => !section.validation || section.validation === "pending"
                 );
 
-                // Only show the course if it has at least one pending section
                 if (pendingSections.length > 0) {
                     const courseCard = document.createElement('div');
                     courseCard.className = 'course-card';
 
-                    // Basic course info
                     let cardHTML = `
                         <div class="course-name"><strong>Course:</strong> ${course.name || 'Unnamed Course'}</div>
                         <div class="course-category"><strong>Category:</strong> ${course.category || 'No Category'}</div>
@@ -325,7 +305,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     }
 
-                    // List each pending section
                     pendingSections.forEach((section, sectionIndex) => {
                         cardHTML += `
                             <div class="section-info">
@@ -351,7 +330,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            // Add event listeners
             document.querySelectorAll('.validate-btn').forEach(button => {
                 button.addEventListener('click', function () {
                     validateCourse(
@@ -397,11 +375,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     CurrentlyTakenCourses.push(course);
                 }
 
-                // Save the updated arrays to localStorage
                 localStorage.setItem("courses", JSON.stringify(courses));
                 localStorage.setItem("CurrentlyTakenCourses", JSON.stringify(CurrentlyTakenCourses));
 
-                // Call the function to display validated courses
                 displayValidateCourses();
             } else {
                 console.error("Invalid course/section index", courseIndex, sectionIndex);
@@ -457,23 +433,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
             `).join("");
-
-
-
-
         }
 
         function displayCourses(courses) {
-            // Keep course info + filter open sections
             const openCourses = courses
                 .map(course => {
                     const openSections = course.section?.filter(sec => sec.status === "Open") || [];
                     if (openSections.length > 0) {
-                        return { ...course, section: openSections }; // Keep course info + only open sections
+                        return { ...course, section: openSections };
                     }
                     return null;
                 })
-                .filter(course => course !== null); // Remove courses without open sections
+                .filter(course => course !== null);
 
             const courseContainer = document.getElementById('courseContainer');
 
@@ -538,9 +509,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     displayFunction = displayCourses;
             }
 
-            // Filter the dataset based on search term and filter type
             const filtered = dataset.filter(item => {
-                // Handle different data structures for each view
                 switch (currentView) {
                     case 'all':
                         return filterCourses(item, searchTerm, filterValue);
@@ -555,11 +524,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            // Call the appropriate display function
             displayFunction(filtered.length > 0 ? filtered : []);
         }
 
-        // Helper filter functions for each view
         function filterCourses(course, term, filter) {
             const nameMatch = course.name?.toLowerCase().includes(term) ?? false;
             const categoryMatch = course.category?.toLowerCase().includes(term) ?? false;
@@ -570,7 +537,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function filterCurrentCourses(course, term, filter) {
-            // Similar to filterCourses but for CurrentlyTakenCourses structure
             return filterCourses(course, term, filter);
         }
 
@@ -607,4 +573,3 @@ function logout() {
     localStorage.removeItem("loggedInUser");
     window.location.href = "../login/login.html";
 }
-

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Course Search</title>
+</head>
+
+<body>
+    <header class="info">
+        <button class="menu-toggle">☰</button>
+        <div id="instructor-info"></div>
+    </header>
+
+
+    <nav id="buttons">
+        <img src="../images/qu_logo-01.png" alt="QU-LOGO" />
+        <button onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</button>
+
+        </button>
+
+
+    </nav>
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search courses...">
+
+            <select id="filterType">
+                <option value="all">All</option>
+                <option value="name">By Name</option>
+                <option value="student-name">By Student name</option>
+            </select>
+        </div>
+        <div class="instructor-grid" id="instructorContainer"></div>
+    </main>
+    <script src="instructor.js"></script>
+</body>
+
+</html>

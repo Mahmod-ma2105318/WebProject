@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Frontend Developer",
+    "company": "TechCorp",
+    "location": "Austin, TX",
+    "type": "Part-time",
+    "salary": "$82k - $120k",
+    "description": "We are looking for a Frontend Developer to join our team.",
+    "isActive": false
+  },
+  {
+    "id": 2,
+    "title": "Backend Developer",
+    "company": "TechCorp",
+    "location": "Austin, TX",
+    "type": "Remote",
+    "salary": "$80k - $148k",
+    "description": "We are looking for a Backend Developer to join our team.",
+    "isActive": true
+  },
+  {
+    "id": 3,
+    "title": "Full Stack Developer",
+    "company": "TechCorp",
+    "location": "San Francisco, CA",
+    "type": "Part-time",
+    "salary": "$99k - $131k",
+    "description": "We are looking for a Full Stack Developer to join our team.",
+    "isActive": false
+  },
+  {
+    "id": 4,
+    "title": "Mobile Developer",
+    "company": "TechCorp",
+    "location": "Austin, TX",
+    "type": "Full-time",
+    "salary": "$86k - $133k",
+    "description": "We are looking for a Mobile Developer to join our team.",
+    "isActive": true
+  },
+  {
+    "id": 5,
+    "title": "Data Developer",
+    "company": "TechCorp",
+    "location": "San Francisco, CA",
+    "type": "Remote",
+    "salary": "$82k - $128k",
+    "description": "We are looking for a Data Developer to join our team.",
+    "isActive": false
+  },
+  {
+    "id": 6,
+    "title": "AI Developer",
+    "company": "TechCorp",
+    "location": "San Francisco, CA",
+    "type": "Part-time",
+    "salary": "$93k - $144k",
+    "description": "We are looking for a AI Developer to join our team.",
+    "isActive": true
+  },
+  {
+    "id": 7,
+    "title": "QA Developer",
+    "company": "TechCorp",
+    "location": "San Francisco, CA",
+    "type": "Full-time",
+    "salary": "$95k - $122k",
+    "description": "We are looking for a QA Developer to join our team.",
+    "isActive": true
+  },
+  {
+    "id": 8,
+    "title": "DevOps Developer",
+    "company": "TechCorp",
+    "location": "San Francisco, CA",
+    "type": "Part-time",
+    "salary": "$81k - $136k",
+    "description": "We are looking for a DevOps Developer to join our team.",
+    "isActive": false
+  },
+  {
+    "id": 9,
+    "title": "Cloud Developer",
+    "company": "TechCorp",
+    "location": "San Francisco, CA",
+    "type": "Full-time",
+    "salary": "$84k - $138k",
+    "description": "We are looking for a Cloud Developer to join our team.",
+    "isActive": false
+  },
+  {
+    "id": 10,
+    "title": "Security Developer",
+    "company": "TechCorp",
+    "location": "Austin, TX",
+    "type": "Part-time",
+    "salary": "$93k - $126k",
+    "description": "We are looking for a Security Developer to join our team.",
+    "isActive": false
+  }
+]

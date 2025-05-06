@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <!-- Job List Component -->
+    <div class="filters">
+        <label class="toggle">
+            <input type="checkbox" id="showActiveOnly" checked>
+            <span class="slider"></span>
+            Show Active Jobs Only
+        </label>
+    </div>
+
+    <!-- Job Card Component -->
+    <div class="job-card" data-job-id="1">
+        <div class="job-header">
+            <div>
+                <h3 class="job-title">Senior Software Engineer</h3>
+                <div class="job-info">
+                    <i class="fas fa-building"></i>
+                    <span>TechCorp</span>
+                </div>
+                <div class="job-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>San Francisco, CA</span>
+                </div>
+            </div>
+            <span class="status-badge" data-is-active="true">
+                Active
+            </span>
+        </div>
+        <div class="job-info">
+            <i class="fas fa-briefcase"></i>
+            <span>Full-time</span>
+        </div>
+        <div class="job-info">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>$120,000 - $150,000</span>
+        </div>
+        <div class="job-actions">
+            <div class="application-count">
+                <i class="fas fa-users"></i>
+                <span class="count">5</span>
+                <span>applications</span>
+            </div>
+            <a href="apply.html?id=1" class="btn btn-primary">
+                Apply Now
+            </a>
+        </div>
+    </div>
+
+    <!-- Inactive Job Card Example -->
+    <div class="job-card job-inactive" data-job-id="2">
+        <div class="job-header">
+            <div>
+                <h3 class="job-title">Backend Developer</h3>
+                <div class="job-info">
+                    <i class="fas fa-building"></i>
+                    <span>DataSystems</span>
+                </div>
+                <div class="job-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>New York, NY</span>
+                </div>
+            </div>
+            <span class="status-badge status-inactive">
+                Inactive
+            </span>
+        </div>
+        <div class="job-info">
+            <i class="fas fa-briefcase"></i>
+            <span>Full-time</span>
+        </div>
+        <div class="job-info">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>$100,000 - $130,000</span>
+        </div>
+        <div class="job-actions">
+            <div class="application-count">
+                <i class="fas fa-users"></i>
+                <span class="count">3</span>
+                <span>applications</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "title": "Senior Software Engineer",
+        "company": "TechCorp",
+        "location": "San Francisco, CA",
+        "type": "Full-time",
+        "salary": "$120,000 - $150,000",
+        "description": "We are looking for a Senior Software Engineer to join our team. The ideal candidate should have 5+ years of experience in software development and strong knowledge of modern web technologies.",
+        "isActive": true
+    },
+    {
+        "id": 2,
+        "title": "Frontend Developer",
+        "company": "WebSolutions",
+        "location": "Remote",
+        "type": "Full-time",
+        "salary": "$90,000 - $110,000",
+        "description": "Join our team as a Frontend Developer. Experience with React, Vue, or Angular required. Strong CSS and JavaScript skills are a must.",
+        "isActive": true
+    },
+    {
+        "id": 3,
+        "title": "Backend Developer",
+        "company": "DataSystems",
+        "location": "New York, NY",
+        "type": "Full-time",
+        "salary": "$100,000 - $130,000",
+        "description": "Looking for an experienced Backend Developer with strong knowledge of Node.js, Python, or Java. Database design and API development experience required.",
+        "isActive": false
+    },
+    {
+        "id": 4,
+        "title": "DevOps Engineer",
+        "company": "CloudTech",
+        "location": "Seattle, WA",
+        "type": "Full-time",
+        "salary": "$110,000 - $140,000",
+        "description": "Seeking a DevOps Engineer to manage our infrastructure. Experience with AWS, Docker, and Kubernetes required.",
+        "isActive": true
+    },
+    {
+        "id": 5,
+        "title": "UI/UX Designer",
+        "company": "DesignHub",
+        "location": "Los Angeles, CA",
+        "type": "Full-time",
+        "salary": "$85,000 - $105,000",
+        "description": "Join our creative team as a UI/UX Designer. Strong portfolio and experience with Figma or Adobe XD required.",
+        "isActive": false
+    },
+    {
+        "id": 6,
+        "title": "Mobile Developer",
+        "company": "AppWorks",
+        "location": "Boston, MA",
+        "type": "Full-time",
+        "salary": "$95,000 - $120,000",
+        "description": "Looking for a Mobile Developer with React Native experience. iOS and Android development skills required.",
+        "isActive": true
+    }
+]

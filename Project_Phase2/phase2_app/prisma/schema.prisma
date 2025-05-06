@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  INSTRUCTOR
+  ADMINISTRATOR
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  username   String      @unique
+  password   String
+  role       Role        @default(STUDENT)
+  student    Student?
+  instructor Instructor?
+  admin      Admin?
+}
+
+model Instructor {
+  id       Int       @id @default(autoincrement())
+  userId   Int       @unique
+  user     User      @relation(fields: [userId], references: [id])
+  sections Section[]
+}
+
+model Admin {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Student {
+  id          Int          @id @default(autoincrement())
+  userId      Int          @unique
+  user        User         @relation(fields: [userId], references: [id])
+  enrollments Enrollment[]
+}
+
+enum EnrollmentStatus {
+  REGISTERED
+  CURRENT
+  FINISHED
+}
+
+model Enrollment {
+  id        Int              @id @default(autoincrement())
+  studentId Int
+  student   Student          @relation(fields: [studentId], references: [id])
+  sectionId Int
+  section   Section          @relation(fields: [sectionId], references: [id])
+  status    EnrollmentStatus @default(REGISTERED)
+  grade     String?
+}
+
+model Course {
+  id            Int                  @id @default(autoincrement())
+  name          String               @unique
+  category      String
+  credits       Int
+  status        EnrollmentStatus     @default(REGISTERED)
+  prerequisites CoursePrerequisite[]
+  sections      Section[]
+}
+
+model Section {
+  id               Int          @id @default(autoincrement())
+  sectionNo        String
+  courseId         Int
+  course           Course       @relation(fields: [courseId], references: [id])
+  instructorId     Int?
+  instructor       Instructor?  @relation(fields: [instructorId], references: [id])
+  status           String
+  maxSeats         Int
+  enrolledStudents Int
+  validation       String?
+  Enrollment       Enrollment[]
+}
+
+model CoursePrerequisite {
+  courseId       Int
+  prerequisiteId Int
+  Course         Course @relation(fields: [courseId], references: [id])
+
+  @@id([courseId, prerequisiteId])
+}

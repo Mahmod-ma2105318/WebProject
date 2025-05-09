@@ -204,13 +204,37 @@ class repo {
   }
   async getCurrentlyTakenCourses(){
     return await prisma.course.findMany({
+      where:{
+        status:'CURRENT',
+
+      },
       include:{
         prerequisites:true,
-        
 
       }
     }) 
   }
+  async validateCourses(courseID,sectionId){
+    const coursesNeeededForValidation=await this.getPendingCourses();
+    const course=await prisma.findUnique({
+      where:{
+        validation: 'pending',
+        courseID:courseID,
+      },include:{
+        prerequisites:true,
+        sections:{
+          where:{
+            sectionId,
+          }
+        }
+      }
+    })
+    course.validation='valid'
+  }
+
+
+
+  
   
   
     

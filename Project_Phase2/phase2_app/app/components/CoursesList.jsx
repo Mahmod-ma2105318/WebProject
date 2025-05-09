@@ -1,6 +1,5 @@
 'use client';
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+
 import NavBar from "./NavBar";
 
 
@@ -48,7 +47,7 @@ export default function CoursesList({ courses }) {
                         </div>
                         <div>Max Seats: {sec.maxSeats}</div>
                         <div>Enrolled Students: {sec.enrolledStudents}</div>
-                        <button className="register-btn" onClick={() => registerCourse(course.name, sec.sectionNo)}
+                        <button className="register-btn"
                           disabled={sec.status !== 'Open'}
                         >
                           Register
@@ -66,3 +65,5 @@ export default function CoursesList({ courses }) {
 
   );
 }
+
+//<button className="register-btn" onClick={() => registerCourse(course.name, sec.sectionNo)}

@@ -1,0 +1,126 @@
+{
+    "students": [
+        {
+            "user": [
+                {
+                    "role": "student",
+                    "username": "7oda123",
+                    "pass": "7oda123"
+                }
+            ],
+            "finishedCourses": [
+                {
+                    "courseName": "HTML",
+                    "Grade": "A"
+                },
+                {
+                    "courseName": "CSS",
+                    "Grade": "B"
+                }
+            ],
+            "CurrentCourses": [
+                {
+                    "name": "JavaScript Basics",
+                    "category": "Programming",
+                    "credits": 3,
+                    "prerequisites": [
+                        "HTML",
+                        "CSS"
+                    ],
+                    "instructor": "Barhamgi"
+                },
+                {
+                    "name": "Database Systems",
+                    "category": "Databases",
+                    "credits": 4,
+                    "prerequisites": [
+                        "Computer Fundamentals"
+                    ],
+                    "instructor": "Barhamgi"
+                }
+            ],
+            "RegisteredCourses": []
+        },
+        {
+            "user": [
+                {
+                    "role": "student",
+                    "username": "ahmed456",
+                    "pass": "ahmed456"
+                }
+            ],
+            "finishedCourses": [
+                {
+                    "courseName": "Math 101",
+                    "Grade": "A"
+                },
+                {
+                    "courseName": "English Literature",
+                    "Grade": "B+"
+                }
+            ],
+            "CurrentCourses": [
+                {
+                    "name": "JavaScript Basics",
+                    "category": "Programming",
+                    "credits": 3,
+                    "prerequisites": [
+                        "Math 101"
+                    ],
+                    "instructor": "Barhamgi"
+                },
+                {
+                    "name": "Database Systems",
+                    "category": "Programming",
+                    "credits": 4,
+                    "prerequisites": [
+                        "HTML",
+                        "CSS"
+                    ],
+                    "instructor": "Barhamgi"
+                }
+            ],
+            "RegisteredCourses": []
+        },
+        {
+            "user": [
+                {
+                    "role": "student",
+                    "username": "mona789",
+                    "pass": "mona789"
+                }
+            ],
+            "finishedCourses": [
+                {
+                    "courseName": "Networking Fundamentals",
+                    "Grade": "A-"
+                },
+                {
+                    "courseName": "Chemistry",
+                    "Grade": "B"
+                }
+            ],
+            "CurrentCourses": [
+                {
+                    "name": "Data Structures",
+                    "category": "Computer Science",
+                    "credits": 3,
+                    "prerequisites": [
+                        "Math 101"
+                    ],
+                    "instructor": "Dr. Omar"
+                },
+                {
+                    "name": "Computer Networks",
+                    "category": "Networking",
+                    "credits": 4,
+                    "prerequisites": [
+                        "Data Structures"
+                    ],
+                    "instructor": "Barhamgi"
+                }
+            ],
+            "RegisteredCourses": []
+        }
+    ]
+}

@@ -19,6 +19,12 @@
       "role": "student",
       "username": "mona789",
       "pass": "mona789"
+    },
+    {
+      "username": "ahmed456",
+      "pass": "ahmed456",
+      "role": "student"
     }
+    
   ]
 }

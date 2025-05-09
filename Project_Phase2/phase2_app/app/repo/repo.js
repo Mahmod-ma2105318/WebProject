@@ -2,6 +2,22 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class repo {
+<<<<<<< HEAD
+    async getUser(username, pass) {
+        const user = await prisma.user.findUnique({
+            where: {
+                username: username,
+                password: pass 
+            }
+        });
+        return user;
+    }
+    async connectUserToStudent(user) {
+        return await prisma.student.findUnique({
+          where: {
+            userId: user.id  // Make sure user.id is provided
+          },
+=======
   async getUser(username, pass) {
     const user = await prisma.user.findUnique({
       where: {
@@ -19,6 +35,7 @@ class repo {
       },
       include: {
         enrollments: {
+>>>>>>> c9cf4dc9205c3c3c0e84b6e7bf5189035333361b
           include: {
             section: {
               include: {
@@ -185,6 +202,46 @@ class repo {
           include: {
             course: true
           }
+<<<<<<< HEAD
+        });
+    }
+    async showCurrentCourses({ studentId }) {
+      return await prisma.enrollment.findMany({
+        where: { studentId, status: 'CURRENT' },
+        include: {
+          section: {
+            include: {
+              course: true,
+              instructor: {
+                include: {
+                  user: true
+                }
+              }
+            }
+          }
+        }
+      });
+      
+    }
+    
+    async showFinishedCourses({ studentId }) {
+        return await prisma.enrollment.findMany({
+          where: {
+            status: 'FINISHED',
+            studentId:studentId,
+          },
+          include: {
+            section: {
+              include: {
+                course: true
+              }
+            }
+          }
+        });
+    } 
+    
+    // Administrator
+=======
         }
       }
     });
@@ -206,6 +263,7 @@ class repo {
   }
 
   // Administrator
+>>>>>>> c9cf4dc9205c3c3c0e84b6e7bf5189035333361b
   async getOpenCourses() {
     return await prisma.course.findMany({
       include: {
@@ -257,8 +315,44 @@ class repo {
       }
     });
   }
+<<<<<<< HEAD
+  
+  async invalidateSection(sectionId) {
+    return await prisma.section.delete({
+      where: { id: sectionId }
+    });
+  }
+  async addCourse(formData) {
+    return await prisma.course.create({
+      data: formData
+    });
+  }
+  //Instructor
+  async showInstructorBySectionId(sectionId) {
+    const section = await prisma.section.findUnique({
+      where: {
+        id: sectionId,
+      },
+      include: {
+        instructor: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+  
+    return section?.instructor?.user?.username || null;
+  }
+  
+  
+  
+  
+  
+=======
 
 
+>>>>>>> c9cf4dc9205c3c3c0e84b6e7bf5189035333361b
 }
 
 export default new repo();

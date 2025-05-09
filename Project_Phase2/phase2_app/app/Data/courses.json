@@ -1,6 +1,39 @@
 {
   "CoursesForRegistration": [
     {
+      "name": "Statistics",
+      "category": "Mathematics",
+      "credits": 3,
+      "prerequisites": [],
+      "section": [
+        {
+          "sectionNo": "L01",
+          "instructor": "Dr. Thomas",
+          "status": "Open",
+          "maxSeats": 30,
+          "enrolledStudents": 20,
+          "validation": "pending"
+        }
+      ]
+    },
+    {
+      "name": "Networking Fundamentals",
+      "category": "Networking",
+      "credits": 3,
+      "prerequisites": [],
+      "section": [
+        {
+          "sectionNo": "L01",
+          "instructor": "Dr. Ahmed",
+          "status": "Open",
+          "maxSeats": 25,
+          "enrolledStudents": 18,
+          "validation": "pending"
+        }
+      ]
+    },    
+
+    {
       "name": "HTML",
       "category": "Programming",
       "credits": 3,
@@ -24,6 +57,23 @@
         }
       ]
     },
+    {
+      "name": "CSS",
+      "category": "Web Development",
+      "credits": 2,
+      "prerequisites": [],
+      "section": [
+        {
+          "sectionNo": "L01",
+          "instructor": "Ms. Baker",
+          "status": "Open",
+          "maxSeats": 25,
+          "enrolledStudents": 10,
+          "validation": "pending"
+        }
+      ]
+    },
+    
     {
       "name": "JavaScript Basics",
       "category": "Programming",
@@ -230,6 +280,22 @@
         }
       ]
     },
+    {
+      "name": "Dart Programming",
+      "category": "Programming",
+      "credits": 3,
+      "prerequisites": [],
+      "section": [
+        {
+          "sectionNo": "L01",
+          "instructor": "Dr. Omar",
+          "status": "Open",
+          "maxSeats": 30,
+          "enrolledStudents": 12,
+          "validation": "pending"
+        }
+      ]
+    },    
     {
       "name": "Mobile App Development with Flutter",
       "category": "Mobile Development",

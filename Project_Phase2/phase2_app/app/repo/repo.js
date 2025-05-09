@@ -11,7 +11,6 @@ class repo {
         });
         return user;
     }
-    //Student Repo Methods
     async connectUserToStudent(user) {
         return await prisma.student.findUnique({
           where: {
@@ -175,25 +174,31 @@ class repo {
         });
     }
     async showCurrentCourses({ studentId }) {
-        return await prisma.enrollment.findMany({
-          where: {
-            status: 'CURRENT',
-            studentId
-          },
-          include: {
-            section: {
-              include: {
-                course: true
+      return await prisma.enrollment.findMany({
+        where: {
+          status: 'CURRENT',
+          studentId
+        },
+        include: {
+          section: {
+            include: {
+              course: true,
+              instructor: {
+                include: {
+                  user: true
+                }
               }
             }
           }
-        });
+        }
+      });
     }
+    
     async showFinishedCourses({ studentId }) {
         return await prisma.enrollment.findMany({
           where: {
             status: 'FINISHED',
-            studentId
+            studentId:studentId,
           },
           include: {
             section: {
@@ -268,6 +273,8 @@ class repo {
       data: formData
     });
   }
+  //Instructor
+  
   
   
   

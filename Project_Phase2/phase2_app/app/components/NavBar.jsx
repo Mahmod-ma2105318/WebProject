@@ -40,7 +40,7 @@ export default function NavBar() {
                     </button>
                 </Link>
 
-                <Link href="/courses/current">
+                <Link href="/courses/currently">
                     <button id="CurrentCoursesButton">
                         <i className="fas fa-book"></i>
                         Current Courses

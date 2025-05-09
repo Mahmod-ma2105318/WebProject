@@ -25,7 +25,6 @@ model User {
   student    Student?
   instructor Instructor?
   admin      Admin?
-
 }
 
 model Instructor {
@@ -40,7 +39,6 @@ model Admin {
   userId Int  @unique
   user   User @relation(fields: [userId], references: [id])
 }
-
 
 model Student {
   id          Int          @id @default(autoincrement())

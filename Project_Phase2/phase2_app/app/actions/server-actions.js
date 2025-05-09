@@ -15,15 +15,11 @@ export async function handleLogin(formData) {
     const username = formData.get('username');
     const password = formData.get('password');
 
-<<<<<<< HEAD
-    const user = await repo.getUser(username,password);
-=======
     const result = await signIn("credentials", {
         redirect: false,
         username,
         password,
     });
->>>>>>> c9cf4dc9205c3c3c0e84b6e7bf5189035333361b
 
     if (!result || result.error) {
         throw new Error('Authentication failed');

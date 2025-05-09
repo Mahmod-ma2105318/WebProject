@@ -12,12 +12,15 @@ async function seed() {
     console.log('Seeding......');
 
     try {
+        // Read and parse JSON files
         const studentsData = JSON.parse(await fs.readFile(studentsPath, 'utf-8'));
         const coursesData = JSON.parse(await fs.readFile(coursesPath, 'utf-8'));
         const usersData = JSON.parse(await fs.readFile(usersPath, 'utf-8'));
 
+        // Extract users array from the nested structure
         const usersArray = usersData.users || [];
 
+        // First, seed all users and their roles
         for (const user of usersArray) {
             await prisma.user.upsert({
                 where: { username: user.username },
@@ -26,13 +29,20 @@ async function seed() {
                     username: user.username,
                     password: user.pass,
                     role: user.role.toUpperCase(),
-                    ...(user.role === 'student' && { student: { create: {} } }),
-                    ...(user.role === 'instructor' && { instructor: { create: {} } }),
-                    ...(user.role === 'administrator' && { admin: { create: {} } })
+                    ...(user.role === 'student' && {
+                        student: { create: {} }
+                    }),
+                    ...(user.role === 'instructor' && {
+                        instructor: { create: {} }
+                    }),
+                    ...(user.role === 'administrator' && {
+                        admin: { create: {} }
+                    })
                 },
             });
         }
 
+        // Seed Courses without sections first
         for (const course of coursesData.CoursesForRegistration) {
             await prisma.course.upsert({
                 where: { name: course.name },
@@ -45,28 +55,30 @@ async function seed() {
             });
         }
 
+        // Now seed sections with instructor connections
         for (const course of coursesData.CoursesForRegistration) {
             for (const section of course.section) {
                 let instructorConnect = {};
 
                 if (section.instructor) {
+                    // Find the instructor's user record
                     const instructorUser = await prisma.user.findUnique({
-                      where: { username: section.instructor }
+                        where: { username: section.instructor }
                     });
-                  
+
                     if (instructorUser) {
-                      const instructor = await prisma.instructor.findUnique({
-                        where: { userId: instructorUser.id }
-                      });
-                  
-                      if (instructor) {
-                        instructorConnect = {
-                          connect: { id: instructor.id }
-                        };
-                      }
+                        // Find the instructor record linked to this user
+                        const instructor = await prisma.instructor.findUnique({
+                            where: { userId: instructorUser.id }
+                        });
+
+                        if (instructor) {
+                            instructorConnect = {
+                                connect: { id: instructor.id }
+                            };
+                        }
                     }
                 }
-                  
 
                 await prisma.section.create({
                     data: {
@@ -75,37 +87,29 @@ async function seed() {
                         maxSeats: section.maxSeats,
                         enrolledStudents: section.enrolledStudents,
                         validation: section.validation,
-                        course: { connect: { name: course.name } },
-                        ...(Object.keys(instructorConnect).length > 0 && { instructor: instructorConnect })
+                        course: {
+                            connect: { name: course.name }
+                        },
+                        ...(Object.keys(instructorConnect).length > 0 && {
+                            instructor: instructorConnect
+                        })
                     }
                 });
             }
         }
 
+        // Handle prerequisites
         for (const course of coursesData.CoursesForRegistration) {
             if (course.prerequisites && course.prerequisites.length > 0) {
                 for (const prereq of course.prerequisites) {
                     if (prereq !== "None") {
                         try {
-                            const mainCourse = await prisma.course.findUnique({
-                                where: { name: course.name }
-                              });
-                              
-                              const prereqCourse = await prisma.course.findUnique({
-                                where: { name: prereq }
-                              });
-                              
-                              if (mainCourse && prereqCourse) {
-                                await prisma.coursePrerequisite.create({
-                                  data: {
-                                    courseId: mainCourse.id,
-                                    prerequisiteId: prereqCourse.id
-                                  }
-                                });
-                              } else {
-                                console.warn(`Missing course(s): ${course.name} or ${prereq}`);
-                              }
-                              
+                            await prisma.coursePrerequisite.create({
+                                data: {
+                                    course: { connect: { name: course.name } },
+                                    prerequisite: { connect: { name: prereq } }
+                                }
+                            });
                         } catch (error) {
                             console.error(`Error creating prerequisite ${prereq} for ${course.name}:`, error.message);
                         }
@@ -114,6 +118,7 @@ async function seed() {
             }
         }
 
+        // Seed Student Enrollments
         for (const student of studentsData.students) {
             const user = await prisma.user.findUnique({
                 where: { username: student.user[0].username }
@@ -124,6 +129,7 @@ async function seed() {
                 continue;
             }
 
+            // Finished Courses
             for (const finishedCourse of student.finishedCourses) {
                 try {
                     const section = await prisma.section.findFirst({
@@ -147,6 +153,7 @@ async function seed() {
                 }
             }
 
+            // Current Courses
             for (const currentCourse of student.CurrentCourses) {
                 try {
                     const section = await prisma.section.findFirst({
@@ -169,6 +176,7 @@ async function seed() {
                 }
             }
 
+            // Registered Courses (if any)
             for (const registeredCourse of student.RegisteredCourses || []) {
                 try {
                     const section = await prisma.section.findFirst({

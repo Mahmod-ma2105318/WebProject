@@ -13,7 +13,7 @@ export async function handleLogin(formData) {
     const username = formData.get('username');
     const password = formData.get('password');
 
-    const user = await repo.userByUsername(username);
+    const user = await repo.getUser(username, password);
 
     if (!user) {
         throw new Error('User not found');

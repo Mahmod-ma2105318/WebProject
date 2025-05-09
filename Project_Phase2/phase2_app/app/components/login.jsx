@@ -1,13 +1,8 @@
 'use client';
+import { signIn } from 'next-auth/react';
 import styles from '@/app/login.module.css';
-import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
 export default function LoginPage() {
-    const router = useRouter();
-    const { data: session } = useSession();
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -20,29 +15,27 @@ export default function LoginPage() {
             password,
         });
 
-        if (result?.error) {
+        if (result.error) {
             alert('Invalid login credentials');
-        }
-    };
-
-    useEffect(() => {
-        if (session?.user?.role) {
-            switch (session.user.role) {
+        } else {
+            // Redirect based on the role
+            switch (result.user.role) {
                 case 'STUDENT':
-                    router.push('/courses');
+                    window.location.href = '/courses';
                     break;
                 case 'ADMINISTRATOR':
-                    router.push('/Admin');
+                    window.location.href = '/Admin';
                     break;
                 case 'INSTRUCTOR':
-                    router.push('/Instructor');
+                    window.location.href = '/Instructor';
                     break;
                 default:
-                    router.push('/');
+                    alert('Unknown role');
                     break;
             }
         }
-    }, [session]);
+    };
+
     return (
         <div className={styles.loginPage}>
             <div className={styles.loginContainer}>

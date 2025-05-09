@@ -257,6 +257,7 @@ class repo {
       }
     });
   }
+<<<<<<< Updated upstream
   
   async invalidateSection(sectionId) {
     return await prisma.section.delete({
@@ -271,6 +272,10 @@ class repo {
   
   
   
+=======
+
+
+>>>>>>> Stashed changes
 }
 
 export default new repo();

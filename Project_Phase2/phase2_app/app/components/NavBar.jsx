@@ -1,15 +1,10 @@
-'use client'
+'use client';
+
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { logout } from '@/app/actions/server-actions.js';
 
 export default function NavBar() {
-    const router = useRouter();
 
-    const handleLogout = async () => {
-        await logout();
-    };
 
     return (
         <>
@@ -59,7 +54,7 @@ export default function NavBar() {
                     </button>
                 </Link>
 
-                <button onClick={handleLogout}>
+                <button onClick={logout}>
                     <i className="fas fa-sign-out-alt"></i>
                     Logout
                 </button>

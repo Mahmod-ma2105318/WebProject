@@ -204,16 +204,23 @@ class repo {
   }
   async getCurrentlyTakenCourses() {
     return await prisma.course.findMany({
-      include:{
-        prerequisites:true,
-        
+      include: {
+        prerequisites: true,
+
 
       }
     });
   }
-  
-  
-    
+
+  async userByUsername(username) {
+    const user = await prisma.user.findUnique({
+      where: {
+        username: username
+      }
+    });
+    return user;
+  }
+
 
 
 

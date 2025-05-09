@@ -6,7 +6,7 @@ export default async function page() {
   const courses = await repo.getCourses();
   return (
     <>
-      <CoursesList Courses={courses} />
+      <CoursesList courses={courses} />
     </>
 
   )

@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class repo {
+<<<<<<< HEAD
     async getUser(username, pass) {
         const user = await prisma.user.findUnique({
             where: {
@@ -16,161 +17,192 @@ class repo {
           where: {
             userId: user.id  // Make sure user.id is provided
           },
+=======
+  async getUser(username, pass) {
+    const user = await prisma.user.findUnique({
+      where: {
+        username: username,
+        password: pass
+      }
+    });
+    return user;
+  }
+  //Student Repo Methods
+  async connectUserToStudent(user) {
+    return await prisma.student.findUnique({
+      where: {
+        userId: user.id  // Make sure user.id is provided
+      },
+      include: {
+        enrollments: {
+>>>>>>> c9cf4dc9205c3c3c0e84b6e7bf5189035333361b
           include: {
-            enrollments: {
+            section: {
               include: {
-                section: {
-                  include: {
-                    course: true  // This gives you access to the Course details
-                  }
-                }
+                course: true  // This gives you access to the Course details
               }
             }
           }
-        });
-    }
-    async getCourses() {
-        return await prisma.course.findMany(
-            {
-                include: {
-                    prerequisites: true,
-                    sections: true,
-                }
+        }
+      }
+    });
+  }
+  async getCourses() {
+    return await prisma.course.findMany(
+      {
+        include: {
+          prerequisites: true,
+          sections: true,
+        }
+      }
+    )
+  }
+  async searchForCourses(search) {
+    return await prisma.course.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              startsWith: search,
+              mode: 'insensitive' // optional: case-insensitive search
             }
-        )
-    }
-    async searchForCourses(search) {
-        return await prisma.course.findMany({
-          where: {
-            OR: [
-              {
-                name: {
-                  startsWith: search,
-                  mode: 'insensitive' // optional: case-insensitive search
-                }
-              },
-              {
-                category: {
-                  startsWith: search,
-                  mode: 'insensitive'
-                }
-              }
-            ],
-            include:{
-                prerequisites: true,
-                sections:true
+          },
+          {
+            category: {
+              startsWith: search,
+              mode: 'insensitive'
             }
           }
-        });
-    }
-    async searchForCoursesByName(search) {
-      return await prisma.course.findMany({
-        where: {
-          name: {
-            startsWith: search,
-            mode: 'insensitive'
-          }
-        },
+        ],
         include: {
           prerequisites: true,
           sections: true
         }
-      });
-    }
-    async searchForCoursesByCategory(search) {
-      return await prisma.course.findMany({
-        where: {
-          category: {
-            startsWith: search,
-            mode: 'insensitive'
-          }
-        },
-        include: {
-          prerequisites: true,
-          sections: true
+      }
+    });
+  }
+  async searchForCoursesByName(search) {
+    return await prisma.course.findMany({
+      where: {
+        name: {
+          startsWith: search,
+          mode: 'insensitive'
         }
-      });
+      },
+      include: {
+        prerequisites: true,
+        sections: true
+      }
+    });
+  }
+  async searchForCoursesByCategory(search) {
+    return await prisma.course.findMany({
+      where: {
+        category: {
+          startsWith: search,
+          mode: 'insensitive'
+        }
+      },
+      include: {
+        prerequisites: true,
+        sections: true
+      }
+    });
+  }
+
+  async registerForCourse({ studentId, sectionId }) {
+    // Get section with its course and that course’s prerequisites
+    const section = await prisma.section.findUnique({
+      where: { id: sectionId },
+      include: {
+        course: {
+          include: { prerequisites: true }
+        },
+        Enrollment: true
+      }
+    });
+
+    if (!section) throw new Error("Section not found");
+
+    const courseId = section.course.id;
+    const prerequisites = section.course.prerequisites;
+
+    // Get all finished course IDs for this student
+    const finishedEnrollments = await prisma.enrollment.findMany({
+      where: {
+        studentId,
+        status: 'FINISHED'
+      },
+      include: {
+        section: {
+          include: {
+            course: true
+          }
+        }
+      }
+    });
+
+    const finishedCourseIds = finishedEnrollments.map(e => e.section.course.id);
+
+    // Check if student satisfies all prerequisites
+    const missingPrereqs = prerequisites.filter(pr => !finishedCourseIds.includes(pr.prerequisiteId));
+    if (missingPrereqs.length > 0) {
+      throw new Error("Prerequisite courses not fulfilled");
     }
 
-    async registerForCourse({ studentId, sectionId }) {
-        // Get section with its course and that course’s prerequisites
-        const section = await prisma.section.findUnique({
-          where: { id: sectionId },
-          include: {
-            course: {
-              include: { prerequisites: true }
-            },
-            Enrollment: true
-          }
-        });
-      
-        if (!section) throw new Error("Section not found");
-      
-        const courseId = section.course.id;
-        const prerequisites = section.course.prerequisites;
-      
-        // Get all finished course IDs for this student
-        const finishedEnrollments = await prisma.enrollment.findMany({
-          where: {
-            studentId,
-            status: 'FINISHED'
-          },
-          include: {
-            section: {
-              include: {
-                course: true
-              }
-            }
-          }
-        });
-      
-        const finishedCourseIds = finishedEnrollments.map(e => e.section.course.id);
-      
-        // Check if student satisfies all prerequisites
-        const missingPrereqs = prerequisites.filter(pr => !finishedCourseIds.includes(pr.prerequisiteId));
-        if (missingPrereqs.length > 0) {
-          throw new Error("Prerequisite courses not fulfilled");
-        }
-      
-        // Check for available seats
-        if (section.enrolledStudents >= section.maxSeats) {
-          throw new Error("Section is full");
-        }
-      
-        // Create the enrollment
-        const enrollment = await prisma.enrollment.create({
-          data: {
-            studentId,
-            sectionId,
-            status: 'REGISTERED'
-          }
-        });
-      
-        // Increment the section's enrolledStudents count
-        await prisma.section.update({
-          where: { id: sectionId },
-          data: {
-            enrolledStudents: {
-              increment: 1
-            }
-          }
-        });
-      
-        return enrollment;
+    // Check for available seats
+    if (section.enrolledStudents >= section.maxSeats) {
+      throw new Error("Section is full");
     }
-    async showRegisteredCourses({ studentId }) {
-        return await prisma.enrollment.findMany({
-          where: {
-            status: 'REGISTERED',
-            studentId
-          },
+
+    // Create the enrollment
+    const enrollment = await prisma.enrollment.create({
+      data: {
+        studentId,
+        sectionId,
+        status: 'REGISTERED'
+      }
+    });
+
+    // Increment the section's enrolledStudents count
+    await prisma.section.update({
+      where: { id: sectionId },
+      data: {
+        enrolledStudents: {
+          increment: 1
+        }
+      }
+    });
+
+    return enrollment;
+  }
+  async showRegisteredCourses({ studentId }) {
+    return await prisma.enrollment.findMany({
+      where: {
+        status: 'REGISTERED',
+        studentId
+      },
+      include: {
+        section: {
           include: {
-            section: {
-              include: {
-                course: true
-              }
-            }
+            course: true
           }
+        }
+      }
+    });
+  }
+  async showCurrentCourses({ studentId }) {
+    return await prisma.enrollment.findMany({
+      where: {
+        status: 'CURRENT',
+        studentId
+      },
+      include: {
+        section: {
+          include: {
+            course: true
+          }
+<<<<<<< HEAD
         });
     }
     async showCurrentCourses({ studentId }) {
@@ -211,14 +243,37 @@ class repo {
     } 
     
     // Administrator
+=======
+        }
+      }
+    });
+  }
+  async showFinishedCourses({ studentId }) {
+    return await prisma.enrollment.findMany({
+      where: {
+        status: 'FINISHED',
+        studentId
+      },
+      include: {
+        section: {
+          include: {
+            course: true
+          }
+        }
+      }
+    });
+  }
+
+  // Administrator
+>>>>>>> c9cf4dc9205c3c3c0e84b6e7bf5189035333361b
   async getOpenCourses() {
-      return await prisma.course.findMany({
-        include: {
-          prerequisites: true,
-          sections: {
-            where: {
-              status: 'Open' // ✅ status must be a string
-            }
+    return await prisma.course.findMany({
+      include: {
+        prerequisites: true,
+        sections: {
+          where: {
+            status: 'Open' // ✅ status must be a string
+          }
         }
       }
     });
@@ -235,17 +290,17 @@ class repo {
       }
     });
   }
-  async getCurrentlyTakenCourses(){
+  async getCurrentlyTakenCourses() {
     return await prisma.course.findMany({
-      where:{
-        status:'CURRENT',
+      where: {
+        status: 'CURRENT',
 
       },
-      include:{
-        prerequisites:true,
+      include: {
+        prerequisites: true,
 
       }
-    }) 
+    })
   }
   async validateSection(sectionId) {
     return await prisma.section.update({
@@ -262,6 +317,7 @@ class repo {
       }
     });
   }
+<<<<<<< HEAD
   
   async invalidateSection(sectionId) {
     return await prisma.section.delete({
@@ -278,6 +334,10 @@ class repo {
   
   
   
+=======
+
+
+>>>>>>> c9cf4dc9205c3c3c0e84b6e7bf5189035333361b
 }
 
 export default new repo();

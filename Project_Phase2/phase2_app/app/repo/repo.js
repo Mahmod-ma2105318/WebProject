@@ -46,13 +46,13 @@ class repo {
             OR: [
               {
                 name: {
-                  contains: search,
+                  startsWith: search,
                   mode: 'insensitive' // optional: case-insensitive search
                 }
               },
               {
                 category: {
-                  contains: search,
+                  startsWith: search,
                   mode: 'insensitive'
                 }
               }
@@ -63,6 +63,34 @@ class repo {
             }
           }
         });
+    }
+    async searchForCoursesByName(search) {
+      return await prisma.course.findMany({
+        where: {
+          name: {
+            startsWith: search,
+            mode: 'insensitive'
+          }
+        },
+        include: {
+          prerequisites: true,
+          sections: true
+        }
+      });
+    }
+    async searchForCoursesByCategory(search) {
+      return await prisma.course.findMany({
+        where: {
+          category: {
+            startsWith: search,
+            mode: 'insensitive'
+          }
+        },
+        include: {
+          prerequisites: true,
+          sections: true
+        }
+      });
     }
 
     async registerForCourse({ studentId, sectionId }) {
@@ -214,38 +242,36 @@ class repo {
       }
     }) 
   }
-  async validateCourses(courseID,sectionId){
-    const coursesNeeededForValidation=await this.getPendingCourses();
-    const course=await prisma.findUnique({
-      where:{
-        validation: 'pending',
-        courseID:courseID,
-      },include:{
-        prerequisites:true,
-        sections:{
-          where:{
-            sectionId,
+  async validateSection(sectionId) {
+    return await prisma.section.update({
+      where: { id: sectionId },
+      data: {
+        validation: 'Valid'
+      },
+      include: {
+        course: {
+          include: {
+            prerequisites: true
           }
         }
       }
-    })
-    course.validation='valid'
+    });
   }
-
-
-
+  
+  async invalidateSection(sectionId) {
+    return await prisma.section.delete({
+      where: { id: sectionId }
+    });
+  }
+  async addCourse(formData) {
+    return await prisma.course.create({
+      data: formData
+    });
+  }
+  //Instructor
   
   
   
-    
-
-
-      
-      
-      
-      
-      
-
 }
 
 export default new repo();

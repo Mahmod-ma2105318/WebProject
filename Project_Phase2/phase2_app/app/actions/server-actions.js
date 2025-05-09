@@ -9,27 +9,22 @@ export async function logout() {
 
 }
 
-import { signIn } from 'next-auth/react';
-
 export async function handleLogin(formData) {
     const username = formData.get('username');
     const password = formData.get('password');
 
-<<<<<<< HEAD
-    const user = await repo.getUser(username,password);
-=======
-    const result = await signIn("credentials", {
-        redirect: false,
-        username,
-        password,
-    });
->>>>>>> c9cf4dc9205c3c3c0e84b6e7bf5189035333361b
-
-    if (!result || result.error) {
-        throw new Error('Authentication failed');
+    const user = await repo.getUser(username, password);
+    if (!user) {
+        throw new Error('Invalid username or password');
     }
 
-    switch (result.user.role) {
+    if (username !== user.username) {
+        throw new Error('Invalid username');
+    }
+    if (password !== user.password) {
+        throw new Error('Invalid password');
+    }
+    switch (user.role) {
         case 'STUDENT':
             redirect('/courses');
             break;

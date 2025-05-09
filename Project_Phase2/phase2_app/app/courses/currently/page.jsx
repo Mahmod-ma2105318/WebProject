@@ -1,5 +1,7 @@
 import repo from '@/app/repo/repo';
 import React from 'react';
+//This page will be added in the student part, especially in the currentlyTakenCourse
+//دي الي بقولك حاول فيها لاين 17
 
 export default async function page() {
   const currentlyTakenCourses = await repo.showCurrentCourses({ studentId: 1 });

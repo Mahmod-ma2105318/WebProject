@@ -207,10 +207,7 @@ class repo {
     }
     async showCurrentCourses({ studentId }) {
       return await prisma.enrollment.findMany({
-        where: {
-          status: 'CURRENT',
-          studentId
-        },
+        where: { studentId, status: 'CURRENT' },
         include: {
           section: {
             include: {
@@ -224,6 +221,7 @@ class repo {
           }
         }
       });
+      
     }
     
     async showFinishedCourses({ studentId }) {
@@ -330,6 +328,23 @@ class repo {
     });
   }
   //Instructor
+  async showInstructorBySectionId(sectionId) {
+    const section = await prisma.section.findUnique({
+      where: {
+        id: sectionId,
+      },
+      include: {
+        instructor: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+  
+    return section?.instructor?.user?.username || null;
+  }
+  
   
   
   

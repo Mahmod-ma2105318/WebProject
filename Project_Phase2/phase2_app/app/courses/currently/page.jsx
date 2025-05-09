@@ -3,7 +3,6 @@ import React from 'react';
 
 export default async function page() {
   const currentlyTakenCourses = await repo.showCurrentCourses({ studentId: 1 });
-  const instructorName
 
   return (
     <>
@@ -13,7 +12,7 @@ export default async function page() {
           <div className="course-category">{register.section.course.category}</div>
           <div className="course-credits">Credits: {register.section.course.credits}</div>
           <div className="course-instructor">
-            Section ID: {register.section.id}
+            Instructor: {register.section.instructor?.user?.username || 'N/A'}
           </div>
         </div>
       ))}

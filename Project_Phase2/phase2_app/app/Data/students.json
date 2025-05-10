@@ -10,33 +10,25 @@
             ],
             "finishedCourses": [
                 {
-                    "courseName": "HTML",
-                    "Grade": "A"
-                },
-                {
-                    "courseName": "CSS",
-                    "Grade": "B"
+                    "courseName": "Intro to Programming",
+                    "Grade": "A",
+                    "category": "Programming",
+                    "credits": 3,
+                    "prerequisites": [],
+                    "instructor": "Barhamgi",
+                    "sectionNo": "L01"
                 }
             ],
             "CurrentCourses": [
                 {
-                    "name": "JavaScript Basics",
+                    "name": "Advanced Python",
                     "category": "Programming",
-                    "credits": 3,
-                    "prerequisites": [
-                        "HTML",
-                        "CSS"
-                    ],
-                    "instructor": "Barhamgi"
-                },
-                {
-                    "name": "Database Systems",
-                    "category": "Databases",
                     "credits": 4,
                     "prerequisites": [
-                        "Computer Fundamentals"
+                        "Python Basics"
                     ],
-                    "instructor": "Barhamgi"
+                    "instructor": "Barhamgi",
+                    "sectionNo": "L01"
                 }
             ],
             "RegisteredCourses": []

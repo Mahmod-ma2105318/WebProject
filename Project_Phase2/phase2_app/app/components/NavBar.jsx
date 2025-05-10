@@ -22,18 +22,18 @@ export default function NavBar() {
             </header>
 
             <nav id="buttons">
-                <Link href="/">
+                <Link href="">
                     <img src="/images/qu_logo-01.png" alt="QU-LOGO" />
                 </Link>
 
-                <Link href="/">
+                <Link href="/courses">
                     <button id="searchButton">
                         <i className="fas fa-home"></i>
                         Home
                     </button>
                 </Link>
 
-                <Link href="/courses/registered">
+                <Link href="/courses/current">
                     <button id="registeredCoursesButton">
                         <i className="fas fa-hourglass-half"></i>
                         Registered Courses

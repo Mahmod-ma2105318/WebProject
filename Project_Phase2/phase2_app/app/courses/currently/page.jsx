@@ -3,10 +3,20 @@ import React from 'react';
 import NavBar from '@/app/components/NavBar';
 import CoursesList from '@/app/components/CoursesList';
 //This page will be added in the student part, especially in the currentlyTakenCourse
-//دي الي بقولك حاول فيها لاين 17
 
-export default async function page() {
-  const currentlyTakenCourses = await repo.showCurrentCourses({ studentId: 1 });
+export default async function Page() {
+  const currentlyTakenCourses = await repo.showCurrentCourses({ studentId: 3 });
+
+  // Preload instructor names
+  const coursesWithInstructor = await Promise.all(
+    currentlyTakenCourses.map(async (register) => {
+      const instructorName = await repo.showInstructorBySectionId(register.sectionId);
+      return {
+        ...register,
+        instructorName: instructorName || 'TBD'
+      };
+    })
+  );
 
   return (
     <>
@@ -15,14 +25,12 @@ export default async function page() {
         <CoursesList />
         <h1>Currently Taken Courses</h1>
 
-        {currentlyTakenCourses.map((register, index) => (
+        {coursesWithInstructor.map((register, index) => (
           <div key={index} className="course-card">
             <div className="course-name">{register.section.course.name}</div>
             <div className="course-category">{register.section.course.category}</div>
             <div className="course-credits">Credits: {register.section.course.credits}</div>
-            <div className="course-instructor">
-              Instructor: {register.section.instructor?.user?.username || 'N/A'}
-            </div>
+            <div className="course-instructor">Instructor: {register.instructorName}</div>
           </div>
         ))}
       </div>

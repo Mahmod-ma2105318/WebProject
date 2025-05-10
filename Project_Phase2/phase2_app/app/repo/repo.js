@@ -257,6 +257,26 @@ class repo {
       }
     });
   }
+  //Instructor
+  async  showInstructorBySectionId(sectionId) {
+    const section = await prisma.section.findUnique({
+      where: { id: sectionId },
+      include: {
+        instructor: {
+          include: {
+            user: true
+          }
+        }
+      }
+    });
+  
+    // Handle case: no section or no instructor
+    if (!section || !section.instructor || !section.instructor.user) {
+      return null;
+    }
+  
+    return section.instructor.user.username;
+  }
 
 
 }

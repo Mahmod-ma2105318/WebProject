@@ -8,7 +8,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Thomas",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 20,
@@ -24,15 +24,14 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Ahmed",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 25,
           "enrolledStudents": 18,
           "validation": "pending"
         }
       ]
-    },    
-
+    },
     {
       "name": "HTML",
       "category": "Programming",
@@ -41,7 +40,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Saleh",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 20,
@@ -49,7 +48,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Dr. Ali",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 25,
           "enrolledStudents": 15,
@@ -65,7 +64,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Ms. Baker",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 25,
           "enrolledStudents": 10,
@@ -73,7 +72,6 @@
         }
       ]
     },
-    
     {
       "name": "JavaScript Basics",
       "category": "Programming",
@@ -85,7 +83,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Smith",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 20,
@@ -93,7 +91,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Ms. Green",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 25,
           "enrolledStudents": 15,
@@ -109,7 +107,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Prof. Johnson",
+          "instructor": "Barhamgi",
           "status": "Closed",
           "maxSeats": 35,
           "enrolledStudents": 30,
@@ -117,7 +115,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Dr. Adams",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 25,
@@ -135,7 +133,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Miller",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 40,
           "enrolledStudents": 20,
@@ -143,7 +141,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Ms. Lee",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 35,
           "enrolledStudents": 22,
@@ -161,7 +159,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Prof. Williams",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 25,
@@ -169,7 +167,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Dr. Blake",
+          "instructor": "Barhamgi",
           "status": "Closed",
           "maxSeats": 30,
           "enrolledStudents": 30,
@@ -187,7 +185,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Davis",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 35,
           "enrolledStudents": 18,
@@ -195,7 +193,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Mr. Johnson",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 20,
@@ -211,7 +209,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Prof. Wilson",
+          "instructor": "Barhamgi",
           "status": "Closed",
           "maxSeats": 30,
           "enrolledStudents": 20,
@@ -219,7 +217,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Dr. Gomez",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 25,
           "enrolledStudents": 25,
@@ -238,7 +236,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Anderson",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 40,
           "enrolledStudents": 15,
@@ -246,7 +244,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Dr. Brown",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 35,
           "enrolledStudents": 12,
@@ -264,7 +262,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. White",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 40,
           "enrolledStudents": 10,
@@ -272,7 +270,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Prof. Green",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 8,
@@ -288,14 +286,14 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Omar",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 12,
           "validation": "pending"
         }
       ]
-    },    
+    },
     {
       "name": "Mobile App Development with Flutter",
       "category": "Mobile Development",
@@ -306,7 +304,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Prof. Taylor",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 35,
           "enrolledStudents": 22,
@@ -314,7 +312,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Ms. Patel",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 35,
           "enrolledStudents": 1,
@@ -332,7 +330,7 @@
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Harris",
+          "instructor": "Barhamgi",
           "status": "Closed",
           "maxSeats": 30,
           "enrolledStudents": 30,
@@ -340,7 +338,7 @@
         },
         {
           "sectionNo": "L02",
-          "instructor": "Dr. Lin",
+          "instructor": "Barhamgi",
           "status": "Open",
           "maxSeats": 30,
           "enrolledStudents": 28,
@@ -351,37 +349,19 @@
   ],
   "CurrentlyTakenCourses": [
     {
-      "name": "Operating Systems",
-      "category": "Computer Science",
+      "name": "Advanced Python",
+      "category": "Programming",
       "credits": 4,
       "prerequisites": [
-        "Computer Architecture"
+        "Python Basics"
       ],
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Norton",
-          "status": "In Progress",
-          "maxSeats": 40,
-          "enrolledStudents": 36,
-          "validation": "approved"
-        }
-      ]
-    },
-    {
-      "name": "Networks and Communication",
-      "category": "Networking",
-      "credits": 3,
-      "prerequisites": [
-        "Computer Fundamentals"
-      ],
-      "section": [
-        {
-          "sectionNo": "L02",
-          "instructor": "Ms. Grey",
+          "instructor": "Barhamgi",
           "status": "In Progress",
           "maxSeats": 35,
-          "enrolledStudents": 32,
+          "enrolledStudents": 35,
           "validation": "approved"
         }
       ]
@@ -389,33 +369,17 @@
   ],
   "FinishedCourses": [
     {
-      "name": "Introduction to Computing",
-      "category": "Computer Science",
+      "name": "Intro to Programming",
+      "category": "Programming",
       "credits": 3,
       "prerequisites": [],
       "section": [
         {
           "sectionNo": "L01",
-          "instructor": "Dr. Collins",
+          "instructor": "Barhamgi",
           "status": "Completed",
-          "maxSeats": 40,
-          "enrolledStudents": 40,
-          "validation": "approved"
-        }
-      ]
-    },
-    {
-      "name": "HTML and CSS",
-      "category": "Web Development",
-      "credits": 2,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L02",
-          "instructor": "Ms. Baker",
-          "status": "Completed",
-          "maxSeats": 30,
-          "enrolledStudents": 30,
+          "maxSeats": 50,
+          "enrolledStudents": 50,
           "validation": "approved"
         }
       ]

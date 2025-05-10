@@ -33,21 +33,21 @@ export default function NavBar() {
                     </button>
                 </Link>
 
-                <Link href="/">
+                <Link href="/courses/registeredStudent">
                     <button id="registeredCoursesButton">
                         <i className="fas fa-hourglass-half"></i>
                         Registered Courses
                     </button>
                 </Link>
 
-                <Link href="/">
+                <Link href="/courses/currently">
                     <button id="CurrentCoursesButton">
                         <i className="fas fa-book"></i>
                         Current Courses
                     </button>
                 </Link>
 
-                <Link href="/">
+                <Link href="/courses/finished">
                     <button id="FinishedCoursesButton">
                         <i className="fas fa-check-circle"></i>
                         Finished Courses

@@ -3,7 +3,8 @@ CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "role" TEXT NOT NULL DEFAULT 'STUDENT'
+    "role" TEXT NOT NULL DEFAULT 'STUDENT',
+    "isLoggedIn" BOOLEAN NOT NULL DEFAULT false
 );
 
 -- CreateTable

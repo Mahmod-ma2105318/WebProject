@@ -1,388 +1,986 @@
-{
-  "CoursesForRegistration": [
-    {
-      "name": "Statistics",
-      "category": "Mathematics",
-      "credits": 3,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 20,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Networking Fundamentals",
-      "category": "Networking",
-      "credits": 3,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 25,
-          "enrolledStudents": 18,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "HTML",
-      "category": "Programming",
-      "credits": 3,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 20,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 25,
-          "enrolledStudents": 15,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "CSS",
-      "category": "Web Development",
-      "credits": 2,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 25,
-          "enrolledStudents": 10,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "JavaScript Basics",
-      "category": "Programming",
-      "credits": 3,
-      "prerequisites": [
-        "HTML",
-        "CSS"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 20,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 25,
-          "enrolledStudents": 15,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Database Systems",
-      "category": "Databases",
-      "credits": 4,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Closed",
-          "maxSeats": 35,
-          "enrolledStudents": 30,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 25,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Python for Beginners",
-      "category": "Programming",
-      "credits": 3,
-      "prerequisites": [
-        "None"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 40,
-          "enrolledStudents": 20,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 35,
-          "enrolledStudents": 22,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Data Structures and Algorithms",
-      "category": "Computer Science",
-      "credits": 4,
-      "prerequisites": [
-        "Python for Beginners"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 25,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Closed",
-          "maxSeats": 30,
-          "enrolledStudents": 30,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Web Development with React",
-      "category": "Web Development",
-      "credits": 3,
-      "prerequisites": [
-        "JavaScript Basics"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 35,
-          "enrolledStudents": 18,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 20,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Cybersecurity Fundamentals",
-      "category": "Security",
-      "credits": 3,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Closed",
-          "maxSeats": 30,
-          "enrolledStudents": 20,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 25,
-          "enrolledStudents": 25,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Machine Learning Essentials",
-      "category": "Artificial Intelligence",
-      "credits": 4,
-      "prerequisites": [
-        "Python for Beginners",
-        "Statistics"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 40,
-          "enrolledStudents": 15,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 35,
-          "enrolledStudents": 12,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Cloud Computing Basics",
-      "category": "Cloud Computing",
-      "credits": 3,
-      "prerequisites": [
-        "Networking Fundamentals"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 40,
-          "enrolledStudents": 10,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 8,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Dart Programming",
-      "category": "Programming",
-      "credits": 3,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 12,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Mobile App Development with Flutter",
-      "category": "Mobile Development",
-      "credits": 4,
-      "prerequisites": [
-        "Dart Programming"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 35,
-          "enrolledStudents": 22,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 35,
-          "enrolledStudents": 1,
-          "validation": "pending"
-        }
-      ]
-    },
-    {
-      "name": "Software Engineering Principles",
-      "category": "Software Engineering",
-      "credits": 3,
-      "prerequisites": [
-        "Data Structures and Algorithms"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Closed",
-          "maxSeats": 30,
-          "enrolledStudents": 30,
-          "validation": "pending"
-        },
-        {
-          "sectionNo": "L02",
-          "instructor": "Barhamgi",
-          "status": "Open",
-          "maxSeats": 30,
-          "enrolledStudents": 28,
-          "validation": "pending"
-        }
-      ]
-    }
-  ],
-  "CurrentlyTakenCourses": [
-    {
-      "name": "Advanced Python",
-      "category": "Programming",
-      "credits": 4,
-      "prerequisites": [
-        "Python Basics"
-      ],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "In Progress",
-          "maxSeats": 35,
-          "enrolledStudents": 35,
-          "validation": "approved"
-        }
-      ]
-    }
-  ],
-  "FinishedCourses": [
-    {
-      "name": "Intro to Programming",
-      "category": "Programming",
-      "credits": 3,
-      "prerequisites": [],
-      "section": [
-        {
-          "sectionNo": "L01",
-          "instructor": "Barhamgi",
-          "status": "Completed",
-          "maxSeats": 50,
-          "enrolledStudents": 50,
-          "validation": "approved"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "name": "Linear Algebra",
+    "category": "Mathematics",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "david",
+        "status": "Open",
+        "maxSeats": 35,
+        "enrolledStudents": 50,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "david",
+        "status": "Completed",
+        "maxSeats": 50,
+        "enrolledStudents": 24,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Operating Systems",
+    "category": "Programming",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "isabella",
+        "status": "Closed",
+        "maxSeats": 40,
+        "enrolledStudents": 18,
+        "validation": "approved"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "isabella",
+        "status": "Closed",
+        "maxSeats": 25,
+        "enrolledStudents": 45,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Software Testing",
+    "category": "Programming",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "robert",
+        "status": "Open",
+        "maxSeats": 25,
+        "enrolledStudents": 42,
+        "validation": "approved"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "robert",
+        "status": "Open",
+        "maxSeats": 50,
+        "enrolledStudents": 50,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "UI/UX Design",
+    "category": "Mathematics",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "robert",
+        "status": "Completed",
+        "maxSeats": 30,
+        "enrolledStudents": 38,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Network Security",
+    "category": "Mathematics",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "isabella",
+        "status": "Completed",
+        "maxSeats": 40,
+        "enrolledStudents": 14,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Data Mining",
+    "category": "Mobile Development",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "michael",
+        "status": "Open",
+        "maxSeats": 40,
+        "enrolledStudents": 20,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Computer Graphics",
+    "category": "Databases",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "emma",
+        "status": "Closed",
+        "maxSeats": 30,
+        "enrolledStudents": 40,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Cryptography",
+    "category": "Cloud Computing",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "alice",
+        "status": "Closed",
+        "maxSeats": 40,
+        "enrolledStudents": 33,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "alice",
+        "status": "Closed",
+        "maxSeats": 40,
+        "enrolledStudents": 13,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Compiler Design",
+    "category": "Cloud Computing",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "david",
+        "status": "In Progress",
+        "maxSeats": 30,
+        "enrolledStudents": 49,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Agile Methodologies",
+    "category": "Mobile Development",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "robert",
+        "status": "In Progress",
+        "maxSeats": 50,
+        "enrolledStudents": 26,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "robert",
+        "status": "Completed",
+        "maxSeats": 40,
+        "enrolledStudents": 26,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Big Data Analytics",
+    "category": "Networking",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "robert",
+        "status": "Closed",
+        "maxSeats": 40,
+        "enrolledStudents": 49,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "robert",
+        "status": "Open",
+        "maxSeats": 50,
+        "enrolledStudents": 46,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Digital Logic Design",
+    "category": "AI",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "olivia",
+        "status": "Completed",
+        "maxSeats": 50,
+        "enrolledStudents": 37,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Virtualization",
+    "category": "Web Development",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "alice",
+        "status": "Open",
+        "maxSeats": 25,
+        "enrolledStudents": 28,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "DevOps Essentials",
+    "category": "Databases",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "sophia",
+        "status": "Open",
+        "maxSeats": 35,
+        "enrolledStudents": 43,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Business Intelligence",
+    "category": "Cloud Computing",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "olivia",
+        "status": "Completed",
+        "maxSeats": 30,
+        "enrolledStudents": 47,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "olivia",
+        "status": "Closed",
+        "maxSeats": 35,
+        "enrolledStudents": 13,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Information Retrieval",
+    "category": "Software Engineering",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "sophia",
+        "status": "Open",
+        "maxSeats": 35,
+        "enrolledStudents": 50,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "sophia",
+        "status": "Open",
+        "maxSeats": 25,
+        "enrolledStudents": 28,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Bioinformatics",
+    "category": "Networking",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "alice",
+        "status": "Open",
+        "maxSeats": 25,
+        "enrolledStudents": 27,
+        "validation": "approved"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "alice",
+        "status": "Open",
+        "maxSeats": 50,
+        "enrolledStudents": 49,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Natural Language Processing",
+    "category": "Web Development",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "emma",
+        "status": "Closed",
+        "maxSeats": 30,
+        "enrolledStudents": 49,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Ethical Hacking",
+    "category": "AI",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "isabella",
+        "status": "Completed",
+        "maxSeats": 25,
+        "enrolledStudents": 37,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Quantum Computing",
+    "category": "Mathematics",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "david",
+        "status": "Completed",
+        "maxSeats": 25,
+        "enrolledStudents": 36,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Game Development",
+    "category": "Security",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "isabella",
+        "status": "Closed",
+        "maxSeats": 35,
+        "enrolledStudents": 13,
+        "validation": "approved"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "isabella",
+        "status": "Completed",
+        "maxSeats": 40,
+        "enrolledStudents": 31,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "System Analysis",
+    "category": "Cloud Computing",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "robert",
+        "status": "In Progress",
+        "maxSeats": 40,
+        "enrolledStudents": 45,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "robert",
+        "status": "Closed",
+        "maxSeats": 40,
+        "enrolledStudents": 25,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Robotics",
+    "category": "Security",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "michael",
+        "status": "In Progress",
+        "maxSeats": 25,
+        "enrolledStudents": 48,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "michael",
+        "status": "In Progress",
+        "maxSeats": 50,
+        "enrolledStudents": 25,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Embedded Systems",
+    "category": "Mobile Development",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "james",
+        "status": "In Progress",
+        "maxSeats": 40,
+        "enrolledStudents": 31,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "IT Project Management",
+    "category": "Security",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "david",
+        "status": "Completed",
+        "maxSeats": 30,
+        "enrolledStudents": 38,
+        "validation": "approved"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "david",
+        "status": "Completed",
+        "maxSeats": 25,
+        "enrolledStudents": 13,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Advanced Web Development",
+    "category": "Security",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "emma",
+        "status": "Open",
+        "maxSeats": 50,
+        "enrolledStudents": 41,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Information Systems",
+    "category": "Programming",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "sophia",
+        "status": "Closed",
+        "maxSeats": 25,
+        "enrolledStudents": 48,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "sophia",
+        "status": "Open",
+        "maxSeats": 40,
+        "enrolledStudents": 30,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Database Administration",
+    "category": "Security",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "james",
+        "status": "Completed",
+        "maxSeats": 30,
+        "enrolledStudents": 28,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "james",
+        "status": "Closed",
+        "maxSeats": 50,
+        "enrolledStudents": 13,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Visual Programming",
+    "category": "Software Engineering",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "olivia",
+        "status": "Closed",
+        "maxSeats": 35,
+        "enrolledStudents": 11,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "olivia",
+        "status": "Completed",
+        "maxSeats": 40,
+        "enrolledStudents": 41,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Backend Development",
+    "category": "Web Development",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "michael",
+        "status": "Completed",
+        "maxSeats": 40,
+        "enrolledStudents": 28,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Frontend Technologies",
+    "category": "Mobile Development",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "alice",
+        "status": "In Progress",
+        "maxSeats": 40,
+        "enrolledStudents": 37,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Statistics for AI",
+    "category": "Programming",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "emma",
+        "status": "Closed",
+        "maxSeats": 25,
+        "enrolledStudents": 33,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Blockchain Fundamentals",
+    "category": "AI",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "robert",
+        "status": "In Progress",
+        "maxSeats": 50,
+        "enrolledStudents": 34,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Cloud Security",
+    "category": "Mathematics",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "olivia",
+        "status": "Open",
+        "maxSeats": 50,
+        "enrolledStudents": 27,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Server Management",
+    "category": "Mathematics",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "david",
+        "status": "Completed",
+        "maxSeats": 35,
+        "enrolledStudents": 17,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "E-Commerce Development",
+    "category": "Web Development",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "sophia",
+        "status": "Closed",
+        "maxSeats": 25,
+        "enrolledStudents": 22,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Intro to AI",
+    "category": "Mobile Development",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "robert",
+        "status": "Open",
+        "maxSeats": 40,
+        "enrolledStudents": 26,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "robert",
+        "status": "Closed",
+        "maxSeats": 50,
+        "enrolledStudents": 19,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Advanced Algorithms",
+    "category": "AI",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "emma",
+        "status": "Open",
+        "maxSeats": 40,
+        "enrolledStudents": 23,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Computer Vision",
+    "category": "Web Development",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "david",
+        "status": "In Progress",
+        "maxSeats": 35,
+        "enrolledStudents": 40,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "david",
+        "status": "Closed",
+        "maxSeats": 25,
+        "enrolledStudents": 45,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Penetration Testing",
+    "category": "Networking",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "alice",
+        "status": "Completed",
+        "maxSeats": 25,
+        "enrolledStudents": 45,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "alice",
+        "status": "Completed",
+        "maxSeats": 35,
+        "enrolledStudents": 25,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Mobile Game Development",
+    "category": "Mobile Development",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "emma",
+        "status": "Completed",
+        "maxSeats": 35,
+        "enrolledStudents": 17,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "emma",
+        "status": "Closed",
+        "maxSeats": 35,
+        "enrolledStudents": 38,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Neural Networks",
+    "category": "Web Development",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "james",
+        "status": "In Progress",
+        "maxSeats": 25,
+        "enrolledStudents": 41,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Digital Forensics",
+    "category": "Databases",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "emma",
+        "status": "Closed",
+        "maxSeats": 40,
+        "enrolledStudents": 11,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "emma",
+        "status": "Open",
+        "maxSeats": 30,
+        "enrolledStudents": 27,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Information Theory",
+    "category": "Cloud Computing",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "sophia",
+        "status": "Closed",
+        "maxSeats": 25,
+        "enrolledStudents": 21,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Edge Computing",
+    "category": "AI",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "olivia",
+        "status": "Completed",
+        "maxSeats": 40,
+        "enrolledStudents": 24,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "AI in Healthcare",
+    "category": "Cloud Computing",
+    "credits": 3,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "john",
+        "status": "Completed",
+        "maxSeats": 50,
+        "enrolledStudents": 49,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Augmented Reality",
+    "category": "Mathematics",
+    "credits": 4,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "isabella",
+        "status": "Completed",
+        "maxSeats": 40,
+        "enrolledStudents": 31,
+        "validation": "approved"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "isabella",
+        "status": "In Progress",
+        "maxSeats": 50,
+        "enrolledStudents": 27,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "VR Development",
+    "category": "Mobile Development",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "john",
+        "status": "Completed",
+        "maxSeats": 35,
+        "enrolledStudents": 32,
+        "validation": "approved"
+      }
+    ]
+  },
+  {
+    "name": "Automation with Python",
+    "category": "Web Development",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "alice",
+        "status": "Open",
+        "maxSeats": 40,
+        "enrolledStudents": 28,
+        "validation": "pending"
+      }
+    ]
+  },
+  {
+    "name": "Software Architecture",
+    "category": "Cloud Computing",
+    "credits": 2,
+    "prerequisites": [],
+    "section": [
+      {
+        "sectionNo": "L01",
+        "instructor": "james",
+        "status": "Completed",
+        "maxSeats": 30,
+        "enrolledStudents": 36,
+        "validation": "pending"
+      },
+      {
+        "sectionNo": "L02",
+        "instructor": "james",
+        "status": "In Progress",
+        "maxSeats": 25,
+        "enrolledStudents": 45,
+        "validation": "approved"
+      }
+    ]
+  }
+]

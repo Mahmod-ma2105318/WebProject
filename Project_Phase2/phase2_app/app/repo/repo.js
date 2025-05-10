@@ -2,15 +2,51 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class repo {
+  //User Repo
   async getUser(username, pass) {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: {
-        username: username,
-        password: pass
+        username,
+        password: pass,
+      },
+    });
+    return user;
+  }
+  
+  async getLoggedInUser(){
+    const user = await prisma.user.findFirst({
+      where: {
+        isLoggedIn:true,
       }
     });
     return user;
   }
+  async  logIn(user) {
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        isLoggedIn: true,
+      },
+    });
+  
+    return updatedUser;
+  }
+  async logOut(user) {
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        isLoggedIn: false,
+      },
+    });
+  
+    return updatedUser;
+  }
+  
+  
   //Student Repo Methods
   async connectUserToStudent(user) {
     return await prisma.student.findUnique({
@@ -204,6 +240,22 @@ class repo {
       }
     });
   }
+  async showRegisteredCourses({ studentId }) {
+    return await prisma.enrollment.findMany({
+      where: {
+        status: 'REGISTERED',
+        studentId
+      },
+      include: {
+        section: {
+          include: {
+            course: true
+          }
+        }
+      }
+    });
+  }
+
 
   // Administrator
   async getOpenCourses() {

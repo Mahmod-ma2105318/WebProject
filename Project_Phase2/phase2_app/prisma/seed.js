@@ -104,8 +104,9 @@ async function seed() {
                 data: {
                   courseId: mainCourse.id,
                   prerequisiteId: prereqCourse.id,
+                  name: prereq, // ✅ storing the prerequisite course's name
                 },
-              });
+              });              
             }
           }
         }

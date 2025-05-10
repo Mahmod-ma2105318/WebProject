@@ -5,7 +5,8 @@ import CoursesList from '@/app/components/CoursesList';
 //This page will be added in the student part, especially in the currentlyTakenCourse
 
 export default async function Page() {
-  const currentlyTakenCourses = await repo.showCurrentCourses({ studentId: 1 });
+  const user =await repo.getLoggedInUser()
+  const currentlyTakenCourses = await repo.showCurrentCourses({ studentId: user.id });
 
   // Preload instructor names
   const coursesWithInstructor = await Promise.all(

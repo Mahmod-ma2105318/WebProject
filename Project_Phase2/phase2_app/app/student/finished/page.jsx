@@ -5,7 +5,8 @@ import CoursesList from '@/app/components/CoursesList';
 //This page will be added in the student part, especially in the finishedCourses
 
 export default async function page() {
-  const finishedCourses = await repo.showFinishedCourses({ studentId: 1 });
+  const user =await repo.getLoggedInUser()
+  const finishedCourses = await repo.showFinishedCourses({ studentId: user.id });
 
   return (
     <>

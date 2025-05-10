@@ -35,6 +35,7 @@ CREATE TABLE "Enrollment" (
     "sectionId" INTEGER NOT NULL,
     "status" TEXT NOT NULL DEFAULT 'REGISTERED',
     "grade" TEXT,
+    "validation" TEXT,
     CONSTRAINT "Enrollment_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "Student" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Enrollment_sectionId_fkey" FOREIGN KEY ("sectionId") REFERENCES "Section" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -66,6 +67,7 @@ CREATE TABLE "Section" (
 CREATE TABLE "CoursePrerequisite" (
     "courseId" INTEGER NOT NULL,
     "prerequisiteId" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
 
     PRIMARY KEY ("courseId", "prerequisiteId"),
     CONSTRAINT "CoursePrerequisite_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

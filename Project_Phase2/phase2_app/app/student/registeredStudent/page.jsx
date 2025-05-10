@@ -4,7 +4,9 @@ import NavBar from '@/app/components/NavBar';
 import CoursesList from '@/app/components/CoursesList';
 
 export default async function Page() {
-  const registeredCourses = await repo.showRegisteredCourses({ studentId: 8 });
+  const user =await repo.getLoggedInUser()
+
+  const registeredCourses = await repo.showRegisteredCourses({ studentId: user.id });
 
   return (
     <>

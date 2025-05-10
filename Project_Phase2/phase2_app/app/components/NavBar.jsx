@@ -1,9 +1,10 @@
-'use client';
 
 import Link from 'next/link';
 import { logout } from '@/app/actions/server-actions.js';
+import repo from '../repo/repo';
 
-export default function NavBar() {
+export default async function NavBar() {
+    const user=await repo.getLoggedInUser();
 
 
     return (
@@ -14,8 +15,8 @@ export default function NavBar() {
                     <div className="user-info-container">
                         <img src="../images/image.png" alt="User Image"></img>
                         <div>
-                            <div id="username">username</div>
-                            <div id="role">role</div>
+                            <div id="username">{user.username}</div>
+                            <div id="role">{user.role}</div>
                         </div>
                     </div>
                 </div>
@@ -26,28 +27,28 @@ export default function NavBar() {
                     <img src="/images/qu_logo-01.png" alt="QU-LOGO" />
                 </Link>
 
-                <Link href="/courses">
+                <Link href="/student">
                     <button id="searchButton">
                         <i className="fas fa-home"></i>
                         Home
                     </button>
                 </Link>
 
-                <Link href="/courses/registeredStudent">
+                <Link href="/student/registeredStudent">
                     <button id="registeredCoursesButton">
                         <i className="fas fa-hourglass-half"></i>
                         Registered Courses
                     </button>
                 </Link>
 
-                <Link href="/courses/currently">
+                <Link href="/student/currently">
                     <button id="CurrentCoursesButton">
                         <i className="fas fa-book"></i>
                         Current Courses
                     </button>
                 </Link>
 
-                <Link href="/courses/finished">
+                <Link href="/student/finished">
                     <button id="FinishedCoursesButton">
                         <i className="fas fa-check-circle"></i>
                         Finished Courses

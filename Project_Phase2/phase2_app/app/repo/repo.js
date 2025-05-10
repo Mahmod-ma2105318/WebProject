@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { nanoid } from 'nanoid';
 const prisma = new PrismaClient();
 
 class repo {
@@ -128,73 +129,127 @@ class repo {
       }
     });
   }
+  
+  
 
-  async registerForCourse({ studentId, sectionId }) {
-    // Get section with its course and that course’s prerequisites
+  async registerForCourse({ sectionId }) {
+    const user = await this.getLoggedInUser();
+    if (!user) throw new Error("No user is logged in");
+  
+    const student = await this.connectUserToStudent(user);
+    if (!student) throw new Error("Student not found for user");
+  
+    // Get section with its course and prerequisites
     const section = await prisma.section.findUnique({
       where: { id: sectionId },
       include: {
         course: {
-          include: { prerequisites: true }
+          include: {
+            prerequisites: true
+          }
         },
         Enrollment: true
       }
     });
-
-    if (!section) throw new Error("Section not found");
-
-    const courseId = section.course.id;
-    const prerequisites = section.course.prerequisites;
-
-    // Get all finished course IDs for this student
-    const finishedEnrollments = await prisma.enrollment.findMany({
+  
+    if (!section) {
+      alert("Section not found")
+      return;
+    }
+  
+    const course = section.course;
+  
+    // 1. Check if section is open
+    if (section.status !== "Open") {
+      throw new Error(`Section ${section.sectionNo} is not open for registration.`);
+    }
+  
+    // 2. Check seat capacity
+    const enrolledCount = await prisma.enrollment.count({
       where: {
-        studentId,
-        status: 'FINISHED'
-      },
-      include: {
+        sectionId: sectionId,
+        status: "REGISTERED"
+      }
+    });
+  
+    if (enrolledCount >= section.maxSeats) {
+      throw new Error(`Section ${section.sectionNo} is full.`);
+    }
+  
+    // 3. Check if already finished the course
+    const hasFinished = await prisma.enrollment.findFirst({
+      where: {
+        studentId: student.id,
         section: {
-          include: {
-            course: true
+          courseId: course.id
+        },
+        status: "FINISHED"
+      }
+    });
+  
+    if (hasFinished) {
+      throw new Error(`You already finished the course ${course.name}.`);
+    }
+  
+    // 4. Check if currently registered for the course
+    const isCurrentlyRegistered = await prisma.enrollment.findFirst({
+      where: {
+        studentId: student.id,
+        section: {
+          courseId: course.id
+        },
+        status: "REGISTERED"
+      }
+    });
+  
+    if (isCurrentlyRegistered) {
+      throw new Error(`You are already registered for ${course.name}.`);
+    }
+  
+    // 5. Check prerequisites
+    if (
+      course.prerequisites.length > 0 &&
+      !(course.prerequisites.length === 1 && course.prerequisites[0].name === "None")
+    ) {
+      const completedCourses = await prisma.enrollment.findMany({
+        where: {
+          studentId: student.id,
+          status: "FINISHED"
+        },
+        include: {
+          section: {
+            include: {
+              course: true
+            }
           }
         }
+      });
+      const completedCourseNames = completedCourses.map(e => e.section.course.name);
+  
+      const missingPrereqs = course.prerequisites.filter(
+        prereq => !completedCourseNames.includes(prereq.name)
+      );
+  
+      if (missingPrereqs.length > 0) {
+        throw new Error(`Missing prerequisites: ${missingPrereqs.map(p => p.name).join(", ")}`);
       }
-    });
-
-    const finishedCourseIds = finishedEnrollments.map(e => e.section.course.id);
-
-    // Check if student satisfies all prerequisites
-    const missingPrereqs = prerequisites.filter(pr => !finishedCourseIds.includes(pr.prerequisiteId));
-    if (missingPrereqs.length > 0) {
-      throw new Error("Prerequisite courses not fulfilled");
     }
-
-    // Check for available seats
-    if (section.enrolledStudents >= section.maxSeats) {
-      throw new Error("Section is full");
-    }
-
-    // Create the enrollment
-    const enrollment = await prisma.enrollment.create({
+  
+    // 6. All checks passed → create enrollment
+    return await prisma.enrollment.create({
       data: {
-        studentId,
-        sectionId,
-        status: 'REGISTERED'
+        validation:"PENDING",
+        student: { connect: { id: student.id } },
+        section: { connect: { id: sectionId } },
+        status: "REGISTERED"
       }
     });
-
-    // Increment the section's enrolledStudents count
-    await prisma.section.update({
-      where: { id: sectionId },
-      data: {
-        enrolledStudents: {
-          increment: 1
-        }
-      }
-    });
-
-    return enrollment;
   }
+  
+  
+  
+  
+  
   async showRegisteredCourses({ studentId }) {
     return await prisma.enrollment.findMany({
       where: {
@@ -270,29 +325,45 @@ class repo {
       }
     });
   }
-  async getPendingCourses() {
-    return await prisma.course.findMany({
+  async  getPendingCourses() {
+    return await prisma.enrollment.findMany({
+      where: {
+          validation: 'PENDING'
+      },
       include: {
-        prerequisites: true,
-        sections: {
-          where: {
-            validation: 'pending'
+        section: {
+          include: {
+            course: true,
+            instructor: {
+              include: {
+                user: true
+              }
+            }
+          }
+        },
+        student: {
+          include: {
+            user: true
           }
         }
       }
     });
   }
+  
+  
   async getCurrentlyTakenCourses() {
-    return await prisma.course.findMany({
-      where: {
-        status: 'CURRENT',
-
-      },
-      include: {
-        prerequisites: true,
-
-      }
-    })
+      return await prisma.enrollment.findMany({
+        where: {
+          status: 'CURRENT',
+        },
+        include: {
+          section: {
+            include: {
+              course: true
+            }
+          }
+        }
+      });
   }
   async validateSection(sectionId) {
     return await prisma.section.update({

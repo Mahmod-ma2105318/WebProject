@@ -3,7 +3,7 @@
     "name": "Linear Algebra",
     "category": "Mathematics",
     "credits": 4,
-    "prerequisites": [],
+    "prerequisites": ["Operating Systems"],
     "section": [
       {
         "sectionNo": "L01",

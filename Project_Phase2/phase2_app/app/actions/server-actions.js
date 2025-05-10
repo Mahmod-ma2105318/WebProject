@@ -26,7 +26,7 @@ export async function handleLogin(formData) {
   
     switch (user.role) {
       case 'STUDENT':
-        redirect('/courses');
+        redirect('/student');
         break;
       case 'ADMINISTRATOR':
         redirect('/Admin');
@@ -39,3 +39,13 @@ export async function handleLogin(formData) {
     }
   
 }
+
+export async function registerCourse(sectionId) {
+  
+    const user = await repo.getLoggedInUser();
+    if (!user) throw new Error('No user logged in');
+    await repo.registerForCourse(sectionId);
+   
+    
+  }
+  

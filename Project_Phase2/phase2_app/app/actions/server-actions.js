@@ -42,29 +42,10 @@ export async function handleLogin(formData) {
 
 export async function registerCourse(sectionId) {
   
+    const user = await repo.getLoggedInUser();
+    if (!user) throw new Error('No user logged in');
     await repo.registerForCourse(sectionId);
    
     
-}
-export async function gradeStudent(sectionId,studentId,grade){
-  await repo.gradeStudent(sectionId,studentId,grade);
-
-}
-
-export async function approveRegReq(userId, sectionId){
-  await repo.approveRegReq(userId, sectionId)
-
-}
-export async function declineRegReq(userId, sectionId){
-  await repo.declineRegReq(userId, sectionId)
-
-}
-
-export async function validateSection(sectionId){
-  await repo.validateSection(sectionId);
-}
-export async function invalidateSection(sectionId){
-  await repo.invalidateSection(sectionId); 
-}
-
+  }
   

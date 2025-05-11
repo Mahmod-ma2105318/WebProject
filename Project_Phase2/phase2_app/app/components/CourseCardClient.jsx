@@ -5,7 +5,7 @@ import { registerCourse } from '../actions/server-actions';
 export default  function CourseCardClient({ courses, user }) {
   const handleRegister = async (sectionId) => {
     try {
-      await registerCourse({ sectionId, userId: user.id});
+      await registerCourse({ sectionId, userId: user.id }); // ✅ Pass correctly
       alert("Registered successfully!");
     } catch (error) {
       console.error(error);

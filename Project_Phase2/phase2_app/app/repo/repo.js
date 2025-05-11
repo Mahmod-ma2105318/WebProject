@@ -13,16 +13,16 @@ class repo {
     });
     return user;
   }
-  
-  async getLoggedInUser(){
+
+  async getLoggedInUser() {
     const user = await prisma.user.findFirst({
       where: {
-        isLoggedIn:true,
+        isLoggedIn: true,
       }
     });
     return user;
   }
-  async  logIn(user) {
+  async logIn(user) {
     const updatedUser = await prisma.user.update({
       where: {
         id: user.id,
@@ -31,7 +31,7 @@ class repo {
         isLoggedIn: true,
       },
     });
-  
+
     return updatedUser;
   }
   async logOut(user) {
@@ -43,11 +43,11 @@ class repo {
         isLoggedIn: false,
       },
     });
-  
+
     return updatedUser;
   }
-  
-  
+
+
   //Student Repo Methods
   async connectUserToStudent(user) {
     return await prisma.student.findUnique({
@@ -129,16 +129,16 @@ class repo {
       }
     });
   }
-  
-  
+
+
 
   async registerForCourse({ sectionId }) {
     const user = await this.getLoggedInUser();
     if (!user) throw new Error("No user is logged in");
-  
+
     const student = await this.connectUserToStudent(user);
     if (!student) throw new Error("Student not found for user");
-  
+
     // Get section with its course and prerequisites
     const section = await prisma.section.findUnique({
       where: { id: sectionId },
@@ -151,19 +151,19 @@ class repo {
         Enrollment: true
       }
     });
-  
+
     if (!section) {
       alert("Section not found")
       return;
     }
-  
+
     const course = section.course;
-  
+
     // 1. Check if section is open
     if (section.status !== "Open") {
       throw new Error(`Section ${section.sectionNo} is not open for registration.`);
     }
-  
+
     // 2. Check seat capacity
     const enrolledCount = await prisma.enrollment.count({
       where: {
@@ -171,11 +171,11 @@ class repo {
         status: "REGISTERED"
       }
     });
-  
+
     if (enrolledCount >= section.maxSeats) {
       throw new Error(`Section ${section.sectionNo} is full.`);
     }
-  
+
     // 3. Check if already finished the course
     const hasFinished = await prisma.enrollment.findFirst({
       where: {
@@ -186,11 +186,11 @@ class repo {
         status: "FINISHED"
       }
     });
-  
+
     if (hasFinished) {
       throw new Error(`You already finished the course ${course.name}.`);
     }
-  
+
     // 4. Check if currently registered for the course
     const isCurrentlyRegistered = await prisma.enrollment.findFirst({
       where: {
@@ -201,11 +201,11 @@ class repo {
         status: "REGISTERED"
       }
     });
-  
+
     if (isCurrentlyRegistered) {
       throw new Error(`You are already registered for ${course.name}.`);
     }
-  
+
     // 5. Check prerequisites
     if (
       course.prerequisites.length > 0 &&
@@ -225,31 +225,31 @@ class repo {
         }
       });
       const completedCourseNames = completedCourses.map(e => e.section.course.name);
-  
+
       const missingPrereqs = course.prerequisites.filter(
         prereq => !completedCourseNames.includes(prereq.name)
       );
-  
+
       if (missingPrereqs.length > 0) {
         throw new Error(`Missing prerequisites: ${missingPrereqs.map(p => p.name).join(", ")}`);
       }
     }
-  
+
     // 6. All checks passed → create enrollment
     return await prisma.enrollment.create({
       data: {
-        validation:"PENDING",
+        validation: "PENDING",
         student: { connect: { id: student.id } },
         section: { connect: { id: sectionId } },
         status: "REGISTERED"
       }
     });
   }
-  
-  
-  
-  
-  
+
+
+
+
+
   async showRegisteredCourses({ studentId }) {
     return await prisma.enrollment.findMany({
       where: {
@@ -325,10 +325,10 @@ class repo {
       }
     });
   }
-  async  getPendingCourses() {
+  async getPendingCourses() {
     return await prisma.enrollment.findMany({
       where: {
-          validation: 'PENDING'
+        validation: 'PENDING'
       },
       include: {
         section: {
@@ -349,21 +349,21 @@ class repo {
       }
     });
   }
-  
-  
+
+
   async getCurrentlyTakenCourses() {
-      return await prisma.enrollment.findMany({
-        where: {
-          status: 'CURRENT',
-        },
-        include: {
-          section: {
-            include: {
-              course: true
-            }
+    return await prisma.enrollment.findMany({
+      where: {
+        status: 'CURRENT',
+      },
+      include: {
+        section: {
+          include: {
+            course: true
           }
         }
-      });
+      }
+    });
   }
   async getCoursesWithPendingSections() {
     const courses = await prisma.course.findMany({
@@ -393,14 +393,14 @@ class repo {
         }
       }
     });
-  
+
     return courses;
   }
-  
-  
-  
-  
-  
+
+
+
+
+
   async validateSection(sectionId) {
     return await prisma.section.update({
       where: { id: sectionId },
@@ -417,9 +417,34 @@ class repo {
     });
   }
 
+  async addCourse(courseData) {
+    return await prisma.course.create({
+      data: {
+        name: courseData.name,
+        category: courseData.category,
+        credits: courseData.credits,
+        prerequisites: {
+          create: courseData.prerequisites.map(prereq => ({
+            name: prereq.name
+          }))
+        },
+        sections: {
+          create: courseData.sections.map(section => ({
+            sectionNo: section.sectionNo,
+            instructorId: parseInt(section.instructorId),
+            maxSeats: parseInt(section.maxSeats),
+            enrolledStudents: section.enrolledStudents,
+            status: section.status,
+            validation: section.validation
+          }))
+        }
+      }
+    });
+  }
+
   //Instructor
 
-  async  getEnrollmentsForInstructor(userId) {
+  async getEnrollmentsForInstructor(userId) {
     return await prisma.enrollment.findMany({
       where: {
         status: 'CURRENT',
@@ -448,9 +473,9 @@ class repo {
       }
     });
   }
-  
-  
-  
+
+
+
 
 
 }

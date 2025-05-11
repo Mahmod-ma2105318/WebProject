@@ -9,7 +9,7 @@ export default async function Page() {
 
   return (
     <>
-    <AdminNavBar />
+      <AdminNavBar />
       <div className="container">
         <CoursesList />
         <h1>Courses</h1>
@@ -47,7 +47,7 @@ export default async function Page() {
                 ))}
               </div>
             </div>
-        ))}
+          ))}
 
       </div>
     </>

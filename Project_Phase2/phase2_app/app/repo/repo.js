@@ -67,6 +67,24 @@ class repo {
       }
     });
   }
+  async showInstructorBySectionId(sectionId) {
+    const section = await prisma.section.findUnique({
+      where: { id: sectionId },
+      include: {
+        instructor: {
+          include: {
+            user: true // includes the instructor's user info (like username)
+          }
+        }
+      }
+    });
+  
+    if (!section || !section.instructor || !section.instructor.user) {
+      return null;
+    }
+  
+    return section.instructor.user.username; // or return section.instructor.user for full info
+  }
   async getCourses() {
     return await prisma.course.findMany(
       {
@@ -153,8 +171,7 @@ class repo {
     });
   
     if (!section) {
-      alert("Section not found")
-      return;
+      throw new Error("Section not found")
     }
   
     const course = section.course;
@@ -254,6 +271,7 @@ class repo {
     return await prisma.enrollment.findMany({
       where: {
         status: 'REGISTERED',
+        validation: 'PENDING', 
         studentId
       },
       include: {
@@ -265,6 +283,7 @@ class repo {
       }
     });
   }
+  
   async showCurrentCourses({ studentId }) {
     return await prisma.enrollment.findMany({
       where: {
@@ -284,21 +303,6 @@ class repo {
     return await prisma.enrollment.findMany({
       where: {
         status: 'FINISHED',
-        studentId
-      },
-      include: {
-        section: {
-          include: {
-            course: true
-          }
-        }
-      }
-    });
-  }
-  async showRegisteredCourses({ studentId }) {
-    return await prisma.enrollment.findMany({
-      where: {
-        status: 'REGISTERED',
         studentId
       },
       include: {
@@ -396,16 +400,48 @@ class repo {
   
     return courses;
   }
+  async approveRegReq(userId, sectionId) {
+    const student = await prisma.student.findUnique({
+      where: { userId }
+    });
   
+    if (!student) throw new Error('Student not found');
   
+    return await prisma.enrollment.update({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: userId, 
+        }
+      },
+      data: {
+        validation: 'APPROVE'
+      }
+    });
+  }
   
+  async  declineRegReq(userId, sectionId) {
+    const student = await prisma.student.findUnique({
+      where: { userId }
+    });
   
+    if (!student) throw new Error('Student not found');
+  
+    return await prisma.enrollment.delete({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: student.id
+        }
+      }
+    });
+  }
   
   async validateSection(sectionId) {
     return await prisma.section.update({
       where: { id: sectionId },
       data: {
-        validation: 'Valid'
+        validation: 'approved'
       },
       include: {
         course: {
@@ -416,6 +452,19 @@ class repo {
       }
     });
   }
+  async invalidateSection(sectionID) {
+    // First delete enrollments referencing the section
+    await prisma.enrollment.deleteMany({
+      where: { sectionId: sectionID }
+    });
+  
+    // Then delete the section itself
+    return await prisma.section.delete({
+      where: { id: sectionID }
+    });
+  }
+  
+  
 
   //Instructor
 
@@ -423,6 +472,7 @@ class repo {
     return await prisma.enrollment.findMany({
       where: {
         status: 'CURRENT',
+        grade:null,
         section: {
           instructor: {
             userId: userId
@@ -448,6 +498,21 @@ class repo {
       }
     });
   }
+
+  async gradeStudent(sectionId, userId, grade) {
+    return await prisma.enrollment.update({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: userId  // ✅ if studentId === userId
+        }
+      },
+      data: {
+        grade
+      }
+    });
+  }
+  
   
   
   

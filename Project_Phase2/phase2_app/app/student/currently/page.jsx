@@ -1,5 +1,5 @@
-import repo from '@/app/repo/repo';
 import React from 'react';
+import repo from '@/app/repo/repo.js';
 import NavBar from '@/app/components/NavBar';
 import CoursesList from '@/app/components/CoursesList';
 //This page will be added in the student part, especially in the currentlyTakenCourse

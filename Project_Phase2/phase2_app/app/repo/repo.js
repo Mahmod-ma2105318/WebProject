@@ -400,11 +400,57 @@ class repo {
 
     return courses;
   }
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+  async approveRegReq(userId, sectionId) {
+    const student = await prisma.student.findUnique({
+      where: { userId }
+    });
+  
+    if (!student) throw new Error('Student not found');
+  
+    return await prisma.enrollment.update({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: userId, 
+        }
+      },
+      data: {
+        validation: 'APPROVE'
+      }
+    });
+  }
+  
+  async  declineRegReq(userId, sectionId) {
+    const student = await prisma.student.findUnique({
+      where: { userId }
+    });
+  
+    if (!student) throw new Error('Student not found');
+  
+    return await prisma.enrollment.delete({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: student.id
+        }
+      }
+    });
+  }
+  
+=======
+=======
+>>>>>>> Stashed changes
 
 
 
 
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   async validateSection(sectionId) {
     return await prisma.section.update({
       where: { id: sectionId },
@@ -416,6 +462,44 @@ class repo {
           include: {
             prerequisites: true
           }
+        }
+      }
+    });
+  }
+  async invalidateSection(sectionID) {
+    // First delete enrollments referencing the section
+    await prisma.enrollment.deleteMany({
+      where: { sectionId: sectionID }
+    });
+  
+    // Then delete the section itself
+    return await prisma.section.delete({
+      where: { id: sectionID }
+    });
+  }
+  
+  
+
+  async addCourse(courseData) {
+    return await prisma.course.create({
+      data: {
+        name: courseData.name,
+        category: courseData.category,
+        credits: courseData.credits,
+        prerequisites: {
+          create: courseData.prerequisites.map(prereq => ({
+            name: prereq.name
+          }))
+        },
+        sections: {
+          create: courseData.sections.map(section => ({
+            sectionNo: section.sectionNo,
+            instructorId: parseInt(section.instructorId),
+            maxSeats: parseInt(section.maxSeats),
+            enrolledStudents: section.enrolledStudents,
+            status: section.status,
+            validation: section.validation
+          }))
         }
       }
     });
@@ -479,8 +563,33 @@ class repo {
     });
   }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+  async gradeStudent(sectionId, userId, grade) {
+    return await prisma.enrollment.update({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: userId  // ✅ if studentId === userId
+        }
+      },
+      data: {
+        grade
+      }
+    });
+  }
+  
+  
+  
+  
+=======
 
 
+>>>>>>> Stashed changes
+=======
+
+
+>>>>>>> Stashed changes
 
 
 }

@@ -60,5 +60,11 @@ export async function declineRegReq(userId, sectionId){
 
 }
 
-export async function 
+export async function validateSection(sectionId){
+  await repo.validateSection(sectionId);
+}
+export async function invalidateSection(sectionId){
+  await repo.invalidateSection(sectionId); 
+}
+
   

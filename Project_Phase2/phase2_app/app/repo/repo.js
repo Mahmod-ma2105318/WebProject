@@ -453,12 +453,17 @@ class repo {
     });
   }
   async invalidateSection(sectionID) {
+    // First delete enrollments referencing the section
+    await prisma.enrollment.deleteMany({
+      where: { sectionId: sectionID }
+    });
+  
+    // Then delete the section itself
     return await prisma.section.delete({
-      where: {
-        id: sectionID
-      }
+      where: { id: sectionID }
     });
   }
+  
   
 
   //Instructor

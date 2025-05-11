@@ -4,46 +4,13 @@ import { redirect } from "next/navigation"
 import repo from "@/app/repo/repo"
 
 export async function logout() {
-  const user = await repo.getLoggedInUser();
-  if (user) {
-    await repo.logOut(user);
+    const user = await repo.getLoggedInUser();
+    if (user) {
+      await repo.logOut(user);
+    }
+    redirect('/');
   }
-  redirect('/');
-}
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-export async function registerCourse(sectionId) {
   
-    await repo.registerForCourse(sectionId);
-   
-    
-}
-export async function gradeStudent(sectionId,studentId,grade){
-  await repo.gradeStudent(sectionId,studentId,grade);
-
-}
-
-export async function approveRegReq(userId, sectionId){
-  await repo.approveRegReq(userId, sectionId)
-
-}
-export async function declineRegReq(userId, sectionId){
-  await repo.declineRegReq(userId, sectionId)
-
-}
-
-export async function validateSection(sectionId){
-  await repo.validateSection(sectionId);
-}
-export async function invalidateSection(sectionId){
-  await repo.invalidateSection(sectionId); 
-}
-
-  
-=======
-=======
->>>>>>> Stashed changes
 
 export async function handleLogin(formData) {
   const username = formData.get('username');
@@ -75,38 +42,11 @@ export async function handleLogin(formData) {
 
 
 export async function registerCourse(sectionId) {
-
-  const user = await repo.getLoggedInUser();
-  if (!user) throw new Error('No user logged in');
-  await repo.registerForCourse(sectionId);
-
-
-}
-
-
-export async function addOrEditCourseAction(formData) {
-  const course = {
-    name: formData.get('name').trim(), // Trim input
-    category: formData.get('category'),
-    credits: parseInt(formData.get('credits')),
-    prerequisites: formData.get('prerequisites')
-      .split(',')
-      .filter(Boolean)
-      .map(Number)
-      .filter(n => !isNaN(n)),
-    sections: JSON.parse(formData.get('sections'))
-  };
-
-  try {
-    await repo.addCourse(course);
-    redirect('/Admin');
-  } catch (error) {
-    console.error('Course creation failed:', error);
-    redirect(`/Admin?error=${encodeURIComponent(error.message)}`);
+  
+    const user = await repo.getLoggedInUser();
+    if (!user) throw new Error('No user logged in');
+    await repo.registerForCourse(sectionId);
+   
+    
   }
-<<<<<<< Updated upstream
-}
->>>>>>> Stashed changes
-=======
-}
->>>>>>> Stashed changes
+  

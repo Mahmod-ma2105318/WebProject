@@ -72,7 +72,7 @@ model Enrollment {
   status    EnrollmentStatus @default(REGISTERED)
   grade     String?
   validation ValidationStatus?  
-
+  @@unique([sectionId, studentId])
 }
 
 model Course {

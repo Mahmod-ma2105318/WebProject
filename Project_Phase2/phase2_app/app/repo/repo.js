@@ -67,6 +67,24 @@ class repo {
       }
     });
   }
+  async showInstructorBySectionId(sectionId) {
+    const section = await prisma.section.findUnique({
+      where: { id: sectionId },
+      include: {
+        instructor: {
+          include: {
+            user: true // includes the instructor's user info (like username)
+          }
+        }
+      }
+    });
+  
+    if (!section || !section.instructor || !section.instructor.user) {
+      return null;
+    }
+  
+    return section.instructor.user.username; // or return section.instructor.user for full info
+  }
   async getCourses() {
     return await prisma.course.findMany(
       {
@@ -153,8 +171,7 @@ class repo {
     });
   
     if (!section) {
-      alert("Section not found")
-      return;
+      throw new Error("Section not found")
     }
   
     const course = section.course;
@@ -423,6 +440,7 @@ class repo {
     return await prisma.enrollment.findMany({
       where: {
         status: 'CURRENT',
+        grade:null,
         section: {
           instructor: {
             userId: userId
@@ -448,6 +466,21 @@ class repo {
       }
     });
   }
+
+  async gradeStudent(sectionId, userId, grade) {
+    return await prisma.enrollment.update({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: userId  // ✅ if studentId === userId
+        }
+      },
+      data: {
+        grade
+      }
+    });
+  }
+  
   
   
   

@@ -42,10 +42,13 @@ export async function handleLogin(formData) {
 
 export async function registerCourse(sectionId) {
   
-    const user = await repo.getLoggedInUser();
-    if (!user) throw new Error('No user logged in');
     await repo.registerForCourse(sectionId);
    
     
-  }
+}
+export async function gradeStudent(sectionId,studentId,grade){
+  await repo.gradeStudent(sectionId,studentId,grade);
+  
+
+}
   

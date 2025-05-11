@@ -48,7 +48,17 @@ export async function registerCourse(sectionId) {
 }
 export async function gradeStudent(sectionId,studentId,grade){
   await repo.gradeStudent(sectionId,studentId,grade);
-  
 
 }
+
+export async function approveRegReq(userId, sectionId){
+  await repo.approveRegReq(userId, sectionId)
+
+}
+export async function declineRegReq(userId, sectionId){
+  await repo.declineRegReq(userId, sectionId)
+
+}
+
+export async function 
   

@@ -271,6 +271,7 @@ class repo {
     return await prisma.enrollment.findMany({
       where: {
         status: 'REGISTERED',
+        validation: 'PENDING', 
         studentId
       },
       include: {
@@ -282,6 +283,7 @@ class repo {
       }
     });
   }
+  
   async showCurrentCourses({ studentId }) {
     return await prisma.enrollment.findMany({
       where: {
@@ -301,21 +303,6 @@ class repo {
     return await prisma.enrollment.findMany({
       where: {
         status: 'FINISHED',
-        studentId
-      },
-      include: {
-        section: {
-          include: {
-            course: true
-          }
-        }
-      }
-    });
-  }
-  async showRegisteredCourses({ studentId }) {
-    return await prisma.enrollment.findMany({
-      where: {
-        status: 'REGISTERED',
         studentId
       },
       include: {
@@ -413,16 +400,48 @@ class repo {
   
     return courses;
   }
+  async approveRegReq(userId, sectionId) {
+    const student = await prisma.student.findUnique({
+      where: { userId }
+    });
   
+    if (!student) throw new Error('Student not found');
   
+    return await prisma.enrollment.update({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: userId, 
+        }
+      },
+      data: {
+        validation: 'APPROVE'
+      }
+    });
+  }
   
+  async  declineRegReq(userId, sectionId) {
+    const student = await prisma.student.findUnique({
+      where: { userId }
+    });
   
+    if (!student) throw new Error('Student not found');
+  
+    return await prisma.enrollment.delete({
+      where: {
+        sectionId_studentId: {
+          sectionId,
+          studentId: student.id
+        }
+      }
+    });
+  }
   
   async validateSection(sectionId) {
     return await prisma.section.update({
       where: { id: sectionId },
       data: {
-        validation: 'Valid'
+        validation: 'approved'
       },
       include: {
         course: {
@@ -433,6 +452,14 @@ class repo {
       }
     });
   }
+  async invalidateSection(sectionID) {
+    return await prisma.section.delete({
+      where: {
+        id: sectionID
+      }
+    });
+  }
+  
 
   //Instructor
 

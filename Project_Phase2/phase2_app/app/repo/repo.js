@@ -418,25 +418,39 @@ class repo {
   }
 
   //Instructor
-  async  showInstructorBySectionId(sectionId) {
-    const section = await prisma.section.findUnique({
-      where: { id: sectionId },
+
+  async  getEnrollmentsForInstructor(userId) {
+    return await prisma.enrollment.findMany({
+      where: {
+        status: 'CURRENT',
+        section: {
+          instructor: {
+            userId: userId
+          }
+        }
+      },
       include: {
-        instructor: {
+        student: {
           include: {
             user: true
+          }
+        },
+        section: {
+          include: {
+            course: true,
+            instructor: {
+              include: {
+                user: true
+              }
+            }
           }
         }
       }
     });
-  
-    // Handle case: no section or no instructor
-    if (!section || !section.instructor || !section.instructor.user) {
-      return null;
-    }
-  
-    return section.instructor.user.username;
   }
+  
+  
+  
 
 
 }

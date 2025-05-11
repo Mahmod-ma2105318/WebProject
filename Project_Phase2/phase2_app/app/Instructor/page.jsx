@@ -1,58 +1,84 @@
-import React from 'react'
+'use client'
+import React from 'react';
 import repo from '@/app/repo/repo.js';
-import NavBar from '@/app/components/NavBar';
+import InstructorNavBar from '@/app/components/InstructorNavBar';
 import CoursesList from '@/app/components/CoursesList';
 
-export default async function page() {
-  const courses = await repo.getCourses();
+export default async function Page() {
+  const user = await repo.getLoggedInUser();
+  const enrollments = await repo.getEnrollmentsForInstructor(user.id);
+
+  // Group by course name
+  const courseGroups = {};
+
+  enrollments.forEach((enrollment) => {
+    const courseName = enrollment.section.course.name;
+    const studentName = enrollment.student.user.username;
+
+    if (!courseGroups[courseName]) {
+      courseGroups[courseName] = {
+        course: enrollment.section.course,
+        students: [],
+      };
+    }
+
+    courseGroups[courseName].students.push({
+      studentName,
+      enrollmentId: enrollment.id,
+      category: enrollment.section.course.category,
+      credits: enrollment.section.course.credits,
+      instructor: enrollment.section.instructor.user.username,
+    });
+  });
+
   return (
     <>
-      <NavBar />
+      <InstructorNavBar />
       <div className="container">
         <CoursesList />
-        <h1>Courses</h1>
-        <div className="course-container">
-          {courses.length === 0 ? (
-            <div>No courses match your filters</div>
-          ) : (
-            courses.map(course => (
-              <div className="course-card" key={course.name}>
-                <div className="course-name"><strong>{course.name}</strong></div>
-                <div className="course-category">Category: {course.category}</div>
-                <div className="course-credits">Credits: {course.credits}</div>
-                <div className="course-prerequisites">
-                  Prerequisites: {course.prerequisites?.join(", ") || "None"}
-                </div>
+        <h2>Currently Teaching Courses</h2>
 
-                <div className="course-sections">
-                  <strong>Sections:</strong>
-                  {course.sections?.map(sec => (
-                    <div className="section-card" key={`${course.name}-${sec.sectionNo}`}>
-                      <div>Section No: {sec.sectionNo}</div>
-                      <div>Instructor: {sec.instructor}</div>
-                      <div>
-                        Status: <span style={{ color: sec.status === 'Open' ? '#27ae60' : '#c0392b' }}>
-                          {sec.status}
-                        </span>
-                      </div>
-                      <div>Max Seats: {sec.maxSeats}</div>
-                      <div>Enrolled Students: {sec.enrolledStudents}</div>
-                      <button className="register-btn"
-                        disabled={sec.status !== 'Open'}
+        {Object.entries(courseGroups).map(([courseName, group]) => (
+          <div key={courseName} className="course-group">
+            <h3>{courseName}</h3>
+            <div className="students-list">
+              {group.students.map((student, index) => {
+                const courseId = `${student.studentName}-${courseName.replace(/\s+/g, '-')}`;
+                return (
+                  <div key={index} className="instructor-card">
+                    <div><strong>Student:</strong> {student.studentName}</div>
+                    <div>Category: {student.category}</div>
+                    <div>Credits: {student.credits}</div>
+                    <div>Instructor: {student.instructor}</div>
+                    <div>
+                      <label htmlFor={`grade-${courseId}`}>Enter Grade:</label>
+                      <input
+                        type="text"
+                        id={`grade-${courseId}`}
+                        className="grade-input"
+                        placeholder="e.g. A+"
+                      />
+                      <button
+                        className="submit-button"
+                        data-enrollment-id={student.enrollmentId}
+                        data-input-id={`grade-${courseId}`}
+                        onClick={() => {
+                          // Optional: hook this to a grade submission API
+                          const grade = document.getElementById(`grade-${courseId}`).value;
+                          console.log(`Submit grade '${grade}' for ${student.studentName} in ${courseName}`);
+                        }}
                       >
-                        Register
+                        Submit Grade
                       </button>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ))
-          )}
-        </div>
+                    <hr />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
-
     </>
-
-  )
-
+  );
 }

@@ -1,20 +1,37 @@
 import repo from '@/app/repo/repo';
 import React from 'react';
 import AdminNavBar from '@/app/components/AdminNavBar';
-import CoursesList from '@/app/components/CoursesList';
-// This shows the open sections in the adminstrator
+import SearchBar from '@/app/components/SearchBar';
 
-export default async function Page() {
-  const openCourses = await repo.getOpenCourses();
+export default async function Page({ searchParams }) {
+  const searchTerm = await searchParams?.search || '';
+  const filterType = await searchParams?.filterType || 'all';
+
+  // Fetch courses based on search parameters
+  let courses;
+  if (searchTerm) {
+    switch (filterType) {
+      case 'name':
+        courses = await repo.searchForCoursesByName(searchTerm);
+        break;
+      case 'category':
+        courses = await repo.searchForCoursesByCategory(searchTerm);
+        break;
+      default:
+        courses = await repo.searchForCourses(searchTerm);
+    }
+  } else {
+    courses = await repo.getCourses();
+  }
 
   return (
     <>
       <AdminNavBar />
       <div className="container">
-        <CoursesList />
-        <h1>Courses</h1>
-        {openCourses
-          .filter(course => course.sections.length > 0)
+        <SearchBar />
+        <h1>Courses{searchTerm ? ` matching "${searchTerm}"` : ''}</h1>
+        {courses
+          .filter(course => course?.sections?.length > 0)
           .map((course) => (
             <div key={course.id} className="course-card" style={{ border: '1px solid #ccc', margin: '1rem', padding: '1rem' }}>
               <div className="course-name">
@@ -34,7 +51,7 @@ export default async function Page() {
                 {course.sections.map((sec) => (
                   <div key={sec.id} className="section-card" style={{ marginLeft: "1rem", marginTop: "0.5rem" }}>
                     <div>Section No: {sec.sectionNo}</div>
-                    <div>Instructor: {sec.instructorId || "TBD"}</div>
+                    <div>Instructor: {sec.instructorName || "TBD"}</div>
                     <div>
                       Status:{" "}
                       <span style={{ color: sec.status === "Open" ? "#27ae60" : "#c0392b" }}>
@@ -48,7 +65,6 @@ export default async function Page() {
               </div>
             </div>
           ))}
-
       </div>
     </>
   );

@@ -1,10 +1,10 @@
 import React from 'react';
 import repo from '@/app/repo/repo';
 import NavBar from '@/app/components/NavBar';
-import CoursesList from '@/app/components/CoursesList';
+import SearchBar from '@/app/components/SearchBar';
 
 export default async function Page() {
-  const user =await repo.getLoggedInUser()
+  const user = await repo.getLoggedInUser()
 
   const registeredCourses = await repo.showRegisteredCourses({ studentId: user.id });
 
@@ -12,7 +12,7 @@ export default async function Page() {
     <>
       <NavBar />
       <div className="container">
-        <CoursesList />
+        <SearchBar />
         <h1>Registered Courses</h1>
         <div className="course-container">
           {registeredCourses.map((register, index) => (

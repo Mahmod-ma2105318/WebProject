@@ -84,13 +84,13 @@ class repo {
           {
             name: {
               startsWith: search,
-              mode: 'insensitive' // optional: case-insensitive search
+              // mode: 'insensitive' // optional: case-insensitive search
             }
           },
           {
             category: {
               startsWith: search,
-              mode: 'insensitive'
+              // mode: 'insensitive'
             }
           }
         ],
@@ -106,7 +106,7 @@ class repo {
       where: {
         name: {
           startsWith: search,
-          mode: 'insensitive'
+          // mode: 'insensitive'
         }
       },
       include: {
@@ -120,7 +120,7 @@ class repo {
       where: {
         category: {
           startsWith: search,
-          mode: 'insensitive'
+          // mode: 'insensitive'
         }
       },
       include: {

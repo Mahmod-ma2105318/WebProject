@@ -49,23 +49,61 @@ export async function registerCourse(sectionId) {
 
 }
 export async function addOrEditCourseAction(formData) {
-  const course = {
-    name: formData.get('name').trim(), // Trim input
-    category: formData.get('category'),
+  const courseData = {
+    name: formData.get('name').trim(),
+    category: formData.get('category').trim(),
     credits: parseInt(formData.get('credits')),
     prerequisites: formData.get('prerequisites')
       .split(',')
       .filter(Boolean)
       .map(Number)
       .filter(n => !isNaN(n)),
-    sections: JSON.parse(formData.get('sections'))
+    sections: JSON.parse(formData.get('sections')).map(section => ({
+      sectionNo: section.sectionNo.toString(),
+      instructorName: section.instructorName.trim(),
+      maxSeats: parseInt(section.maxSeats),
+      enrolledStudents: parseInt(section.enrolledStudents),
+      status: section.status,
+      validation: section.validation
+    }))
   };
 
+
+  await repo.addCourse(courseData);
+
+  redirect('/Admin');
+
+}
+
+export async function searchCoursesAction(prevState, formData) {
+  const searchTerm = formData.get('search')?.trim();
+  const filterType = formData.get('filterType') || 'all';
+
   try {
-    await repo.addCourse(course);
-    redirect('/Admin');
+    if (!searchTerm) {
+      return { results: [], error: 'Please enter a search term' };
+    }
+
+    let results;
+    switch (filterType) {
+      case 'name':
+        results = await searchForCoursesByName(searchTerm);
+        break;
+      case 'category':
+        results = await searchForCoursesByCategory(searchTerm);
+        break;
+      default:
+        results = await searchForCourses(searchTerm);
+    }
+
+    if (results.length === 0) {
+      return { results: [], error: 'No courses found matching your search' };
+    }
+
+    return { results, error: null };
+
   } catch (error) {
-    console.error('Course creation failed:', error);
-    redirect(`/Admin?error=${encodeURIComponent(error.message)}`);
+    console.error('Search failed:', error);
+    return { results: [], error: 'Failed to perform search. Please try again.' };
   }
 }

@@ -2,7 +2,7 @@
 import React from 'react';
 import repo from '@/app/repo/repo.js';
 import InstructorNavBar from '@/app/components/InstructorNavBar';
-import CoursesList from '@/app/components/CoursesList';
+import SearhBar from '@/app/components/SearchBar';
 
 export default async function Page() {
   const user = await repo.getLoggedInUser();
@@ -35,7 +35,7 @@ export default async function Page() {
     <>
       <InstructorNavBar />
       <div className="container">
-        <CoursesList />
+        <SearhBar />
         <h2>Currently Teaching Courses</h2>
 
         {Object.entries(courseGroups).map(([courseName, group]) => (

@@ -1,7 +1,7 @@
 import repo from '@/app/repo/repo';
 import React from 'react';
 import AdminNavBar from '@/app/components/AdminNavBar';
-import CoursesList from '@/app/components/CoursesList';
+import SearhBar from '@/app/components/SearchBar';
 
 export default async function Page() {
   const pendingCourses = await repo.getPendingCourses(); // returns array of enrollments with section, course, student, instructor
@@ -10,7 +10,7 @@ export default async function Page() {
     <>
       <AdminNavBar />
       <div className="container">
-        <CoursesList />
+        <SearhBar />
         <h1>Pending Courses</h1>
 
         {pendingCourses.map((enrollment, index) => (

@@ -1,11 +1,11 @@
 import repo from '@/app/repo/repo';
 import React from 'react';
 import NavBar from '@/app/components/NavBar';
-import CoursesList from '@/app/components/CoursesList';
+import SearchBar from '@/app/components/SearchBar';
 //This page will be added in the student part, especially in the currentlyTakenCourse
 
 export default async function Page() {
-  const user =await repo.getLoggedInUser()
+  const user = await repo.getLoggedInUser()
   const currentlyTakenCourses = await repo.showCurrentCourses({ studentId: user.id });
 
   // Preload instructor names
@@ -23,7 +23,7 @@ export default async function Page() {
     <>
       <NavBar />
       <div className="container">
-        <CoursesList />
+        <SearchBar />
         <h1>Currently Taken Courses</h1>
 
         {coursesWithInstructor.map((register, index) => (

@@ -2,14 +2,10 @@
 import React from 'react';
 import { registerCourse } from '../actions/server-actions';
 
-export default function CourseCardClient({ courses, user }) {
+export default  function CourseCardClient({ courses, user }) {
   const handleRegister = async (sectionId) => {
     try {
-<<<<<<< Updated upstream
       await registerCourse({ sectionId, userId: user.id});
-=======
-      await registerCourse({ sectionId, userId: user.id });
->>>>>>> Stashed changes
       alert("Registered successfully!");
     } catch (error) {
       console.error(error);
@@ -28,11 +24,13 @@ export default function CourseCardClient({ courses, user }) {
             <div className="course-category">Category: {course.category}</div>
             <div className="course-credits">Credits: {course.credits}</div>
             <div className="course-prerequisites">
-              Prerequisites: {course.prerequisites && course.prerequisites.length > 0
+            Prerequisites: {course.prerequisites && course.prerequisites.length > 0 
                 ? course.prerequisites.map((prereq, index) => (
-                  <span key={index}>
+                    // Adjust the property here based on your data structure. 
+                    // For example, using prereq.prerequisiteId:
+                    <span key={index}>
                     {prereq.name}{index !== course.prerequisites.length - 1 ? ', ' : ''}
-                  </span>
+                    </span>
                 ))
                 : 'None'}
             </div>

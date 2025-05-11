@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import Link from 'next/link';
 import repo from '../repo/repo';
@@ -23,7 +22,7 @@ export default async function Page() {
       </header>
 
       <nav id="buttons">
-        <img src="/images/qu_logo-01.png" alt="QU-LOGO" />
+          <img src="/images/qu_logo-01.png" alt="QU-LOGO" />
 
 
         <Link href="/Admin">

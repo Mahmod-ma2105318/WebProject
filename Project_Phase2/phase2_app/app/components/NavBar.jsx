@@ -4,7 +4,7 @@ import { logout } from '@/app/actions/server-actions.js';
 import repo from '../repo/repo';
 
 export default async function NavBar() {
-    const user = await repo.getLoggedInUser();
+    const user=await repo.getLoggedInUser();
 
 
     return (

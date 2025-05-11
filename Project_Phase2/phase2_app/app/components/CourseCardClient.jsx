@@ -6,11 +6,7 @@ export default function CourseCardClient({ courses, user }) {
   const handleRegister = async (sectionId) => {
     try {
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
       await registerCourse({ sectionId, userId: user.id});
-=======
-      await registerCourse({ sectionId, userId: user.id });
->>>>>>> Stashed changes
 =======
       await registerCourse({ sectionId, userId: user.id });
 >>>>>>> Stashed changes

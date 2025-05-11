@@ -12,7 +12,6 @@ export async function logout() {
 }
 
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 export async function registerCourse(sectionId) {
   
     await repo.registerForCourse(sectionId);
@@ -42,8 +41,6 @@ export async function invalidateSection(sectionId){
 
   
 =======
-=======
->>>>>>> Stashed changes
 
 export async function handleLogin(formData) {
   const username = formData.get('username');
@@ -104,9 +101,5 @@ export async function addOrEditCourseAction(formData) {
     console.error('Course creation failed:', error);
     redirect(`/Admin?error=${encodeURIComponent(error.message)}`);
   }
-<<<<<<< Updated upstream
-}
->>>>>>> Stashed changes
-=======
 }
 >>>>>>> Stashed changes

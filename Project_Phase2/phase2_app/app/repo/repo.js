@@ -365,6 +365,42 @@ class repo {
         }
       });
   }
+  async getCoursesWithPendingSections() {
+    const courses = await prisma.course.findMany({
+      where: {
+        status: 'REGISTERED',
+        sections: {
+          some: {
+            status: 'Open',
+            validation: 'pending'
+          }
+        }
+      },
+      include: {
+        prerequisites: true, // ✅ include course prerequisites
+        sections: {
+          where: {
+            status: 'Open',
+            validation: 'pending'
+          },
+          include: {
+            instructor: {
+              include: {
+                user: true // ✅ get instructor username, email, etc.
+              }
+            }
+          }
+        }
+      }
+    });
+  
+    return courses;
+  }
+  
+  
+  
+  
+  
   async validateSection(sectionId) {
     return await prisma.section.update({
       where: { id: sectionId },
@@ -380,6 +416,7 @@ class repo {
       }
     });
   }
+
   //Instructor
   async  showInstructorBySectionId(sectionId) {
     const section = await prisma.section.findUnique({

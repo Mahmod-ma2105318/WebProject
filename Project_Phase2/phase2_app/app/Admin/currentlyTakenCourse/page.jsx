@@ -11,7 +11,7 @@ export default async function Page() {
     <AdminNavBar />
     <div className="container">
         <CoursesList />
-        <h1>Courses</h1>
+        <h1>Currently Taken Courses</h1>
       {courses.map((course, index) => (
         <div key={index} className="course-card">
           <div className="course-name">

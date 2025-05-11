@@ -43,7 +43,7 @@ export default async function Page() {
           </button>
         </Link>
 
-        <Link href="/Admin/">
+        <Link href="/Admin/sectionValidation">
           <button id="FinishedCoursesButton">
             <i className="fas fa-check-circle"></i> Validate Courses
           </button>

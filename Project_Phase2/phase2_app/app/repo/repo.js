@@ -401,6 +401,7 @@ class repo {
     return courses;
   }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   async approveRegReq(userId, sectionId) {
     const student = await prisma.student.findUnique({
       where: { userId }
@@ -439,11 +440,16 @@ class repo {
   }
   
 =======
+=======
+>>>>>>> Stashed changes
 
 
 
 
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   async validateSection(sectionId) {
     return await prisma.section.update({
@@ -473,6 +479,31 @@ class repo {
   }
   
   
+
+  async addCourse(courseData) {
+    return await prisma.course.create({
+      data: {
+        name: courseData.name,
+        category: courseData.category,
+        credits: courseData.credits,
+        prerequisites: {
+          create: courseData.prerequisites.map(prereq => ({
+            name: prereq.name
+          }))
+        },
+        sections: {
+          create: courseData.sections.map(section => ({
+            sectionNo: section.sectionNo,
+            instructorId: parseInt(section.instructorId),
+            maxSeats: parseInt(section.maxSeats),
+            enrolledStudents: section.enrolledStudents,
+            status: section.status,
+            validation: section.validation
+          }))
+        }
+      }
+    });
+  }
 
   async addCourse(courseData) {
     return await prisma.course.create({
@@ -533,6 +564,7 @@ class repo {
   }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   async gradeStudent(sectionId, userId, grade) {
     return await prisma.enrollment.update({
       where: {
@@ -550,6 +582,10 @@ class repo {
   
   
   
+=======
+
+
+>>>>>>> Stashed changes
 =======
 
 

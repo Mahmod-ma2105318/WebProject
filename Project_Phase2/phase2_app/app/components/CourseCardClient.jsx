@@ -2,10 +2,10 @@
 import React from 'react';
 import { registerCourse } from '../actions/server-actions';
 
-export default  function CourseCardClient({ courses, user }) {
+export default  function CourseCardClient({ courses}) {
   const handleRegister = async (sectionId) => {
     try {
-      await registerCourse({ sectionId, userId: user.id }); // ✅ Pass correctly
+      await registerCourse({sectionId}); // ✅ Pass correctly
       alert("Registered successfully!");
     } catch (error) {
       console.error(error);

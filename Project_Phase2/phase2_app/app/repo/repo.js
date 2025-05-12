@@ -525,6 +525,7 @@ class repo {
         }
       },
       data: {
+        status:'FINISHED',
         grade
       }
     });

@@ -111,9 +111,10 @@ async function seed() {
               student: { connect: { userId: user.id } },
               section: { connect: { id: section.id } },
               status,
-              ...(status === 'FINISHED' && course.Grade
-                ? { grade: course.Grade }
+              ...(status === 'FINISHED' && course.grade
+                ? { grade: course.grade }
                 : {}),
+              
             },
           });
         }

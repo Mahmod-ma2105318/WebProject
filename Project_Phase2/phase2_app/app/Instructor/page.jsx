@@ -7,7 +7,6 @@ export default async function Page() {
   const user = await repo.getLoggedInUser();
   const enrollments = await repo.getEnrollmentsForInstructor(user.id);
 
-  // Group by course name
   const courseGroups = {};
 
   enrollments.forEach((enrollment) => {

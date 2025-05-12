@@ -54,7 +54,7 @@ export async function addOrEditCourseAction(formData) {
       .filter(p => p.length > 0), // ← now an array of course names (strings)
     sections: JSON.parse(formData.get('sections')).map(section => ({
       sectionNo: section.sectionNo.toString(),
-      instructorName: section.instructorName.trim(),
+      instructorName: section.instructorName,
       maxSeats: parseInt(section.maxSeats),
       enrolledStudents: parseInt(section.enrolledStudents),
       status: section.status,

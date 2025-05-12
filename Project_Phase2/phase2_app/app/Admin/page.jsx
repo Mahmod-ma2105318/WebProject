@@ -50,7 +50,6 @@ export default async function Page({ searchParams }) {
                 {course.sections.map((sec) => (
                   <div key={sec.id} className="section-card" style={{ marginLeft: "1rem", marginTop: "0.5rem" }}>
                     <div>Section No: {sec.sectionNo}</div>
-                    <div>Instructor: {sec.instructorName || "TBD"}</div>
                     <div>
                       Status:{" "}
                       <span style={{ color: sec.status === "Open" ? "#27ae60" : "#c0392b" }}>

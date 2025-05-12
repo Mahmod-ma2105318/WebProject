@@ -42,7 +42,7 @@ export default async function StatsPage() {
             <InstructorNavBar />
             <div className="container">
                 <div className="stats-container" style={{ padding: '2rem' }}>
-                    <h1>?? Course Statistics</h1>
+                    <h1>Course Statistics</h1>
 
                     <h2>1. Total Students per Course Category</h2>
                     <ul>{perCategory.map(c => <li key={c.category}>{c.category}: {c.count}</li>)}</ul>

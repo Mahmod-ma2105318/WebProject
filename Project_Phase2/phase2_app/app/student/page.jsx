@@ -1,5 +1,4 @@
 // app/student/page.jsx or similar
-
 import React from 'react';
 import repo from '@/app/repo/repo.js';
 import NavBar from "@/app/components/NavBar";

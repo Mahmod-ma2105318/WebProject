@@ -42,7 +42,6 @@ export default function CourseCardClient({ courses }) {
               {course.sections?.map(sec => (
                 <div className="section-card" key={`${course.name}-${sec.sectionNo}`}>
                   <div>Section No: {sec.sectionNo}</div>
-                  <div>Instructor: {sec.instructor}</div>
                   <div>
                     Status: <span style={{ color: sec.status === 'Open' ? '#27ae60' : '#c0392b' }}>
                       {sec.status}

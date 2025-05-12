@@ -109,7 +109,6 @@ class repo {
         }
       },
       include: {
-        prerequisites: true,
         sections: true
       }
     });
@@ -123,7 +122,6 @@ class repo {
         }
       },
       include: {
-        prerequisites: true,
         sections: true
       }
     });
@@ -152,34 +150,28 @@ class repo {
   async registerForCourse({ sectionId }) {
     const user = await this.getLoggedInUser();
     if (!user) throw new Error("No user is logged in");
-
+  
     const student = await this.connectUserToStudent(user);
     if (!student) throw new Error("Student not found for user");
-
-    // Get section with its course and prerequisites
+  
+    // ✅ Get section with course (including scalar prerequisites) and enrollment
     const section = await prisma.section.findUnique({
       where: { id: sectionId },
       include: {
-        course: {
-          include: {
-            prerequisites: true
-          }
-        },
+        course: true,         // Includes scalar fields like prerequisites
         Enrollment: true
       }
     });
-
-    if (!section) {
-      throw new Error("Section not found");
-    }
-
+  
+    if (!section) return;
+  
     const course = section.course;
-
+  
     // 1. Check if section is open
     if (section.status !== "Open") {
       throw new Error(`Section ${section.sectionNo} is not open for registration.`);
     }
-
+  
     // 2. Check seat capacity
     const enrolledCount = await prisma.enrollment.count({
       where: {
@@ -187,11 +179,11 @@ class repo {
         status: "REGISTERED"
       }
     });
-
+  
     if (enrolledCount >= section.maxSeats) {
       throw new Error(`Section ${section.sectionNo} is full.`);
     }
-
+  
     // 3. Check if already finished the course
     const hasFinished = await prisma.enrollment.findFirst({
       where: {
@@ -202,11 +194,11 @@ class repo {
         status: "FINISHED"
       }
     });
-
+  
     if (hasFinished) {
       throw new Error(`You already finished the course ${course.name}.`);
     }
-
+  
     // 4. Check if currently registered for the course
     const isCurrentlyRegistered = await prisma.enrollment.findFirst({
       where: {
@@ -217,15 +209,18 @@ class repo {
         status: "REGISTERED"
       }
     });
-
+  
     if (isCurrentlyRegistered) {
       throw new Error(`You are already registered for ${course.name}.`);
     }
-
-    // 5. Check prerequisites
+  
+    // 5. Check prerequisites (from course.prerequisites JSON)
+    const prereqs = course.prerequisites || [];
+  
     if (
-      course.prerequisites.length > 0 &&
-      !(course.prerequisites.length === 1 && course.prerequisites[0].name === "None")
+      Array.isArray(prereqs) &&
+      prereqs.length > 0 &&
+      !(prereqs.length === 1 && prereqs[0].name === "None")
     ) {
       const completedCourses = await prisma.enrollment.findMany({
         where: {
@@ -240,17 +235,20 @@ class repo {
           }
         }
       });
-      const completedCourseNames = completedCourses.map(e => e.section.course.name);
-
-      const missingPrereqs = course.prerequisites.filter(
+  
+      const completedCourseNames = completedCourses.map(
+        e => e.section.course.name
+      );
+  
+      const missingPrereqs = prereqs.filter(
         prereq => !completedCourseNames.includes(prereq.name)
       );
-
+  
       if (missingPrereqs.length > 0) {
         throw new Error(`Missing prerequisites: ${missingPrereqs.map(p => p.name).join(", ")}`);
       }
     }
-
+  
     // 6. All checks passed → create enrollment
     return await prisma.enrollment.create({
       data: {
@@ -260,8 +258,7 @@ class repo {
         status: "REGISTERED"
       }
     });
-  }
-
+  }  
   async showRegisteredCourses({ studentId }) {
     return await prisma.enrollment.findMany({
       where: {
@@ -314,7 +311,7 @@ class repo {
   async getOpenCourses() {
     return await prisma.course.findMany({
       include: {
-        prerequisites: true,
+
         sections: {
           where: {
             status: 'Open' // ✅ status must be a string
@@ -376,7 +373,6 @@ class repo {
         }
       },
       include: {
-        prerequisites: true, // ✅ include course prerequisites
         sections: {
           where: {
             status: 'Open',
@@ -440,7 +436,7 @@ class repo {
       include: {
         course: {
           include: {
-            prerequisites: true
+
           }
         }
       }

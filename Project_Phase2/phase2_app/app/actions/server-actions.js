@@ -50,9 +50,8 @@ export async function addOrEditCourseAction(formData) {
     credits: parseInt(formData.get('credits')),
     prerequisites: formData.get('prerequisites')
       .split(',')
-      .filter(Boolean)
-      .map(Number)
-      .filter(n => !isNaN(n)),
+      .map(p => p.trim())
+      .filter(p => p.length > 0), // ← now an array of course names (strings)
     sections: JSON.parse(formData.get('sections')).map(section => ({
       sectionNo: section.sectionNo.toString(),
       instructorName: section.instructorName.trim(),
@@ -63,12 +62,11 @@ export async function addOrEditCourseAction(formData) {
     }))
   };
 
-
   await repo.addCourse(courseData);
-
   redirect('/Admin');
-
 }
+
+
 
 export async function searchCoursesAction(prevState, formData) {
   const searchTerm = formData.get('search')?.trim();
@@ -102,22 +100,22 @@ export async function searchCoursesAction(prevState, formData) {
     return { results: [], error: 'Failed to perform search. Please try again.' };
   }
 }
-export async function approveRegReq(userId, sectionId){
+export async function approveRegReq(userId, sectionId) {
   await repo.approveRegReq(userId, sectionId)
 
 }
-export async function declineRegReq(userId, sectionId){
+export async function declineRegReq(userId, sectionId) {
   await repo.declineRegReq(userId, sectionId)
 
 }
-export async function gradeStudent(sectionId,studentId,grade){
-  await repo.gradeStudent(sectionId,studentId,grade);
+export async function gradeStudent(sectionId, studentId, grade) {
+  await repo.gradeStudent(sectionId, studentId, grade);
 }
 
-export async function validateSection(sectionId){
+export async function validateSection(sectionId) {
   await repo.validateSection(sectionId);
 }
-export async function invalidateSection(sectionId){
-  await repo.invalidateSection(sectionId); 
+export async function invalidateSection(sectionId) {
+  await repo.invalidateSection(sectionId);
 }
-  
+

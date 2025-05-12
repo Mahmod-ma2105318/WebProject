@@ -1,4 +1,55 @@
 /* General Styles */
+.stats-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.stats-container h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.stats-container h2 {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  color: #444;
+  border-left: 4px solid #4a90e2;
+  padding-left: 0.6rem;
+}
+
+.stats-container p {
+  font-size: 1rem;
+  color: #222;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stats-container ul,
+.stats-container ol {
+  margin-left: 1.5rem;
+  margin-top: 0.8rem;
+}
+
+.stats-container li {
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.stats-container li strong {
+  color: #2c3e50;
+}
+
+.stats-container ol {
+  padding-left: 1.5rem;
+}
 
 .main-layout {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

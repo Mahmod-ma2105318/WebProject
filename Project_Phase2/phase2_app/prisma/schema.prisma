@@ -25,8 +25,7 @@ model User {
   student    Student?
   instructor Instructor?
   admin      Admin?
-  isLoggedIn Boolean     @default(false) 
-
+  isLoggedIn Boolean     @default(false)
 }
 
 model Instructor {
@@ -41,7 +40,6 @@ model Admin {
   userId Int  @unique
   user   User @relation(fields: [userId], references: [id])
 }
-
 
 model Student {
   id          Int          @id @default(autoincrement())
@@ -62,26 +60,24 @@ enum ValidationStatus {
   DECLINE
 }
 
-
 model Enrollment {
-  id        Int              @id @default(autoincrement())
-  studentId Int
-  student   Student          @relation(fields: [studentId], references: [id])
-  sectionId Int
-  section   Section          @relation(fields: [sectionId], references: [id])
-  status    EnrollmentStatus @default(REGISTERED)
-  grade     String?
-  validation ValidationStatus?  
-
+  id         Int               @id @default(autoincrement())
+  studentId  Int
+  student    Student           @relation(fields: [studentId], references: [id])
+  sectionId  Int
+  section    Section           @relation(fields: [sectionId], references: [id])
+  status     EnrollmentStatus  @default(REGISTERED)
+  grade      String?
+  validation ValidationStatus?
 }
 
 model Course {
-  id            Int                  @id @default(autoincrement())
-  name          String               @unique
+  id            Int              @id @default(autoincrement())
+  name          String           @unique
   category      String
   credits       Int
-  status        EnrollmentStatus     @default(REGISTERED)
-  prerequisites CoursePrerequisite[]
+  status        EnrollmentStatus @default(REGISTERED)
+  prerequisites Json?
   sections      Section[]
 }
 
@@ -97,13 +93,4 @@ model Section {
   enrolledStudents Int
   validation       String?
   Enrollment       Enrollment[]
-}
-
-model CoursePrerequisite {
-  courseId       Int
-  prerequisiteId Int
-  name   String
-  Course         Course @relation(fields: [courseId], references: [id])
-
-  @@id([courseId, prerequisiteId])
 }

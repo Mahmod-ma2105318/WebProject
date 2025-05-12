@@ -30,22 +30,30 @@ async function seed() {
           ...(user.role === 'student' && { student: { create: {} } }),
           ...(user.role === 'instructor' && { instructor: { create: {} } }),
           ...(user.role === 'administrator' && { admin: { create: {} } }),
-          
         },
       });
     }
 
-    // 2. Courses
+    // 2. Courses (Update this part for prerequisites as JSON array)
     for (const course of coursesData) {
-        await prisma.course.upsert({
-          where: { name: course.name },
-          update: {},
-          create: {
-            name: course.name,
-            category: course.category,
-            credits: course.credits,
-          },
-        });
+      const prerequisites = course.prerequisites && course.prerequisites.length > 0
+        ? course.prerequisites.map(p => p.trim())
+        : [];
+
+      await prisma.course.upsert({
+        where: { name: course.name },
+        update: {
+          category: course.category,
+          credits: course.credits,
+          prerequisites: prerequisites.length > 0 ? prerequisites : null, // Store as JSON array
+        },
+        create: {
+          name: course.name,
+          category: course.category,
+          credits: course.credits,
+          prerequisites: prerequisites.length > 0 ? prerequisites : null, // Store as JSON array
+        },
+      });
     }
 
     // 3. Sections
@@ -86,34 +94,7 @@ async function seed() {
       }
     }
 
-    // 4. Prerequisites
-    for (const course of coursesData) {
-      if (course.prerequisites && course.prerequisites.length > 0) {
-        for (const prereq of course.prerequisites) {
-          if (prereq !== 'None') {
-            const mainCourse = await prisma.course.findUnique({
-              where: { name: course.name },
-            });
-
-            const prereqCourse = await prisma.course.findUnique({
-              where: { name: prereq },
-            });
-
-            if (mainCourse && prereqCourse) {
-              await prisma.coursePrerequisite.create({
-                data: {
-                  courseId: mainCourse.id,
-                  prerequisiteId: prereqCourse.id,
-                  name: prereq, // ✅ storing the prerequisite course's name
-                },
-              });              
-            }
-          }
-        }
-      }
-    }
-
-    // 5. Enrollments
+    // 4. Enrollments
     const enrollCourses = async (user, courseList, status) => {
       for (const course of courseList) {
         const courseName = course.name || course.courseName;
@@ -164,3 +145,4 @@ async function seed() {
 }
 
 seed();
+

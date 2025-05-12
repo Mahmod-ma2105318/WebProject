@@ -22,8 +22,12 @@ export default async function Page() {
       </header>
 
       <nav id="buttons">
-          <img src="/images/qu_logo-01.png" alt="QU-LOGO" />
-
+        <img src="/images/qu_logo-01.png" alt="QU-LOGO" />
+        <Link href="/Instructor/stat">
+          <button className="nav-button">
+            <i className="fas fa-chart-bar"></i> Stats
+          </button>
+        </Link>
         <button onClick={logout}>
           <i className="fas fa-sign-out-alt"></i> Logout
         </button>

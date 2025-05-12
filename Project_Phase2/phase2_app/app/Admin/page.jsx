@@ -40,7 +40,7 @@ export default async function Page({ searchParams }) {
               <div className="course-credits">Credits: {course.credits}</div>
               <div className="course-prerequisites">
                 Prerequisites:{" "}
-                {course.prerequisites.length > 0
+                {course?.prerequisites?.length > 0
                   ? course.prerequisites.map((p) => p.prerequisiteId).join(", ")
                   : "None"}
               </div>

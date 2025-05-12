@@ -71,7 +71,6 @@ class repo {
     return await prisma.course.findMany(
       {
         include: {
-          prerequisites: true,
           sections: true,
         }
       }
@@ -458,17 +457,15 @@ class repo {
       where: { id: sectionID }
     });
   }
+
+
   async addCourse(courseData) {
     return await prisma.course.create({
       data: {
         name: courseData.name,
         category: courseData.category,
         credits: courseData.credits,
-        prerequisites: {
-          create: courseData.prerequisites.map(prereq => ({
-            name: prereq.name
-          }))
-        },
+        prerequisites: courseData.prerequisites, // this is now a JSON array
         sections: {
           create: courseData.sections.map(section => ({
             sectionNo: section.sectionNo,
@@ -482,6 +479,8 @@ class repo {
       }
     });
   }
+
+
 
 
   //Instructor

@@ -46,7 +46,8 @@ CREATE TABLE "Course" (
     "name" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "credits" INTEGER NOT NULL,
-    "status" TEXT NOT NULL DEFAULT 'REGISTERED'
+    "status" TEXT NOT NULL DEFAULT 'REGISTERED',
+    "prerequisites" JSONB
 );
 
 -- CreateTable
@@ -61,16 +62,6 @@ CREATE TABLE "Section" (
     "validation" TEXT,
     CONSTRAINT "Section_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Section_instructorId_fkey" FOREIGN KEY ("instructorId") REFERENCES "Instructor" ("id") ON DELETE SET NULL ON UPDATE CASCADE
-);
-
--- CreateTable
-CREATE TABLE "CoursePrerequisite" (
-    "courseId" INTEGER NOT NULL,
-    "prerequisiteId" INTEGER NOT NULL,
-    "name" TEXT NOT NULL,
-
-    PRIMARY KEY ("courseId", "prerequisiteId"),
-    CONSTRAINT "CoursePrerequisite_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

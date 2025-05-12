@@ -58,7 +58,7 @@ export default function AddOrEditCourse() {
     };
 
     return (
-        <>
+        <div className="main-layout">
             <nav id="buttons">
                 <img src="/images/qu_logo-01.png" alt="QU-LOGO" />
 
@@ -172,6 +172,6 @@ export default function AddOrEditCourse() {
                     <button type="submit">{course.id ? 'Update Course' : 'Add Course'}</button>
                 </form>
             </div>
-        </>
+        </div>
     );
 }

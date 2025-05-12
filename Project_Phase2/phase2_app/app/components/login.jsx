@@ -73,6 +73,9 @@ export default function LoginPage() {
                     <button type="submit" className={styles.loginButton}>
                         Login
                     </button>
+                    {/* <button onClick={() => signIn("github")}>
+                        Sign in with GitHub
+                    </button> */}
                 </form>
             </div>
         </div>

@@ -1,4 +1,4 @@
-
+import { signOut } from "next-auth/react";
 import Link from 'next/link';
 import { logout } from '@/app/actions/server-actions.js';
 import repo from '../repo/repo';
@@ -59,6 +59,9 @@ export default async function NavBar() {
                     <i className="fas fa-sign-out-alt"></i>
                     Logout
                 </button>
+                {/* <button onClick={() => signOut({ callbackUrl: "/" })}>
+                    Sign Out
+                </button> */}
             </nav>
         </>
 

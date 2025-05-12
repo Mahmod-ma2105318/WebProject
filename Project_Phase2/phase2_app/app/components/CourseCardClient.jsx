@@ -2,10 +2,10 @@
 import React from 'react';
 import { registerCourse } from '../actions/server-actions';
 
-export default  function CourseCardClient({ courses}) {
+export default function CourseCardClient({ courses }) {
   const handleRegister = async (sectionId) => {
     try {
-      await registerCourse({sectionId}); // ✅ Pass correctly
+      await registerCourse({ sectionId }); 
       alert("Registered successfully!");
     } catch (error) {
       console.error(error);
@@ -14,6 +14,7 @@ export default  function CourseCardClient({ courses}) {
   };
 
   return (
+
     <div className="course-container">
       {courses.length === 0 ? (
         <div>No courses match your filters</div>
@@ -24,13 +25,13 @@ export default  function CourseCardClient({ courses}) {
             <div className="course-category">Category: {course.category}</div>
             <div className="course-credits">Credits: {course.credits}</div>
             <div className="course-prerequisites">
-            Prerequisites: {course.prerequisites && course.prerequisites.length > 0 
+              Prerequisites: {course.prerequisites && course.prerequisites.length > 0
                 ? course.prerequisites.map((prereq, index) => (
-                    // Adjust the property here based on your data structure. 
-                    // For example, using prereq.prerequisiteId:
-                    <span key={index}>
+                  // Adjust the property here based on your data structure. 
+                  // For example, using prereq.prerequisiteId:
+                  <span key={index}>
                     {prereq.name}{index !== course.prerequisites.length - 1 ? ', ' : ''}
-                    </span>
+                  </span>
                 ))
                 : 'None'}
             </div>
@@ -63,5 +64,6 @@ export default  function CourseCardClient({ courses}) {
         ))
       )}
     </div>
+
   );
 }

@@ -7,7 +7,7 @@ export default async function Page() {
   const pendingCourses = await repo.getPendingCourses(); // returns array of enrollments with section, course, student, instructor
 
   return (
-    <>
+    <div className="main-layout">
       <AdminNavBar />
       <div className="container">
         <SearhBar />
@@ -15,6 +15,6 @@ export default async function Page() {
         <PendingCourseActions initialCourses={pendingCourses} />
 
       </div>
-    </>
+    </div>
   );
 }

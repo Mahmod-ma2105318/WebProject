@@ -7,7 +7,7 @@ export default async function Page() {
   const courses = await repo.getCurrentlyTakenCourses();
 
   return (
-    <>
+    <div className="main-layout">
       <AdminNavBar />
       <div className="container">
         <SearhBar />
@@ -46,6 +46,6 @@ export default async function Page() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

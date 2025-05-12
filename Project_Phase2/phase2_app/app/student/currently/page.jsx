@@ -20,7 +20,7 @@ export default async function Page() {
   );
 
   return (
-    <>
+    <div className="main-layout">
       <NavBar />
       <div className="container">
         <SearchBar />
@@ -35,6 +35,6 @@ export default async function Page() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

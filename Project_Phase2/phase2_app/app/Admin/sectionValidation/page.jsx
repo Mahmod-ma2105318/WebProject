@@ -6,12 +6,13 @@ import ValidationCardClient from '@/app/components/ValidationCardClient'; // ðŸ‘
 export default async function Page() {
   const courses = await repo.getCoursesWithPendingSections();
   return (
-    <>
-    <AdminNavBar />
+    <div className="main-layout">
+      <AdminNavBar />
       <div className="container">
-        <CoursesList />
+        <SearhBar />
+        <h1>Validate Courses</h1>
         <ValidationCardClient courses={courses} />
       </div>
-    </>
+    </div>
   );
 }

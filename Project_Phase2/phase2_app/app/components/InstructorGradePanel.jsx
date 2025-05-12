@@ -51,42 +51,46 @@ export default function InstructorGradePanel({ enrollments }) {
 
   return (
     <>
-      {Object.keys(courseGroups).length === 0 ? (
-        <p>✅ All students have been graded!</p>
-      ) : (
-        Object.entries(courseGroups).map(([courseName, group]) => (
-          <div key={courseName} className="course-group">
-            <h3>{courseName}</h3>
-            <div className="students-list">
-              {group.students.map((student, index) => {
-                const inputId = `${student.studentName}-${courseName.replace(/\s+/g, '-')}`;
-                return (
-                  <div key={index} className="instructor-card">
-                    <div><strong>Student:</strong> {student.studentName}</div>
-                    <div>Category: {student.category}</div>
-                    <div>Credits: {student.credits}</div>
-                    <div>Instructor: {student.instructor}</div>
-                    <div>
-                      <label htmlFor={`grade-${inputId}`}>Enter Grade:</label>
-                      <input id={`grade-${inputId}`} placeholder="e.g. A+" />
-                      <button
-                        onClick={() => handleGrade(
-                          student.studentId,
-                          student.sectionId,
-                          `grade-${inputId}`
-                        )}
-                      >
-                        Submit Grade
-                      </button>
+      <div className="instructor-grid" id="instructorContainer">
+        {Object.keys(courseGroups).length === 0 ? (
+          <p>✅ All students have been graded!</p>
+        ) : (
+          Object.entries(courseGroups).map(([courseName, group]) => (
+            <div key={courseName} className="course-group">
+              <h3>{courseName}</h3>
+              <div >
+                {group.students.map((student, index) => {
+                  const inputId = `${student.studentName}-${courseName.replace(/\s+/g, '-')}`;
+                  return (
+                    <div key={index} className="insturctor-card">
+                      <div className="student-name"><strong >Student:</strong> {student.studentName}</div>
+                      <div>Category: {student.category}</div>
+                      <div>Credits: {student.credits}</div>
+                      <div>Instructor: {student.instructor}</div>
+                      <div>
+                        <label htmlFor={`grade-${inputId}`} className="grade-label">Enter Grade:</label>
+                        <input className="grade-input" id={`grade-${inputId}`} placeholder="e.g. A+" />
+                        <button
+                          className="submit-button"
+                          onClick={() => handleGrade(
+                            student.studentId,
+                            student.sectionId,
+                            `grade-${inputId}`
+                          )}
+                        >
+                          Submit Grade
+                        </button>
+                      </div>
+                      <hr />
                     </div>
-                    <hr />
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))
-      )}
+          ))
+        )}
+      </div>
+
     </>
   );
 }

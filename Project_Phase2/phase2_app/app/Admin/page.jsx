@@ -7,7 +7,6 @@ export default async function Page({ searchParams }) {
   const searchTerm = await searchParams?.search || '';
   const filterType = await searchParams?.filterType || 'all';
 
-  // Fetch courses based on search parameters
   let courses;
   if (searchTerm) {
     switch (filterType) {
@@ -25,7 +24,7 @@ export default async function Page({ searchParams }) {
   }
 
   return (
-    <>
+    <div className="main-layout">
       <AdminNavBar />
       <div className="container">
         <SearchBar />
@@ -66,6 +65,6 @@ export default async function Page({ searchParams }) {
             </div>
           ))}
       </div>
-    </>
+    </div>
   );
 }

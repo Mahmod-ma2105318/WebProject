@@ -94,10 +94,10 @@ class repo {
             }
           }
         ],
-        include: {
-          prerequisites: true,
-          sections: true
-        }
+        // include: {
+        //   prerequisites: true,
+        //   sections: true
+        // }
       }
     });
   }
@@ -140,11 +140,11 @@ class repo {
         }
       }
     });
-  
+
     if (!section || !section.instructor || !section.instructor.user) {
       return null;
     }
-  
+
     return section.instructor.user.username; // or return section.instructor.user for full info
   }
 
@@ -267,7 +267,7 @@ class repo {
     return await prisma.enrollment.findMany({
       where: {
         status: 'REGISTERED',
-        validation:'PENDING',
+        validation: 'PENDING',
         studentId
       },
       include: {
@@ -400,14 +400,14 @@ class repo {
     const student = await prisma.student.findUnique({
       where: { userId }
     });
-  
+
     if (!student) throw new Error('Student not found');
-  
+
     return await prisma.enrollment.update({
       where: {
         sectionId_studentId: {
           sectionId,
-          studentId: userId, 
+          studentId: userId,
         }
       },
       data: {
@@ -415,14 +415,14 @@ class repo {
       }
     });
   }
-  
-  async  declineRegReq(userId, sectionId) {
+
+  async declineRegReq(userId, sectionId) {
     const student = await prisma.student.findUnique({
       where: { userId }
     });
-  
+
     if (!student) throw new Error('Student not found');
-  
+
     return await prisma.enrollment.delete({
       where: {
         sectionId_studentId: {
@@ -452,7 +452,7 @@ class repo {
     await prisma.enrollment.deleteMany({
       where: { sectionId: sectionID }
     });
-  
+
     // Then delete the section itself
     return await prisma.section.delete({
       where: { id: sectionID }
@@ -490,7 +490,7 @@ class repo {
     return await prisma.enrollment.findMany({
       where: {
         status: 'CURRENT',
-        grade:null,
+        grade: null,
         section: {
           instructor: {
             userId: userId
@@ -516,7 +516,7 @@ class repo {
       }
     });
   }
-  
+
   async gradeStudent(sectionId, userId, grade) {
     return await prisma.enrollment.update({
       where: {

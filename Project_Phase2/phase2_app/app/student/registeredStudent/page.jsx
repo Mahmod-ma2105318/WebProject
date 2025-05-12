@@ -9,7 +9,7 @@ export default async function Page() {
   const registeredCourses = await repo.showRegisteredCourses({ studentId: user.id });
 
   return (
-    <>
+    <div className="main-layout">
       <NavBar />
       <div className="container">
         <SearchBar />
@@ -26,6 +26,6 @@ export default async function Page() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

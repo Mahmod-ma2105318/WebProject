@@ -31,13 +31,14 @@ export default async function Page() {
   });
 
   return (
-    <>
+    <div className="main-layout">
+
       <InstructorNavBar />
       <div className="container">
         <SearhBar />
         <h2>Currently Teaching Courses</h2>
-        <InstructorGradePanel enrollments={enrollments}/>
+        <InstructorGradePanel enrollments={enrollments} />
       </div>
-    </>
+    </div>
   );
 }
